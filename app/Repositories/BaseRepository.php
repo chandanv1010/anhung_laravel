@@ -164,24 +164,56 @@ class BaseRepository implements BaseRepositoryInterface
         })->get(); 
     }
 
+    // public function recursiveCategory(string $parameter = '', $table = ''){
+    //     $table = $table.'_catalogues';
+    //     $query = "
+    //         WITH RECURSIVE category_tree AS (
+    //             SELECT id, parent_id, deleted_at
+    //             FROM $table
+    //             WHERE id IN (?)
+    //             UNION ALL 
+    //             SELECT c.id, c.parent_id, c.deleted_at
+    //             FROM $table as c
+    //             JOIN category_tree as ct ON ct.id = c.parent_id
+    //         )
+    //         SELECT id FROM category_tree WHERE deleted_at IS NULL
+    //     ";
+    //      // Use parameter binding to prevent SQL injection
+    //     $results = DB::select($query, [$parameter]);
+    //     return $results;
+    // }
+
     public function recursiveCategory(string $parameter = '', $table = ''){
         $table = $table.'_catalogues';
-        $query = "
-            WITH RECURSIVE category_tree AS (
-                SELECT id, parent_id, deleted_at
-                FROM $table
-                WHERE id IN (?)
-                UNION ALL 
-                SELECT c.id, c.parent_id, c.deleted_at
-                FROM $table as c
-                JOIN category_tree as ct ON ct.id = c.parent_id
-            )
-            SELECT id FROM category_tree WHERE deleted_at IS NULL
-        ";
-         // Use parameter binding to prevent SQL injection
-        $results = DB::select($query, [$parameter]);
-        return $results;
+        $results = [];
+        
+        // Hàm đệ quy để lấy tất cả parent
+        $getParents = function($id) use (&$getParents, &$results, $table) {
+            $category = DB::table($table)
+                ->where('id', $id)
+                ->whereNull('deleted_at')
+                ->first();
+                
+            if ($category) {
+                $results[] = $category->id;
+                if ($category->parent_id) {
+                    $getParents($category->parent_id);
+                }
+            }
+        };
+    
+        // Xử lý parameter có thể là nhiều ID (separated by comma)
+        $ids = explode(',', $parameter);
+        foreach($ids as $id) {
+            $getParents((int)$id);
+        }
+    
+        // Convert kết quả về format giống với query cũ
+        return array_map(function($id) {
+            return (object)['id' => $id];
+        }, array_unique($results));
     }
+
 
     public function findObjectByCategoryIds($catIds, $model, $language){
         $query = $this->model->newQuery();

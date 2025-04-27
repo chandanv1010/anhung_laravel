@@ -12,6 +12,7 @@ use App\Enums\SlideEnum;
 use App\Events\TestEvent;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Agent\Facades\Agent;
 
 
 class HomeController extends FrontendController
@@ -61,7 +62,7 @@ class HomeController extends FrontendController
 
 
 
-        $slides = $this->slideService->getSlide([SlideEnum::BANNER, SlideEnum::MAIN, 'banner-1'], $this->language);
+        $slides = $this->slideService->getSlide([SlideEnum::BANNER, SlideEnum::MAIN, 'banner-1', 'brand-baochi'], $this->language);
         $system = $this->system;
         $seo = [
             'meta_title' => $this->system['seo_meta_title'],
@@ -72,7 +73,14 @@ class HomeController extends FrontendController
         ];
         $language = $this->language;
         $ishome = true;
-        return view('frontend.homepage.home.index', compact(
+        if(Agent::isMobile()){
+            $template = 'mobile.homepage.home.index';
+        }else{
+            $template = 'frontend.homepage.home.index';
+        }
+
+
+        return view($template, compact(
             'config',
             'slides',
             'widgets',
