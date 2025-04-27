@@ -55,6 +55,7 @@ class HomeController extends FrontendController
             ['keyword' => 'products','children' => true, 'object' => true],
             ['keyword' => 'services-1','children' => true, 'post' => true],
             ['keyword' => 'video','object' => true],
+            ['keyword' => 'news','object' => true],
             // ['keyword' => 'suggest','promotion' => true],
             // ['keyword' => 'categories'],
             // ['keyword' => 'category-hot'],

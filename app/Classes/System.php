@@ -35,6 +35,7 @@ class System{
             'value' => [
                 'office' => ['type' => 'text', 'label' => 'Địa chỉ công ty'],
                 'address' => ['type' => 'text', 'label' => 'Văn phòng giao dịch'],
+                'xuong' => ['type' => 'text', 'label' => 'Xưởng'],
                 'hotline' => ['type' => 'text', 'label' => 'Hotline'],
                 'technical_phone' => ['type' => 'text', 'label' => 'Hotline kỹ thuật'],
                 'sell_phone' => ['type' => 'text', 'label' => 'Hotline kinh doanh'],
@@ -43,6 +44,26 @@ class System{
                 'email' => ['type' => 'text', 'label' => 'Email'],
                 // 'tax' => ['type' => 'text', 'label' => 'Mã số thuế'],
                 'website' => ['type' => 'text', 'label' => 'Website'],
+                'map' => [
+                    'type' => 'textarea', 
+                    'label' => 'Bản đồ', 
+                    'link' => [
+                        'text' => 'Hướng dẫn thiết lập bản đồ',
+                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
+                        'target' => '_blank'
+                    ]
+                ],
+            ]
+        ];
+        $data['hcm'] = [
+            'label' => 'Thông tin liên hệ Hồ Chí Minh',
+            'description' => 'Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đồ, vv...',
+            'value' => [
+                'office' => ['type' => 'text', 'label' => 'Địa chỉ công ty'],
+                'address' => ['type' => 'text', 'label' => 'Văn phòng giao dịch'],
+                'xuong' => ['type' => 'text', 'label' => 'Xưởng'],
+                'hotline' => ['type' => 'text', 'label' => 'Hotline'],
+                'email' => ['type' => 'text', 'label' => 'Email'],
                 'map' => [
                     'type' => 'textarea', 
                     'label' => 'Bản đồ', 

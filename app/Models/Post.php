@@ -25,6 +25,8 @@ class Post extends Model
 
     protected $table = 'posts';
 
+    protected $with = ['post_catalogues'];
+
     public function languages(){
         return $this->belongsToMany(Language::class, 'post_language' , 'post_id', 'language_id')
         ->withPivot(

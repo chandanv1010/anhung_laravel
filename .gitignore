@@ -1,6 +1,5 @@
 /vendor
 /node_modules
 .env
-omegadeco.com.zip
 /public/uploads
 public/upload
