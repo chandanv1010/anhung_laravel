@@ -1,0 +1,328 @@
+(function($) {
+	"use strict";
+	var HT = {}; // Khai báo là 1 đối tượng
+	var timer;
+	var $carousel = $(".owl-slide");
+	var _token = $('meta[name="csrf-token"]').attr('content');
+
+	HT.swiperOption = (setting) => {
+		// console.log(setting);
+		let option = {}
+		if(setting.animation.length){
+			option.effect = setting.animation;
+		}	
+		if(setting.arrow === 'accept'){
+			option.navigation = {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			}
+		}
+		if(setting.autoplay === 'accept'){
+			option.autoplay = {
+			    delay: 50000,
+			    disableOnInteraction: false,
+			}
+		}
+		if(setting.navigate === 'dots'){
+			option.pagination = {
+				el: '.swiper-pagination',
+			}
+		}
+		return option
+	}
+	
+	/* MAIN VARIABLE */
+	HT.swiper = () => {
+		if($('.panel-slide').length){
+			let setting = JSON.parse($('.panel-slide').attr('data-setting'))
+			let option = HT.swiperOption(setting)
+			var swiper = new Swiper(".panel-slide .swiper-container", option);
+		}
+		
+	}
+
+	HT.carousel = () => {
+		$carousel.each(function(){
+			let _this = $(this);
+			let option = _this.find('.owl-carousel').attr('data-owl');
+			let owlInit = atob(option);
+			owlInit = JSON.parse(owlInit);
+			_this.find('.owl-carousel').owlCarousel(owlInit);
+		});
+		
+	} 
+
+
+	HT.category = () => {
+		var swiper = new Swiper(".panel-category .swiper-container", {
+			loop: false,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+			spaceBetween: 15,
+			slidesPerView: 1.5,
+			breakpoints: {
+				415: {
+					slidesPerView: 1.5,
+				},
+				500: {
+				  slidesPerView: 2,
+				},
+				768: {
+				  slidesPerView: 3,
+				},
+				1280: {
+					slidesPerView: 6,
+				}
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+		});
+		
+	}
+
+	HT.service = () => {
+		const swiper = new Swiper('.panel-service-1 .swiper-container', {
+            centeredSlides: true,
+            loop: true,
+            speed: 500,
+            slidesPerView: 1.5,
+            spaceBetween: 120,
+            autoplay: {
+                delay: 3000,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+        
+                640: {
+                    slidesPerView: 2.5,
+                },
+                768: {
+                    slidesPerView: 2.75,
+                },
+                1080: {
+                    slidesPerView: 3.25,
+                },
+                1280: {
+                    slidesPerView: 2.75,
+                },
+            },
+        });
+		
+	}
+
+	
+
+	HT.swiperCategory = () => {
+		var swiper = new Swiper(".panel-category .swiper-container", {
+			loop: false,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+			spaceBetween: 20,
+			slidesPerView: 1.5,
+			breakpoints: {
+				415: {
+					slidesPerView: 1.5,
+				},
+				500: {
+				  slidesPerView: 2.5,
+				},
+				768: {
+				  slidesPerView: 4,
+				},
+				1280: {
+					slidesPerView: 5,
+				}
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+		});
+	}
+
+	HT.swiperAsideFeature = () => {
+		var swiper = new Swiper(".aside-feature .swiper-container", {
+			loop: false,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+			spaceBetween: 0,
+			slidesPerView: 1,
+			breakpoints: {
+				415: {
+					slidesPerView: 1,
+				},
+				500: {
+				  slidesPerView: 1,
+				},
+				768: {
+				  slidesPerView: 1,
+				},
+				1280: {
+					slidesPerView: 1,
+				}
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+		});
+	}
+
+	HT.swiperBestSeller = () => {
+		var swiper = new Swiper(".panel-bestseller .swiper-container", {
+			loop: false,
+			pagination: {
+				el: '.swiper-pagination',
+			},
+			spaceBetween: 20,
+			slidesPerView: 2,
+			breakpoints: {
+				415: {
+					slidesPerView: 1,
+				},
+				500: {
+				  slidesPerView: 2,
+				},
+				768: {
+				  slidesPerView: 3,
+				},
+				1280: {
+					slidesPerView: 4,
+				}
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			
+		});
+	}
+
+	
+	HT.wow = () => {
+		var wow = new WOW(
+			{
+			  boxClass:     'wow',      // animated element css class (default is wow)
+			  animateClass: 'animated', // animation css class (default is animated)
+			  offset:       0,          // distance to the element when triggering the animation (default is 0)
+			  mobile:       true,       // trigger animations on mobile devices (default is true)
+			  live:         true,       // act on asynchronously loaded content (default is true)
+			  callback:     function(box) {
+				// the callback is fired every time an animation is started
+				// the argument that is passed in is the DOM node being animated
+			  },
+			  scrollContainer: null,    // optional scroll container selector, otherwise use window,
+			  resetAnimation: true,     // reset animation on end (default is true)
+			}
+		  );
+		  wow.init();
+
+
+	}// arrow function
+
+	HT.niceSelect = () => {
+		if($('.nice-select').length){
+			$('.nice-select').niceSelect();
+		}
+		
+	}
+
+	HT.select2 = () => {
+		if($('.setupSelect2').length){
+			$('.setupSelect2').select2();
+		}
+		
+	}
+
+
+	HT.loadDistribution = () => {
+		$(document).on('click', '.agency-item', function(){
+			let _this = $(this)
+
+			$('.agency-item').removeClass('active')
+			_this.addClass('active')
+
+			$.ajax({
+				url: 'ajax/distribution/getMap', 
+				type: 'GET', 
+				data: {
+					id: _this.attr('data-id')
+				}, 
+				dataType: 'json', 
+				success: function(res) {
+					$('.agency-map').html(res)
+				},
+			});
+
+		})
+	}
+
+
+	HT.removePagination = () => {
+		$('.filter-content').on('slide', function() {
+			$('.uk-flex .pagination').hide();
+		});
+	};
+
+
+	HT.wrapTable = () => {
+		var width = $(window).width()
+		if(width < 600){
+			$('table').wrap('<div class="uk-overflow-container"></div>')
+		}
+	}
+   
+    HT.addVoucher = () => {
+        $(document).on('click','.info-voucher', function(e){
+            e.preventDefault()
+            let _this = $(this)
+            _this.toggleClass('active');
+        })
+    }
+
+
+
+	$(document).ready(function(){
+        HT.addVoucher()
+		HT.removePagination()
+		HT.wow()
+		HT.category()
+		HT.swiperBestSeller()
+		HT.swiperAsideFeature()
+		
+		/* CORE JS */
+		HT.swiper()
+		HT.niceSelect()		
+		HT.carousel()
+		HT.select2()
+		HT.loadDistribution()
+		HT.wrapTable()
+        HT.service()
+	});
+
+})(jQuery);
+
+
+
+addCommas = (nStr) => { 
+    nStr = String(nStr);
+    nStr = nStr.replace(/\./gi, "");
+    let str ='';
+    for (let i = nStr.length; i > 0; i -= 3){
+        let a = ( (i-3) < 0 ) ? 0 : (i-3);
+        str= nStr.slice(a,i) + '.' + str;
+    }
+    str= str.slice(0,str.length-1);
+    return str;
+}
