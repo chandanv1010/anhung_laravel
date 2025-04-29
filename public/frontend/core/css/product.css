@@ -43,7 +43,7 @@
     color:#939ca3
 }
 .review-container .uk-progress{
-    width:280px;
+    width:355px;
     height:8px;
     margin:0;
 }
@@ -73,7 +73,7 @@
     border-radius: 8px;
     padding:10px 25px;
     font-size:16px;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-weight: 500;
     cursor: pointer;
 }
@@ -98,7 +98,7 @@
     cursor: pointer;
 }
 .review-wrapper{
-    padding:20px;
+    padding:0;
 }
 .review-avatar{
     width:48px;

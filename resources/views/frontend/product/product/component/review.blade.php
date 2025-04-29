@@ -10,7 +10,7 @@
        <h2 class="review-heading">Đánh giá sản phẩm</h2>
        <div class="review-statistic">
             <div class="uk-grid uk-grid-medium uk-flex uk-flex-middle">
-                <div class="uk-width-large-1-3">
+                <div class="uk-width-large-2-5">
                     <div class="review-averate review-item">
                         <div class="title">Đánh giá trung bình</div>
                         <div class="score">{{ $totalRate }}/5</div>
@@ -20,7 +20,7 @@
                         <div class="total-rate">{{ $totalReviews }} đánh giá</div>
                     </div>
                 </div>
-                <div class="uk-width-large-1-3">
+                <div class="uk-width-large-3-5">
                     <div class="progress-block review-item">
                         @for($i = 5; $i >= 1; $i--)
                         @php
@@ -38,12 +38,6 @@
                             </div>
                         </div>
                         @endfor
-                    </div>
-                </div>
-                <div class="uk-width-large-1-3">
-                    <div class="review-action review-item">
-                        <div class="text">Bạn đã dùng sản phẩm này?</div>
-                        <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
                     </div>
                 </div>
             </div>
@@ -84,10 +78,10 @@
                             <div class="review-content">
                                 <div class="name uk-flex uk-flex-middle">
                                     <span>{{ $name }}</span>
-                                    {{-- <span class="review-buy">
+                                    <span class="review-buy">
                                         <i class="fa fa-check-circle" aria-hidden="true"></i>
                                         Đã mua hàng tại {{ $system['homepage_brand'] }}
-                                    </span> --}}
+                                    </span>
                                 </div>
                                 {!! $rating !!}
                                 <div class="description">
@@ -96,48 +90,29 @@
                                 <div class="review-toolbox">
                                     <div class="uk-flex uk-flex-middle">
                                         <div class="created_at">Ngày {{ $created_at }}</div>
-                                        {{-- <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div> --}}
+                                        <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="review-block-item uk-clearfix reply-block">
-                        <div class="review-avatar">
-                            <span class="shae">LV</span>
-                        </div>
-                        <div class="review-content-block">
-                            <div class="review-content">
-                                <div class="name uk-flex uk-flex-middle">
-                                    <span>Nguyễn Công Tuấn</span>
-                                    <span class="review-buy">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Đã mua hàng tại {{ $system['homepage_brand'] }}
-                                    </span>
-                                </div>
-                                <div class="review-star">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </div>
-                                <div class="description">
-                                    Chào anh Cường,
-                                    Dạ Samsung Galaxy Z Flip4 5G 128GB có giá niêm yết 23.990.000đ, được giảm còn 11.990.000đ  áp dụng đơn hàng online đến 22h ngày 25/12 anh nha. Anh đang ở tỉnh, thành nào để bên em kiểm tra shop có hàng gần nhất ạ?  Để được hỗ trợ chi tiết về sản phẩm, anh vui lòng liên hệ tổng đài miễn phí 18006601 hoặc để lại SĐT bên em liên hệ tư vấn nhanh nhất ạ.Thân mến!
-                                </div>
-                                <div class="review-toolbox">
-                                    <div class="uk-flex uk-flex-middle">
-                                        <div class="created_at">Ngày 22/12/2023</div>
-                                        <div class="review-reply">Trả lời</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
                 @endforeach
             @endif
+        </div>
+    </div>
+    <div class="panel-foot">
+        <div class="uk-grid uk-grid-medium">
+            <div class="uk-width-large-1-2">
+                <div class="readmore-button">
+                    <button class="read-more-review">Xem Thêm 5 đánh giá</button>
+                </div>
+            </div>
+            <div class="uk-width-large-1-2">
+                <div class="review-action ">
+                    <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

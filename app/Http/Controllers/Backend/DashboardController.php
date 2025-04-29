@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Interfaces\OrderServiceInterface as OrderService;
 use App\Repositories\Interfaces\OrderRepositoryInterface as OrderRepository;
 use App\Services\Interfaces\CustomerServiceInterface as CustomerService;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -27,6 +28,7 @@ class DashboardController extends Controller
     }
 
     public function index(){
+
         $orderStatistic = $this->orderService->statistic(); 
         $customerStatistic = $this->customerService->statistic();
         $startDate = convertDateTime( now(), 'Y-m-d 00:00:00');

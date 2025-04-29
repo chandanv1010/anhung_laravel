@@ -35,6 +35,7 @@
             @include('frontend.product.product.component.general')
         </div>
     </div>
+    @include('frontend.component.news')
 </div>
 @include('frontend.product.product.component.modal')
 @include('frontend.product.product.component.hidden')

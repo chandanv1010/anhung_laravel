@@ -1586,6 +1586,7 @@ ul li,ol li{
     font-family: 'Mulish';
     text-align: center;
     cursor: pointer;
+    background: transparent;
 }
 .order-buy-now{
     background: #000;
@@ -1778,8 +1779,121 @@ ul li,ol li{
     max-width: 1440px;
     margin: 0 auto;
     padding: 0 15px;
+    gap: 20px;
 }
 
 .content-info {
     width: 100%;
+}
+.review-container{
+    border:0 !important;
+    box-shadow: none !important;
+    
+}
+.review-container .review-heading{
+    display: none;
+   
+}
+.review-averate .score{
+    color:#000 !important;
+}
+.review-filter{
+    display: none;
+}
+
+.readmore-button{
+    width:100%;
+  
+   
+}
+
+.readmore-button button{
+    width:100%;
+    border:1px solid #000;
+    background: transparent;
+    border-radius: 6px;
+    padding:16px 0;
+    font-size:16px;
+}
+.review-action .btn-review{
+    width:100%;
+    background: linear-gradient(to bottom, #2D6316, #31810E, #349809) !important;
+    padding:16px 0 !important;
+    border-radius: 6px;
+}
+
+.review-reply{
+    list-style: none;
+}
+.review-toolbox .created_at{
+    margin-bottom:0;
+}
+.review-container .panel-foot{
+    margin-top:25px;
+}
+.review-avatar{
+    font-size:15px;
+}
+
+.product-container .panel-body{
+    margin-bottom:30px;
+}
+.review-content .review-reply{
+    font-size:12px;
+    font-family: 'Mulish';
+    font-weight: 500;
+}
+
+.content-aside{
+    background: #fff;
+    padding: 10px;
+    padding-top:20px;
+}
+
+.content-aside .aside-heading{
+    color: #124E20;
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 100%;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.product-seen-item{
+    display: flex;
+    max-width: 100%;
+    gap:15px;
+}
+.product-seen-item .image{
+    flex: 0 0 100px;
+    width:100px;
+    border-radius: 10px;
+}
+.product-seen-item .image img{
+    border-radius: 10px;
+}
+.product-seen-item .info{
+    flex:0 0 297px;
+    width:297px;
+}
+.product-seen-item .info .title > *{
+    color:#121212;
+    font-weight: 600;
+    font-size:14px;
+}
+.product-seen-item .price{
+    font-weight: 600;
+    color:#121212;
+}
+.product-seen-item .price span{
+    color:#B90909;
+}
+.product-seen-item:not(:last-child){
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eaeaea;
+}
+.content-aside .project-featured .post-feature-item:not(:first-child) .image{
+    display: none;
 }

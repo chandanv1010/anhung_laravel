@@ -16,9 +16,83 @@
                 <button class="view-more-btn">Xem thêm</button>
             </li>
         </ul>
-        @include('frontend.product.product.component.review', ['model' => $product, 'reviewable' => 'product'])
+        @include('frontend.product.product.component.review', ['model' => $product, 'reviewable' => 'App\Models\Product'])
     </div>
-    <div class="content-aside"></div>
+    <div class="content-aside">
+        @if($widgets['news-feature'])
+            <div class="post-featured">
+                <div class="aside-heading">{{ $widgets['news-feature']->name }}</div>
+                <div>
+                    @foreach($widgets['news-feature']->object as $key => $val)
+                    @php
+                        $name = $val->languages->first()->pivot->name;
+                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                        $createdAt = $val->created_at;
+                    @endphp
+                    <div class="post-feature-item">
+                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                        <div class="created_at uk-flex uk-flex-middle">
+                            <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
+                            <span><i class="fa fa-user"></i>Admin</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- @dd($cartSeen) --}}
+        @if(isset($cartSeen))
+        <div class="product-seen mt30 mb30">
+            <div class="aside-heading">Sản phẩm đã xem</div>
+            <div>
+                @foreach($cartSeen as $key => $val)
+                @php
+                    $name = $val->name;
+                    $canonical = write_url($val->options['canonical']);
+                    $image = $val->options['image'];
+                    $price = $val->price;
+                @endphp
+                <div class="product-seen-item">
+                    <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                    <div class="info">
+                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <div class="price">
+                                Giá: <span>{{ number_format($price, 0, ',', '.') }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
+        @if($widgets['projects-feature'])
+            <div class="post-featured project-featured mt40" data-uk-sticky="{boundary: true}">
+                <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
+                <div>
+                    @foreach($widgets['projects-feature']->object as $key => $val)
+                    @php
+                        $name = $val->languages->first()->pivot->name;
+                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                        $createdAt = $val->created_at;
+                        $image = thumb($val->image, 280, 186);
+                    @endphp
+                    <div class="post-feature-item">
+                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                        <div class="created_at uk-flex uk-flex-middle">
+                            <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
+                            <span><i class="fa fa-user"></i>Admin</span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+    </div>
 </div>
 
 <script>
