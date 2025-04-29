@@ -8,6 +8,7 @@
     $review = getReview($product);
     
     $description = $product->description;
+    $content = $product->content;
     $attributeCatalogue = $product->attributeCatalogue;
     $gallery = json_decode($product->album);
 @endphp
@@ -17,20 +18,15 @@
 
 
 <div class="product-container">
-    <div class="banner">
-        <span class="image img-cover"><img src="{{ asset('frontend/resources/img/breadcrumb.jpg') }}" alt=""></span>
-    </div>
+    @include('frontend.component.breadcrumb', ['model' => $product, 'breadcrumb' => $breadcrumb])
     <div class="uk-container uk-container-center">
         <div class="panel-head">
-          
-            <div class="uk-grid uk-grid-small">
-                <div class="uk-width-large-1-10">
-                    @include('frontend.product.product.component.extra')
-                </div>
-                <div class="uk-width-large-5-10">
+            <h1 class="product-detail-name ">{{ $name }}</h1>
+            <div class="product-detail-container">
+                <div class="product-detail-gallery">
+                    
                     @include('frontend.product.product.component.gallery')
-                </div>
-                <div class="uk-width-large-4-10">
+                </div> <div class="product-detail-info">
                     @include('frontend.product.product.component.info',['voucher_product' => $voucher_product])
                 </div>
             </div>

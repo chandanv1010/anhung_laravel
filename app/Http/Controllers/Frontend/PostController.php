@@ -55,9 +55,9 @@ class postController extends FrontendController
         );
 
         $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'intro'],
-            ['keyword' => 'product-advantage'],
-            ['keyword' => 'target'],
+            ['keyword' => 'news-feature'],
+            ['keyword' => 'projects-feature'],
+            ['keyword' => 'news'],
         ], $this->language);
 
         /* ------------------- */

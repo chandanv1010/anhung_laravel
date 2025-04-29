@@ -52,10 +52,11 @@ class ProductCatalogueController extends FrontendController
         
 
         $products = $this->combineProductValues($products);
+        $config = $this->config();
         $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'categories'],
-            ['keyword' => 'suggest','promotion' => true],
+            ['keyword' => 'news','object' => true],
         ], $this->language);
+
 
         $config = $this->config();
         $system = $this->system;
