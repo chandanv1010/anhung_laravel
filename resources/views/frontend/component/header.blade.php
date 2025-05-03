@@ -10,7 +10,7 @@
                             @foreach($menu['menu-top'] as $key => $val)
                             @php
                                 $name = $val['item']->languages->first()->pivot->name;
-                                $canonical = $val['item']->languages->first()->pivot->canonical
+                                $canonical = write_url($val['item']->languages->first()->pivot->canonical)
                             @endphp
                             <li><a href="{{ $canonical }}">{{ $name }}</a></li>
                             @endforeach
@@ -18,7 +18,7 @@
                         @endif
                     </div>
                     <div class="header-social uk-flex uk-flex-middle">
-                        <a href="" class="social-item"><i class="fa fa-facebook"></i></a>
+                        <a href="{{ $system['social_facebook'] }}" class="social-item"><i class="fa fa-facebook"></i></a>
                         <a href="" class="social-item"><i class="fa fa-youtube"></i></a>
                         <a href="" class="social-item"><i class="fa fa-instagram"></i></a>
                     </div>

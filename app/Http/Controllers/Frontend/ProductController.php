@@ -88,9 +88,9 @@ class ProductController extends FrontendController
         $wishlist = Cart::instance('wishlist')->content();
 
         $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'categories'],
-            ['keyword' => 'suggest','promotion' => true],
-            ['keyword' => 'bestseller-home','promotion' => true],
+            ['keyword' => 'news-feature'],
+            ['keyword' => 'projects-feature'],
+            ['keyword' => 'news','object' => true],
         ], $this->language);
 
 
@@ -108,6 +108,7 @@ class ProductController extends FrontendController
         Cart::instance('seen')->add($productSeen);
 
         $cartSeen = Cart::instance('seen')->content();
+        // dd($cartSeen);
 
         $carts = Cart::instance('shopping')->content() ?? null;
 

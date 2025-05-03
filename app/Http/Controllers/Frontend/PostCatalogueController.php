@@ -45,20 +45,10 @@ class PostCatalogueController extends FrontendController
         );
 
         $widgets = $this->widgetService->getWidget([
-            ['keyword' => 'post-catalogue-value', 'object' => true],
-            ['keyword' => 'vision', 'object' => true],
-            ['keyword' => 'post-catalogue-why', 'object' => true],
-            ['keyword' => 'staff', 'object' => true],
+            ['keyword' => 'news','object' => true],
         ], $this->language);
 
-
-        if($postCatalogue->canonical == 've-chung-toi'){
-            $template = 'frontend.post.catalogue.intro';
-        }else if($postCatalogue->canonical == 'du-an-noi-bat'){
-            $template = 'frontend.post.catalogue.project';
-        }else{
-            $template = 'frontend.post.catalogue.index';
-        }
+        $template = 'frontend.post.catalogue.index';
 
         $config = $this->config();
         $system = $this->system;

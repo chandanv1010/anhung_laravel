@@ -578,7 +578,7 @@ ul li,ol li{
     position: absolute;
     left:0;
     top:initial;
-    bottom:-17px;
+    bottom:-20px;
     width:113px;
     height:3px;
     background: #D7AD5D;
@@ -1200,4 +1200,700 @@ ul li,ol li{
     height:282px;
     background: url('img/footer-b-g.png');
     opacity: 0.4;
+}
+.page-breadcrumb{
+    background: #D4DED4;
+}
+
+.page-breadcrumb a{
+    font-size:14px;
+    line-height: 150%;
+    color:#121212;
+    font-family: 'Mulish';
+}
+.product-catalogue-wrapper{
+    background: #E9F2E5;
+    padding:30px 0 100px 0;
+}
+.page-heading{
+    font-family: 'Mulish';
+    color:#124E20;
+    font-weight: 700;
+    font-size:22px;
+    text-transform: uppercase;
+    line-height: 100%;
+}
+
+.product-catalogue-wrapper .description *{
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color:#121212 !important;
+    line-height: 160%;
+    font-family: 'Montserrat' !important;
+}
+.product-catalogue{
+    background: #FEFAF1;
+}
+
+.post-container,
+.product-catalogue .panel-body{
+    background: #FEFAF1;
+}
+.pagination .page-item.active > *{
+    background-color: #0c4a1a73;
+}
+
+.mb20{
+    margin-bottom:20px;
+}
+.post-container .wrapper,
+.product-catalogue .wrapper {
+    margin-top:-80px;
+}
+.pagination .page-item > *{
+    border-radius: 5px;
+}
+
+.post-detail{
+    background: #FEFAF1;
+}
+
+.post-detail-container{
+    width:100%;
+    max-width: 1220px;
+    display: flex;
+    gap: 10px;
+    margin-top:-100px;
+}
+.post-detail-container .post-content{
+    flex: 0 0 850px;
+    width:850px;
+    padding:15px;
+    background: #fff;
+    border:1px solid #eeeeee;
+}
+.post-detail-container .post-aside{
+    flex: 0 0 310px;
+    width:310px;
+}
+.post-content .category-name{
+    font-weight: 600;
+    font-size:11px;
+    line-height:100%;
+    margin-bottom:25px;
+}
+.created_at{
+    margin-bottom:10px;
+}
+ .created_at .time{
+    font-weight: 600;
+    margin-right:15px;
+}
+ .created_at i{
+    margin-right:10px;
+}
+
+/* CSS cho Mục lục */
+.widget-toc {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin: 20px 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+}
+
+.toc-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tocToggle {
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+    transition: color 0.3s;
+}
+
+.tocToggle:hover {
+    color: #2a6496;
+}
+
+.widget-toc ol {
+    counter-reset: item;
+    padding-left: 10px;
+    margin-bottom: 0;
+}
+
+.widget-toc li {
+    display: block;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.widget-toc li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+    color: #666;
+    margin-right: 5px;
+}
+
+.widget-toc a {
+    text-decoration: none;
+    color: #2a6496;
+    transition: color 0.3s, padding-left 0.3s;
+    display: inline-block;
+}
+
+.widget-toc a:hover {
+    color: #1a4c80;
+    padding-left: 3px;
+    text-decoration: underline;
+}
+
+/* CSS cho trạng thái ẩn mục lục */
+.widget-toc.collapsed ol {
+    display: none;
+}
+
+/* CSS cho thiết bị di động */
+@media (max-width: 768px) {
+    .widget-toc {
+        padding: 10px 15px;
+    }
+    
+    .toc-title {
+        font-size: 16px;
+    }
+    
+    .widget-toc li {
+        margin-bottom: 6px;
+    }
+}
+
+.highlight-section {
+    animation: highlightSection 2s;
+}
+
+@keyframes highlightSection {
+    0% { background-color: rgba(255, 255, 153, 0.7); }
+    100% { background-color: transparent; }
+}
+.post-content .content *,
+.post-content .description *{
+    font-family: 'Montserrat' !important;
+    font-size:14px !important;
+}
+
+.post-content .description{
+    line-height:160%;
+    font-weight: 500;
+}
+
+.post-aside{
+    background: #fff;
+    padding:20px;
+}
+.post-aside .aside-heading{
+    color:#124E20;
+    font-size:18px;
+    margin-bottom:15px;
+    line-height:100%;
+    font-weight: 600;
+    padding-bottom:15px;
+    border-bottom:1px solid #eaeaea;
+}
+
+.post-feature-item:not(:last-child){
+    border-bottom:1px solid #eee;
+    margin-bottom:10px;
+    padding-bottom:10px;
+}
+.post-featured .created_at{
+    margin-bottom:0;
+}
+.created_at{
+    font-size:9px;
+    font-weight: 600;
+    color:#606669;
+}
+
+.post-feature-item .title > *{
+    color: #121212;
+    font-size:14px;
+    font-weight: 600;
+}
+.post-feature-item .title > *:hover{
+    color:#124E20;
+}
+.post-feature-item .image{
+    margin-bottom:10px;
+    border-radius: 10px;
+}
+.post-feature-item .image img{
+    border-radius: 10px;
+}
+
+.product-detail-container{
+    display: flex;
+    max-width:1200px;
+    gap:20px;
+}
+.product-detail-gallery{
+    flex: 0 0 701px;
+    width:701px;
+}
+.product-detail-info{
+    flex: 0 0 439px;
+    width:439px;
+}
+.product-gallery{
+    position: relative;
+}
+.product-container{
+    background: #FEFAF1;
+}
+.product-detail-name {
+    margin-bottom:20px;
+}
+.product-detail-info .price-container .price-sale{
+    font-size:22px;
+}
+.product-detail-info .price-container {
+    margin-bottom:20px;
+}
+.button-item{
+    display: block;
+}
+
+.button-item span{
+    display: block;
+}
+
+.button-item.suggest{
+    background: #D7AD5D;
+}
+.button-item{
+    text-align: center;
+    color:#fff;
+    padding:16px;
+    border-radius: 7px;
+    text-transform: uppercase;
+}
+.button-item .main-text{
+    font-weight: 600;
+    font-size:16px;
+}
+.button-item .small-text{
+    font-size:10px;
+    font-weight: 600;
+}
+.product-detail__description{
+    margin-bottom:20px !important;
+}
+
+.button-item.book{
+    background: #124E20;
+}
+
+.quick-consult {
+    max-width: 850px;
+    margin: 20px auto;
+    background-color: #0e5324;
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left:15px;
+}
+
+.quick-consult-title {
+    color: #FFF9EB;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 15px;
+}
+
+.quick-consult-form {
+    max-width: 550px;
+    position: relative;
+    width:261px;
+}
+
+.phone-input {
+    padding: 13px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 12px;
+    outline: none;
+    margin-right: 10px;
+    width:100%;
+}
+
+.submit-button {
+    background-color: #0e5324;
+    color: white;
+    border-radius: 4px;
+    padding: 9px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    font-size: 12px;
+    border: 0;
+}
+
+.submit-button:hover {
+    background-color: #0a3e1b;
+}
+.product-detail__description{
+    height: 168px !important;
+    border:1px solid #000;
+    border-radius: 2px;
+    padding:10px;
+}
+.product-gallery .big-pic .image{
+    height:469px;
+}
+.swiper-container-thumbs .image{
+    height:61px;
+}
+
+.order-button-item{
+    border:1px solid #000;
+    padding:16px 0;
+    border-radius: 6px;
+    height:56px;
+    width:100%;
+    font-size:16px;
+    line-height:20px;
+    font-weight: 500;
+    font-family: 'Mulish';
+    text-align: center;
+    cursor: pointer;
+    background: transparent;
+}
+.order-buy-now{
+    background: #000;
+    color:#fff;
+}
+.order-button-item:hover{
+    background: #093E15;
+    color:#fff;
+}
+.product-general-info{
+    display: flex;
+    max-width:1200px;
+    width:100%;
+}
+.content-info{
+    flex: 0 0 714px;
+    width:714px;
+    padding: 15px;
+    background: #fff;
+}
+
+.switcher {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+    width: 100%;
+}
+
+.switcher li {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    position: relative;
+}
+
+.switcher li a {
+    display: block;
+    padding: 15px 10px;
+    color: #999;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.switcher li.uk-active a {
+    color: #155724;
+    font-weight: 600;
+}
+
+/* Đường kẻ xanh ở dưới tab active */
+.switcher li.uk-active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #155724;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .switcher li a {
+        padding: 12px 5px;
+        font-size: 14px;
+    }
+}
+
+
+.content-container *{
+    font-size:14px;
+    line-height:160%;
+}
+
+.content-container img{
+    width:100%;
+    height:auto;
+}
+
+.content-container .image-content figcaption{
+    background: #eeeeee;
+    text-align: center;
+    font-weight: 500;
+    border:1px solid #ccc;
+    padding:8px;
+}
+
+/* CSS cho switcher và các tab */
+.switcher {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #e5e5e5;
+    width: 100%;
+}
+
+.switcher li {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    position: relative;
+}
+
+.switcher li a {
+    display: block;
+    padding: 15px 10px;
+    color: #999;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.switcher li.uk-active a {
+    color: #155724;
+    font-weight: 600;
+}
+
+.switcher li.uk-active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #155724;
+}
+
+.mb20 {
+    margin-bottom: 20px;
+}
+
+/* CSS cho content container với chiều cao giới hạn */
+.content-container {
+    position: relative;
+    max-height: 350px; /* Giới hạn chiều cao ban đầu */
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.content-container.expanded {
+    max-height: 2000px; /* Chiều cao đủ lớn để hiển thị toàn bộ nội dung */
+}
+
+/* CSS cho nút Xem thêm */
+.view-more-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.view-more-btn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Gradient mờ dần ở dưới content để hiển thị còn nội dung */
+.content-container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.content-container.expanded::after {
+    opacity: 0;
+}
+
+/* Tùy chỉnh container tổng */
+.product-general-info {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+    gap: 20px;
+}
+
+.content-info {
+    width: 100%;
+}
+.review-container{
+    border:0 !important;
+    box-shadow: none !important;
+    
+}
+.review-container .review-heading{
+    display: none;
+   
+}
+.review-averate .score{
+    color:#000 !important;
+}
+.review-filter{
+    display: none;
+}
+
+.readmore-button{
+    width:100%;
+  
+   
+}
+
+.readmore-button button{
+    width:100%;
+    border:1px solid #000;
+    background: transparent;
+    border-radius: 6px;
+    padding:16px 0;
+    font-size:16px;
+}
+.review-action .btn-review{
+    width:100%;
+    background: linear-gradient(to bottom, #2D6316, #31810E, #349809) !important;
+    padding:16px 0 !important;
+    border-radius: 6px;
+}
+
+.review-reply{
+    list-style: none;
+}
+.review-toolbox .created_at{
+    margin-bottom:0;
+}
+.review-container .panel-foot{
+    margin-top:25px;
+}
+.review-avatar{
+    font-size:15px;
+}
+
+.product-container .panel-body{
+    margin-bottom:30px;
+}
+.review-content .review-reply{
+    font-size:12px;
+    font-family: 'Mulish';
+    font-weight: 500;
+}
+
+.content-aside{
+    background: #fff;
+    padding: 10px;
+    padding-top:20px;
+}
+
+.content-aside .aside-heading{
+    color: #124E20;
+    font-size: 18px;
+    margin-bottom: 15px;
+    line-height: 100%;
+    font-weight: 600;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.product-seen-item{
+    display: flex;
+    max-width: 100%;
+    gap:15px;
+}
+.product-seen-item .image{
+    flex: 0 0 100px;
+    width:100px;
+    border-radius: 10px;
+}
+.product-seen-item .image img{
+    border-radius: 10px;
+}
+.product-seen-item .info{
+    flex:0 0 297px;
+    width:297px;
+}
+.product-seen-item .info .title > *{
+    color:#121212;
+    font-weight: 600;
+    font-size:14px;
+}
+.product-seen-item .price{
+    font-weight: 600;
+    color:#121212;
+}
+.product-seen-item .price span{
+    color:#B90909;
+}
+.product-seen-item:not(:last-child){
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eaeaea;
+}
+.content-aside .project-featured .post-feature-item:not(:first-child) .image{
+    display: none;
 }
