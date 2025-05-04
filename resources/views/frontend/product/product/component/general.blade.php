@@ -19,7 +19,7 @@
         @include('frontend.product.product.component.review', ['model' => $product, 'reviewable' => 'App\Models\Product'])
     </div>
     <div class="content-aside">
-        @if($widgets['news-feature'])
+        @if(isset($widgets['news-feature']))
             <div class="post-featured">
                 <div class="aside-heading">{{ $widgets['news-feature']->name }}</div>
                 <div>
@@ -69,7 +69,7 @@
         </div>
         @endif
 
-        @if($widgets['projects-feature'])
+        @if(isset($widgets['projects-feature']))
             <div class="post-featured project-featured mt40" data-uk-sticky="{boundary: true}">
                 <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
                 <div>

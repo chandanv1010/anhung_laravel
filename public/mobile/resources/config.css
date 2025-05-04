@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+:root{
+   --primary-color:rgba(12, 74, 26, 1);
+   --second-color:rgba(9, 62, 21, 1);
+   --text-color:rgba(254, 233, 181, 1);
+   --title-font:'Mulish';
+}
+body{
+    min-height: 900vh;
+}
+#homepage-mobile {
+    overflow-y: auto;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    margin:0;
+    color:#000;
+}
+.uk-container-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+.uk-container {
+    box-sizing: border-box;
+    padding: 0 15px;
+}
+.swiper-button-prev,
+.swiper-button-next{
+	width:28px;
+	height:28px;
+	border-radius: 50%;
+    border-radius: 100%;
+    top:44%;
+    background: linear-gradient(to bottom, #2D6316, #31810E, #349809);
+    box-shadow: 0px 6px 6px 0px rgba(149, 160, 13, 0.18);
+}
+.swiper-button-next:after, 
+.swiper-button-prev:after, 
+.swiper-rtl .swiper-button-prev:after{
+	font-size: 12px;
+    color: #fff;
+    left: 10px;
+    position: absolute;
+    font-weight: bold;
+	
+}
+.swiper-button-next:after{
+	left:12px;
+}
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev,
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    background: linear-gradient(to bottom, #2D6316, #31810E, #349809);
+    box-shadow: 0px 6px 6px 0px rgba(149, 160, 13, 0.18);
+}
+/* .swiper-button-next:hover, 
+.swiper-button-prev:hover{
+	background: linear-gradient(90deg,#30904f 0,#80770d 50%,#30904f);;
+} */
+.swiper-button-next:hover:after,
+.swiper-button-prev:hover:after{
+	color:#fff;
+}
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+    right:-12px;
+}
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+    left:-12px;
+}

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Play:wght@400;700&family=Rajdhani:wght@300;400;500;600;700&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 :root {
-    --primary-color: #ed6912;
-    --secondary-color: #000;
+    --primary-color: #0C4A1A;
+    --secondary-color: #0A3612;
     --text-color:#000;
     --price-color:#b20000;
     --badge-blue-color: #008ddd;

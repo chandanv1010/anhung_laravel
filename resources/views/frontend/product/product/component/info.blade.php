@@ -36,7 +36,7 @@
     <div class="order-group">
         <div class="uk-grid uk-grid-medium">
             <div class="uk-width-large-1-2">
-                <button class="order-button-item">
+                <button class="btn-product-button addToCart order-button-item" data-id="{{ $product->id }}">
                     Thêm vào giỏ hàng
                 </button>
             </div>

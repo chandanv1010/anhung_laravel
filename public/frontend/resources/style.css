@@ -1897,3 +1897,148 @@ ul li,ol li{
 .content-aside .project-featured .post-feature-item:not(:first-child) .image{
     display: none;
 }
+/*Contact-page*/
+.contact-page .intro{
+    padding: 24px 0;
+}
+.contact-page .intro p{
+    text-align: justify;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.showroom-system{
+    padding: 28px 0;
+    padding-bottom: 16px;
+    background-color: rgb(221 216 216);
+}
+.showroom-system .panel-head{
+    text-align: center;
+    margin-bottom: 28px;
+}
+.showroom-system h2.heading-1{
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+.showroom-system h2.heading-1 > *{
+    text-transform: uppercase;
+    font-size: 22px;
+    font-family: 'Mulish';
+}
+.showroom-item{
+    background: #fff;
+    padding-top: 40px;
+    padding-bottom: 80px;
+    padding-left: 4px;
+    padding-right: 4px;
+    width: 100%;
+}
+.showroom-item .image-content{
+    width: 184px;
+    height: 170px;
+}
+.showroom-item .text-content{
+    width: calc(100% - 184px);
+    padding-left: 32px;
+    padding-right: 32px;
+}
+.showroom-item h3.heading-2{
+    text-align: left;
+    margin-bottom: 16px;
+}
+.showroom-item h3.heading-2 > *{
+    font-size: 16px;
+    font-family: 'Mulish';
+    color: #000;
+}
+.showroom-item .description > *{
+    text-align: left;
+    padding-left: 15px;
+}
+.showroom-item .description{
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+.showroom-item .description > *{
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+}
+.showroom-item li{
+    list-style: disc;
+}
+.showroom-system .uk-width-small-1-2{
+    margin-bottom: 15px;
+}
+.showroom-system .toolbox svg{
+    width: 24px;
+    height: 24px;
+    fill: #6b7280;
+}
+.showroom-system .toolbox .uk-flex{
+    gap: 4px;
+}
+.showroom-system .toolbox a{
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.toolbox button{
+    background: rgb(192 163 107);
+    border: none;
+    outline: none;
+    height: 32px;
+    padding: 0 8px;
+}
+.toolbox button:hover{
+    opacity: 0.8;
+    transition: 0.2s ease;
+}
+.toolbox button > *{
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.news-post{
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+    background: #fff;
+}
+.news-post h2.heading-1{
+   line-height: 1.2;
+   text-align: center;
+   padding-top: 16px;
+   margin-bottom: 16px;
+}
+.news-post h2.heading-1 > *{
+    font-size: 20px;
+    font-family: 'Mulish';
+    text-transform: uppercase;
+}
+.news-outstanding{
+    padding-top: 32px;
+    padding-bottom: 32px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(221 221 221 / var(--tw-bg-opacity));
+}
+.news-post .image{
+    height: 212px;
+}
+.news-post .post-item{
+    padding-top: 12px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.news-post .post-item > *{
+    font-size: 14px;
+    font-weight: 400;
+    text-align: justify;
+    overflow: hidden;
+    line-height: 1.4;
+    display: inline-block;
+}

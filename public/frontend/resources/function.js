@@ -117,7 +117,6 @@
 		
 	}
 
-	
 
 	HT.swiperCategory = () => {
 		var swiper = new Swiper(".panel-category .swiper-container", {

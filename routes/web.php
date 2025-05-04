@@ -92,7 +92,6 @@ Route::get('crawler', [CrawlerController::class, 'index'])->name('crawler.index'
 Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resize'])
     ->name('thumb');
 
-
 Route::get('tim-kiem'.config('apps.general.suffix'), [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
 Route::get('lien-he'.config('apps.general.suffix'), [FeContactController::class, 'index'])->name('fe.contact.index');
 
@@ -109,19 +108,6 @@ Route::post('customer/reg'.config('apps.general.suffix'), [FeAuthController::cla
 
 Route::get('customer/password/update'.config('apps.general.suffix'), [FeAuthController::class, 'updatePassword'])->name('customer.update.password');
 Route::post('customer/password/change'.config('apps.general.suffix'), [FeAuthController::class, 'changePassword'])->name('customer.password.reset');
-
-
-// Route::group(['middleware' => ['customer']], function () {
-//    Route::get('customer/profile'.config('apps.general.suffix'), [FeCustomerController::class, 'profile'])->name('customer.profile');
-//    Route::post('customer/profile/update'.config('apps.general.suffix'), [FeCustomerController::class, 'updateProfile'])->name('customer.profile.update');
-//    Route::get('customer/password/reset'.config('apps.general.suffix'), [FeCustomerController::class, 'passwordForgot'])->name('customer.password.change');
-//    Route::post('customer/password/recovery'.config('apps.general.suffix'), [FeCustomerController::class, 'recovery'])->name('customer.password.recovery');
-//    Route::get('customer/logout'.config('apps.general.suffix'), [FeCustomerController::class, 'logout'])->name('customer.logout');
-//    Route::get('customer/construction'.config('apps.general.suffix'), [FeCustomerController::class, 'construction'])->name('customer.construction');
-//    Route::get('customer/construction/{id}/product'.config('apps.general.suffix'), [FeCustomerController::class, 'constructionProduct'])->name('customer.construction.product')->where(['id' => '[0-9]+']);
-//    Route::get('customer/warranty/check'.config('apps.general.suffix'), [FeCustomerController::class, 'warranty'])->name('customer.check.warranty');
-//    Route::post('customer/warranty/active', [FeCustomerController::class, 'active'])->name('customer.active.warranty');
-// });
 
 
 

@@ -4,30 +4,28 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
 use Illuminate\Http\Request;
-// use App\Services\Interfaces\ContactServiceInterface as ContactService;
-// use App\Repositories\Interfaces\ContactRepositoryInterface as ContactRepository;
-
+use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
+use Jenssegers\Agent\Facades\Agent;
 
 class ContactController extends FrontendController
 {
     protected $language;
     protected $system;
-    // protected $contactService;
-    // protected $contactRepository;
+    protected $widgetService;
 
     public function __construct(
-        // ContactService $contactService,
-        // ContactRepository $contactRepository,
+        WidgetService $widgetService,
     ){
-        // $this->ContactService = $contactService;
-        // $this->ContactRepository = $contactRepository;
+        $this->widgetService = $widgetService;
         parent::__construct(); 
     }
 
 
     public function index(Request $request){
-       
-       
+        $widgets = $this->widgetService->getWidget([
+            ['keyword' => 'showroom-system','object' => true],
+            ['keyword' => 'news-outstanding','object' => true],
+        ], $this->language);
         $config = $this->config();
         $system = $this->system;
         $seo = [
@@ -37,7 +35,13 @@ class ContactController extends FrontendController
             'meta_image' => '',
             'canonical' => write_url('lien-he')
         ];
-        return view('frontend.contact.index', compact(
+        if(Agent::isMobile()){
+            $template = 'mobile.contact.index';
+        }else{
+            $template = 'frontend.contact.index';
+        }
+        return view($template, compact(
+            'widgets',
             'config',
             'seo',
             'system',

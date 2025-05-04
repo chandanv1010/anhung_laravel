@@ -34,8 +34,6 @@ class MenuComposer
                 $menus[$val->keyword] = frontend_recursive_menu(recursive($val->menus), 0, 1, $type);
             }
         }
-        // dd($menus);
-
 
         $view->with('menu', $menus);
     }

@@ -3,17 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
 use App\Repositories\Interfaces\SlideRepositoryInterface  as SlideRepository;
 use App\Repositories\Interfaces\SystemRepositoryInterface  as SystemRepository;
 use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use App\Services\Interfaces\SlideServiceInterface  as SlideService;
 use App\Enums\SlideEnum;
-use App\Events\TestEvent;
-use Illuminate\Support\Facades\Redis;
-use Illuminate\Support\Facades\Auth;
 use Jenssegers\Agent\Facades\Agent;
-
 
 class HomeController extends FrontendController
 {
@@ -56,14 +51,14 @@ class HomeController extends FrontendController
             ['keyword' => 'services-1','children' => true, 'post' => true],
             ['keyword' => 'video','object' => true],
             ['keyword' => 'news','object' => true],
-            // ['keyword' => 'suggest','promotion' => true],
-            // ['keyword' => 'categories'],
-            // ['keyword' => 'category-hot'],
         ], $this->language);
 
 
 
-        $slides = $this->slideService->getSlide([SlideEnum::BANNER, SlideEnum::MAIN, 'banner-1', 'brand-baochi'], $this->language);
+        $slides = $this->slideService->getSlide(
+            [SlideEnum::BANNER, SlideEnum::MAIN, SlideEnum::MOBILE , 'banner-1', 'brand-baochi'],
+            $this->language
+        );
         $system = $this->system;
         $seo = [
             'meta_title' => $this->system['seo_meta_title'],
@@ -79,7 +74,6 @@ class HomeController extends FrontendController
         }else{
             $template = 'frontend.homepage.home.index';
         }
-
 
         return view($template, compact(
             'config',

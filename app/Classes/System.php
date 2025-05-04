@@ -12,6 +12,7 @@ class System{
                 'brand' => ['type' => 'text', 'label' => 'Tên thương hiệu'],
                 'slogan' => ['type' => 'text', 'label' => 'Slogan'],
                 'logo' => ['type' => 'images', 'label' => 'Logo Website', 'title' => 'Click vào ô phía dưới để tải logo'],
+                'logo_mobile' => ['type' => 'images', 'label' => 'Logo Mobile', 'title' => 'Click vào ô phía dưới để tải logo'],
                 'favicon' => ['type' => 'images', 'label' => 'Favicon', 'title' => 'Click vào ô phía dưới để tải logo'],
                 'copyright' => ['type' => 'text', 'label' => 'Copyright'],
                 'flashSale' => ['type' => 'text', 'label' => 'Khuyến mãi'],
@@ -53,6 +54,7 @@ class System{
                         'target' => '_blank'
                     ]
                 ],
+                'intro' => ['type' => 'textarea', 'label' => 'Giới thiệu'],
             ]
         ];
         $data['hcm'] = [
@@ -92,6 +94,8 @@ class System{
             'description' => 'Cài đặt đầy đủ thông tin về Mạng xã hội của trang chủ website. Bao gồm tiêu đề Mạng xã hội, Từ Khóa SEO, Mô Tả SEO, Meta images',
             'value' => [
                 'facebook' => ['type' => 'text', 'label' => 'Facebook'],
+                'messenger' => ['type' => 'text', 'label' => 'Messenger'],
+                'zalo' => ['type' => 'text', 'label' => 'Zalo'],
                 'youtube' => ['type' => 'text', 'label' => 'Youtube'],
                 'twitter' => ['type' => 'text', 'label' => 'Twitter'],
                 'tiktok' => ['type' => 'text', 'label' => 'Tiktok'],

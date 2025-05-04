@@ -1,6 +1,5 @@
 @php
     $name = $product->name;
-    
     $canonical = write_url($product->canonical);
     $image = image($product->image);
     $price = getPrice($product);
