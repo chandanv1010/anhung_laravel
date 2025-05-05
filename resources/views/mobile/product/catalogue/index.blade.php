@@ -7,9 +7,6 @@
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
                 <div class="panel-body">
                     <div class="wrapper ">
-                        <div class="gray-box mb20">
-                            <h1 class="heading-2"><span></span></h1>
-                        </div>
                         @if(!is_null($products))
                             <div class="product-list">
                                 <div class="uk-grid uk-grid-medium">

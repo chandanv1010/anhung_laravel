@@ -23,7 +23,6 @@
             <h1 class="product-detail-name ">{{ $name }}</h1>
             <div class="product-detail-container">
                 <div class="product-detail-gallery">
-                    
                     @include('frontend.product.product.component.gallery')
                 </div> <div class="product-detail-info">
                     @include('frontend.product.product.component.info',['voucher_product' => $voucher_product])

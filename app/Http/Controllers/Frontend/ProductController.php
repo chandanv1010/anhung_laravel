@@ -17,6 +17,7 @@ use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use App\Models\System;
 use Illuminate\Support\Facades\Auth;
 use Cart;
+use Jenssegers\Agent\Facades\Agent;
 
 class ProductController extends FrontendController
 {
@@ -122,7 +123,14 @@ class ProductController extends FrontendController
 
         $seo = seo($product);
 
-        return view('frontend.product.product.index', compact(
+        if(Agent::isMobile()){
+            $template = 'mobile.product.product.index';
+        }else{
+            $template = 'frontend.product.product.index';
+        }
+
+
+        return view($template, compact(
             'config',
             'seo',
             'system',

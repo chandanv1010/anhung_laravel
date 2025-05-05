@@ -103,12 +103,12 @@
     </div>
     <div class="panel-foot">
         <div class="uk-grid uk-grid-medium">
-            <div class="uk-width-large-1-2">
+            <div class="uk-width-1-2 uk-width-large-1-2">
                 <div class="readmore-button">
                     <button class="read-more-review">Xem Thêm 5 đánh giá</button>
                 </div>
             </div>
-            <div class="uk-width-large-1-2">
+            <div class="uk-width-1-2 uk-width-large-1-2">
                 <div class="review-action ">
                     <button class="btn btn-review" data-uk-modal="{target:'#review'}">Gửi đánh giá</button>
                 </div>
