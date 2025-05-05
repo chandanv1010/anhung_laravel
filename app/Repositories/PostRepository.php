@@ -18,6 +18,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         Post $model
     ){
         $this->model = $model;
+        parent::__construct($model);
     }
 
     

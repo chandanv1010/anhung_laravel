@@ -4,7 +4,7 @@
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <div class="mobile-logo">
                     <a href="." title="{{ $system['seo_meta_title'] }}" class="image img-cover">
-                        <img src="{{ $system['homepage_logo_mobile'] }}" alt="Mobile Logo">
+                        <img src="{{ $system['homepage_logo'] }}" alt="Mobile Logo">
                     </a>
                 </div>
                 <div class="tool">
@@ -35,7 +35,7 @@
     </div>
     @include('mobile.component.navigation')
 </div>
-{{-- <div id="mobileCanvas" class="uk-offcanvas offcanvas" >
+<div id="mobileCanvas" class="uk-offcanvas offcanvas" >
     <div class="uk-offcanvas-bar" >
         @if(isset($menu['mobile']))
             <ul class="l1 uk-nav uk-nav-offcanvas uk-nav uk-nav-parent-icon" data-uk-nav>
@@ -74,4 +74,4 @@
             </ul>
 		@endif
 	</div>
-</div> --}}
+</div>

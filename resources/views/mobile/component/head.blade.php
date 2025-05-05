@@ -38,7 +38,7 @@
         'mobile/resources/plugins/wow/css/libs/animate.css',
         'mobile/core/plugins/jquery-nice-select-1.1.0/css/nice-select.css',
         'mobile/resources/config.css',
-        'mobile/resources/style.css',
+        'mobile/resources/mobile.css',
     ];
     if(isset($config['css'])){
         foreach($config['css'] as $key => $val){

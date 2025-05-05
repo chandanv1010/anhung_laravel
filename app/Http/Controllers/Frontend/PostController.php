@@ -10,6 +10,7 @@ use App\Services\Interfaces\PostServiceInterface as PostService;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use App\Models\System;
+use Jenssegers\Agent\Facades\Agent;
 
 class postController extends FrontendController
 {
@@ -67,8 +68,8 @@ class postController extends FrontendController
         $system = $this->system;
         $seo = seo($post);
 
-        if($post->canonical == 've-chung-toi'){
-            $template = 'frontend.post.post.intro';
+        if(Agent::isMobile()){
+            $template = 'mobile.post.post.index';
         }else{
             $template = 'frontend.post.post.index';
         }

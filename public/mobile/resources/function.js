@@ -142,11 +142,11 @@
 
     HT.service = () => {
 		const swiper = new Swiper('.panel-service-1 .swiper-container', {
-            centeredSlides: true,
+            // centeredSlides: true,
             loop: true,
             speed: 500,
-            slidesPerView: 1.5,
-            spaceBetween: 120,
+            slidesPerView: 1,
+            spaceBetween: 0,
             // autoplay: {
             //     delay: 3000,
             // },
@@ -155,8 +155,7 @@
                 prevEl: '.swiper-button-prev',
             },
             breakpoints: {
-        
-                400: {
+                600: {
                     slidesPerView: 1,
                 },
             },

@@ -9,6 +9,7 @@ use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use App\Services\Interfaces\SlideServiceInterface  as SlideService;
 use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends FrontendController
 {
@@ -44,6 +45,7 @@ class HomeController extends FrontendController
             ['keyword' => 'intro'],
             ['keyword' => 'commit-fix'],
             ['keyword' => 'categories','children' => true],
+            ['keyword' => 'category-mobile'],
             ['keyword' => 'categories-readmore','children' => true],
             ['keyword' => 'services','children' => true],
             ['keyword' => 'category-1','children' => true],
@@ -51,12 +53,14 @@ class HomeController extends FrontendController
             ['keyword' => 'services-1','children' => true, 'post' => true],
             ['keyword' => 'video','object' => true],
             ['keyword' => 'news','object' => true],
+            ['keyword' => 'news-outstanding','object' => true],
         ], $this->language);
 
+        // dd($widgets['intro']);
 
 
         $slides = $this->slideService->getSlide(
-            [SlideEnum::BANNER, SlideEnum::MAIN, SlideEnum::MOBILE , 'banner-1', 'brand-baochi'],
+            [SlideEnum::BANNER, SlideEnum::MAIN, 'mobile-slide' , 'banner-1', 'brand-baochi'],
             $this->language
         );
         $system = $this->system;
@@ -84,6 +88,21 @@ class HomeController extends FrontendController
             'language',
             'ishome'
         ));
+        //  $view = view($template, compact(
+        //     'config',
+        //     'slides',
+        //     'widgets',
+        //     'seo',
+        //     'system',
+        //     'language',
+        //     'ishome'
+        // ));
+        
+        // $cachedHtml = Cache::remember('home_cache', 60*24, function() use ($view) {
+        //     return $view->render(); 
+        // });
+        
+        // return response($cachedHtml);
     }
 
     public function ckfinder(){

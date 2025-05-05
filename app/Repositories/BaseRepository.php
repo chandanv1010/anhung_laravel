@@ -236,13 +236,11 @@ class BaseRepository implements BaseRepositoryInterface
                 $query->with('product_variants');
             }
 
-            $query->join($model.'_catalogue_'.$model.' as tb2', 'tb2.'.$model.'_id', '=', $model.'s.id')
+            return $query->join($model.'_catalogue_'.$model.' as tb2', 'tb2.'.$model.'_id', '=', $model.'s.id')
             ->whereIn('tb2.'.$model.'_catalogue_id', $catIds)
             ->orderBy($model.'s.'.$model.'_catalogue_id', 'desc')
             ->limit(10)
             ->get();
-
-            return $query->get();
     }
 
     public function breadcrumb($model, $language){

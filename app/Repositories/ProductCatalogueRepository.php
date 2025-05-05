@@ -18,6 +18,7 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         ProductCatalogue $model
     ){
         $this->model = $model;
+        parent::__construct($model);
     }
 
     

@@ -11,6 +11,7 @@ use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Models\System;
 use Cart;
+use Jenssegers\Agent\Facades\Agent;
 
 class ProductCatalogueController extends FrontendController
 {
@@ -55,13 +56,21 @@ class ProductCatalogueController extends FrontendController
         $config = $this->config();
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'news','object' => true],
+            ['keyword' => 'news-outstanding','object' => true],
         ], $this->language);
 
 
         $config = $this->config();
         $system = $this->system;
         $seo = seo($productCatalogue, $page);
-        return view('frontend.product.catalogue.index', compact(
+
+        if(Agent::isMobile()){
+            $template = 'mobile.product.catalogue.index';
+        }else{
+            $template = 'frontend.product.catalogue.index';
+        }
+
+        return view($template, compact(
             'config',
             'seo',
             'system',

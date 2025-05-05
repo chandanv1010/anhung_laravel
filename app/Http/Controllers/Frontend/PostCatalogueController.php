@@ -9,6 +9,7 @@ use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueServic
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
 use App\Models\System;
+use Jenssegers\Agent\Facades\Agent;
 
 class PostCatalogueController extends FrontendController
 {
@@ -46,9 +47,15 @@ class PostCatalogueController extends FrontendController
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'news','object' => true],
+            ['keyword' => 'news-outstanding','object' => true],
         ], $this->language);
 
-        $template = 'frontend.post.catalogue.index';
+        $template = '';
+        if(Agent::isMobile()){
+            $template = 'mobile.post.catalogue.index';
+        }else{
+            $template = 'frontend.post.catalogue.index';
+        }
 
         $config = $this->config();
         $system = $this->system;

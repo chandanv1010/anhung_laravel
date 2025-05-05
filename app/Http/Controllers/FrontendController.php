@@ -25,8 +25,8 @@ class FrontendController extends Controller
 
     public function setLanguage(){
         $locale = app()->getLocale(); // vn en cn
-        $language = Language::where('canonical', $locale)->first();
-        $this->language = $language->id;
+        // $language = Language::where('canonical', $locale)->first();
+        $this->language = 1;
     }
 
     public function setSystem(){

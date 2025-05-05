@@ -19,6 +19,7 @@ class PostCatalogueRepository extends BaseRepository implements PostCatalogueRep
         PostCatalogue $model
     ){
         $this->model = $model;
+        parent::__construct($model);
     }
 
     

@@ -19,6 +19,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         Product $model
     ){
         $this->model = $model;
+        parent::__construct($model);
     }
 
     public function search($keyword, $language_id){

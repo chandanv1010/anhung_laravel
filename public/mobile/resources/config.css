@@ -5,9 +5,7 @@
    --text-color:rgba(254, 233, 181, 1);
    --title-font:'Mulish';
 }
-body{
-    min-height: 900vh;
-}
+
 #homepage-mobile {
     overflow-y: auto;
 }
