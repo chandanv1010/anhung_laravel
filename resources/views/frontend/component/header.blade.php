@@ -36,7 +36,7 @@
                     @endif
                 </div>
                 <div class="search-form">
-                    <form action="{{ write_url('tim-kiem') }}" class="uk-form form">
+                    <form action="{{ 'tim-kiem' }}" class="uk-form form">
                         <div class="form-row">
                             <input 
                                 type="text"

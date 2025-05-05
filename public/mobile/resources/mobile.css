@@ -1547,3 +1547,10 @@ h1 > *, h2 > * , h3 > *{
 .showroom-item .text-content{
     padding:10px;
 }
+.final-total .cart-priceItem,
+.order-summary__heading .code,
+.product-column .product-title,
+.cart-success__description *{
+    font-size: 15px !important;
+    font-family: 'Mulish' !important;
+}

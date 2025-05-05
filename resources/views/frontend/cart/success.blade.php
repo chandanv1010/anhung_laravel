@@ -5,7 +5,7 @@
             <div class="uk-grid uk-grid-medium">
                 <div class="uk-width-large-3-5">
                     <div class="order-success__information">
-                        <h2 class="cart-success__heading">Cảm ơn {{ $orderSummary['buyer']->name }}</h2>
+                        <h2 class="cart-success__heading">Cảm ơn Bạn đã đặt hàng tại hệ thống website: {{ $system['contact_website'] }}</h2>
                         <div class="cart-success__description">
                             <p class="mb50 order-success-code">
                                 Mã đơn hàng của bạn: 

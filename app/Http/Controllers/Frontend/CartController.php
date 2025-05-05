@@ -72,14 +72,16 @@ class CartController extends FrontendController
    
     public function checkout(){
 
-        $viettelPost = new ViettelPost(
-            $this->system['homepage_viettelpost_email'], 
-            $this->system['homepage_viettelpost_password']
-        );
+        // $viettelPost = new ViettelPost(
+        //     $this->system['homepage_viettelpost_email'], 
+        //     $this->system['homepage_viettelpost_password']
+        // );
 
-        $accessToken = $viettelPost->getToken();
+        // $accessToken = $viettelPost->getToken();
 
-        $provinces = $viettelPost->getProvinces($accessToken);
+        // $provinces = $viettelPost->getProvinces($accessToken);
+
+        $provinces = $this->provinceRepository->all();
 
         $carts = Cart::instance('shopping')->content();
 
@@ -91,9 +93,9 @@ class CartController extends FrontendController
 
         $buyer = $this->getBuyer();
 
-        if(is_null($buyer->province_id) || is_null($buyer->district_id) || is_null($buyer->ward_id)){
-            return redirect()->route('buyer.profile')->with('success','Bạn phải nhập đầy đủ thông tin thành phố , quận / huyện , phường / xã để thực hiện chức năng này');
-        }
+        // if(is_null($buyer->province_id) || is_null($buyer->district_id) || is_null($buyer->ward_id)){
+        //     return redirect()->route('buyer.profile')->with('success','Bạn phải nhập đầy đủ thông tin thành phố , quận / huyện , phường / xã để thực hiện chức năng này');
+        // }
 
         $shipping = $this->cartService->totalShipping($buyer);
 
@@ -103,7 +105,7 @@ class CartController extends FrontendController
 
         $allVoucherTotal = null;
 
-        if(!is_null($shipping)){
+        if(!is_null($shipping) && !is_null($buyer)){
             $allVoucherTotal = $this->voucherService->listVoucher(($cartCaculate['cartTotal'] - $totalVoucherProduct - $cartPromotion['discount']), $shipping['totalShippingCost'], $carts);
         }
 

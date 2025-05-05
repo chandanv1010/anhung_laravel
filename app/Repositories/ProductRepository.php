@@ -37,7 +37,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                 'products.attributeCatalogue',
                 'products.attribute',
                 'products.variant',
-                'products.warranty',
+                // 'products.warranty',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',
@@ -62,7 +62,7 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         ->where('tb2.language_id', '=', $language_id)
         ->where('products.publish', '=', 2)
         ->where('tb2.name', 'LIKE', '%'.$keyword.'%')
-        ->get();
+        ->paginate(21)->withQueryString()->withPath(config('app.url'). 'tim-kiem');
     }
 
     public function findByIds($ids, $language_id){

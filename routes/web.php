@@ -92,7 +92,8 @@ Route::get('crawler', [CrawlerController::class, 'index'])->name('crawler.index'
 Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resize'])
     ->name('thumb');
 
-Route::get('tim-kiem'.config('apps.general.suffix'), [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
+Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
+Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');;
 Route::get('lien-he'.config('apps.general.suffix'), [FeContactController::class, 'index'])->name('fe.contact.index');
 
 

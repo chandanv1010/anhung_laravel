@@ -2042,3 +2042,123 @@ ul li,ol li{
     line-height: 1.4;
     display: inline-block;
 }
+.final-total .cart-priceItem,
+.order-summary__heading .code,
+.product-column .product-title,
+.cart-success__description *{
+    font-size: 15px !important;
+    font-family: 'Mulish' !important;
+}
+/* CSS cho search-paginate */
+.search-paginate {
+    margin: 25px 0;
+}
+
+.search-paginate nav {
+    display: flex;
+    justify-content: center;
+}
+
+.search-paginate a, 
+.search-paginate span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    margin: 0 4px;
+    font-size: 14px;
+    color: #718096; /* text-gray-700 */
+    background-color: white;
+    border: 1px solid #e2e8f0; /* border-gray-300 */
+    border-radius: 4px;
+    line-height: 1.25; /* leading-5 */
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+}
+
+.search-paginate a:hover {
+    color: #4a5568; /* text-gray-900 */
+    background-color: #f7fafc; /* bg-gray-100 */
+    border-color: #cbd5e0; /* border-gray-400 */
+}
+
+.search-paginate a:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* focus:ring */
+    z-index: 10; /* focus:z-10 */
+}
+
+.search-paginate span[aria-current="page"] {
+    background-color: #4299e1; /* bg-blue-500 */
+    color: white;
+    border-color: #4299e1; /* border-blue-500 */
+    font-weight: 500;
+}
+
+/* Làm cho phân trang responsive */
+@media (max-width: 640px) {
+    .search-paginate a, 
+    .search-paginate span {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    /* Ẩn một số phần tử trên màn hình nhỏ */
+    .search-paginate a:not([aria-label^="Go to page"]):not(:first-child):not(:last-child) {
+        display: none;
+    }
+}
+
+/* Style cho lớp hidden */
+.search-paginate .hidden {
+    display: none;
+}
+
+/* Fix cho Flex layout */
+.search-paginate .flex {
+    display: flex;
+}
+
+.search-paginate .items-center {
+    align-items: center;
+}
+
+.search-paginate .justify-between {
+    justify-content: space-between;
+}
+
+.image {
+    position: relative;
+    overflow: hidden;
+}
+
+.lazy-image {
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.lazy-image.loaded {
+    opacity: 1;
+}
+
+.skeleton-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
+    z-index: 1;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}

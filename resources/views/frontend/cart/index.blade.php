@@ -44,7 +44,7 @@
                             @if(count($carts) && !is_null($carts) )
                             <button type="submit" class="cart-checkout" value="create" name="create">Thanh toán đơn hàng</button>
                             @endif
-                            <div class="box-info mt-3">
+                            {{-- <div class="box-info mt-3">
                                 <div class="box-title">Thông tin bổ sung</div>
                                 <div class="info">
                                     <div class="content-style">
@@ -53,7 +53,7 @@
                                         <p>Ngoại trừ lỗi do nhà sản xuất hoặc khác mẫu yêu cầu, những trường hợp còn lại Quý khách không được đổi-trả hàng.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

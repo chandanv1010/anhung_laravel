@@ -17,9 +17,9 @@ class Buyer
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(Auth::guard('customer')->id() == null){
-            return redirect()->route('buyer.login')->with('error','Bạn phải đăng nhập để sử dụng chức năng này');
-        }
+        // if(Auth::guard('customer')->id() == null){
+        //     return redirect()->route('buyer.login')->with('error','Bạn phải đăng nhập để sử dụng chức năng này');
+        // }
 
         return $next($request);
     }

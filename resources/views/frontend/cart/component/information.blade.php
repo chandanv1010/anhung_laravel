@@ -15,7 +15,7 @@
                     <input 
                         type="text"
                         name="fullname"
-                        value="{{ old('fullname', $customerAuth->name) }}"
+                        value="{{ old('fullname', $customerAuth->name ?? '') }}"
                         placeholder="Nhập vào Họ Tên"
                         class="input-text"
                     >
@@ -26,7 +26,7 @@
                     <input 
                         type="text"
                         name="phone"
-                        value="{{ old('phone', $customerAuth->phone) }}"
+                        value="{{ old('phone', $customerAuth->phone ?? '') }}"
                         placeholder="Nhập vào Số điện thoại"
                         class="input-text"
                     >
@@ -37,17 +37,17 @@
             <input 
                 type="text"
                 name="address"
-                value="{{ old('address', $customerAuth->address) }}"
+                value="{{ old('address', $customerAuth->address ?? '') }}"
                 placeholder="Nhập vào địa chỉ: ví dụ đường Lạc Long Quân..."
                 class="input-text"
             >
         </div>
-        <div class="uk-grid uk-grid-medium mb20">
+        {{-- <div class="uk-grid uk-grid-medium mb20">
             <div class="uk-width-large-1-3">
                 <select readonly disabled name="province_id" id="" class="province city location setupSelect2" data-target="districts">
                     <option value="0">[Chọn Thành Phố]</option>
-                    @foreach($provinces['data'] as $city)
-                        <option value="{{ $city['PROVINCE_ID'] }}">{{ $city['PROVINCE_NAME'] }}</option>
+                    @foreach($provinces as $city)
+                        <option value="{{ $city->id }}">{{ $city->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -61,7 +61,7 @@
                     <option value="0">Chọn Phường Xã</option>
                 </select>
             </div>
-        </div>
+        </div> --}}
         <div class="form-row">
             <input 
                 type="text"
