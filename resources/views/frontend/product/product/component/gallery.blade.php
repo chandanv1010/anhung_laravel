@@ -1,4 +1,5 @@
-@if(!is_null($gallery))
+
+@if(isset($gallery) && !empty($gallery) && !is_null($gallery))
     <div class="product-gallery">
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
