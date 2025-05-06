@@ -12,7 +12,7 @@
                                 <div class="uk-grid uk-grid-medium">
                                     @foreach($products as $product)
                                         <div class="uk-width-1-1 mb20">
-                                            @include('frontend.component.product-item', ['product'  => $product])
+                                            @include('mobile.component.product-item', ['product'  => $product])
                                         </div>
                                     @endforeach
                                 </div>
