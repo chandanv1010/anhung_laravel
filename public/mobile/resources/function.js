@@ -221,3 +221,53 @@ addCommas = (nStr) => {
     str= str.slice(0,str.length-1);
     return str;
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Lựa chọn tất cả các ảnh cần lazy load
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    // Tạo Intersection Observer
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            // Khi phần tử trở nên visible
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                // Lấy nguồn ảnh từ thuộc tính data-src
+                const src = img.dataset.src;
+                
+                // Tạo ảnh mới và thiết lập trình xử lý sự kiện onload
+                const newImg = new Image();
+                newImg.onload = function() {
+                    // Khi ảnh đã tải xong, gán src và thêm class loaded
+                    img.src = src;
+                    img.classList.add('loaded');
+                    
+                    // Ẩn skeleton loading
+                    const parent = img.closest('.image');
+                    if (parent) {
+                        const skeleton = parent.querySelector('.skeleton-loading');
+                        if (skeleton) {
+                            skeleton.style.display = 'none';
+                        }
+                    }
+                    
+                    // Ngừng quan sát phần tử này
+                    observer.unobserve(img);
+                };
+                
+                // Bắt đầu tải ảnh
+                newImg.src = src;
+            }
+        });
+    }, {
+        // Tùy chọn: thiết lập ngưỡng và root
+        rootMargin: '0px 0px 50px 0px', // Tải trước ảnh khi chúng cách 50px từ viewport
+        threshold: 0.1 // Kích hoạt khi ít nhất 10% của ảnh trở nên visible
+    });
+    
+    // Quan sát mỗi ảnh
+    lazyImages.forEach(img => {
+        observer.observe(img);
+    });
+});
