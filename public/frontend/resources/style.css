@@ -971,6 +971,10 @@ ul li,ol li{
     background: #fff;
 }
 
+.news-item .created_at{
+    margin-bottom:0;
+}
+
 .news-item .image{
     height:230px;
     margin-bottom:10px;
