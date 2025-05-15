@@ -48,10 +48,16 @@ class PostCatalogueController extends FrontendController
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
+            ['keyword' => 'mobile-video','object' => true],
         ], $this->language);
 
         $template = '';
-        if(Agent::isMobile()){
+
+        if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
+            $template = 'mobile.post.catalogue.video';
+        }else if(Agent::isMobile() && $postCatalogue->canonical == 'thiet-ke-noi-that' || Agent::isMobile() && $postCatalogue->canonical == 'thi-cong-noi-that'){
+            $template = 'mobile.post.catalogue.design';
+        }else if(Agent::isMobile()){
             $template = 'mobile.post.catalogue.index';
         }else{
             $template = 'frontend.post.catalogue.index';

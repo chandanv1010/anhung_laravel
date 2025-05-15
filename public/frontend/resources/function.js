@@ -294,9 +294,51 @@
         })
     }
 
+    HT.advise = () => {
+        $(document).on('click','#suggest button', function(e){
+            e.preventDefault()
+            let _this = $(this)
+            let option  = {
+				name : $('#suggest input[name=name]').val(),
+                gender : $('#suggest input[name=gender]').val(),
+				phone : $('#suggest input[name=phone]').val(),
+				address: $('#suggest input[name=address]').val(),
+                post_id : $('#suggest input[name=post_id ]').val(),
+                product_id : $('#suggest input[name=product_id ]').val(),
+				_token: _token,
+			}
+
+			$.ajax({
+				url: 'ajax/contact/advise', 
+				type: 'POST', 
+				data: option, 
+				dataType: 'json', 
+				beforeSend: function() {
+					
+				},
+				success: function(res) {
+                    console.log(res)
+					if(res.code === 10){
+                        toastr.success(res.messages, 'Gửi yêu cầu thành công , chúng tôi sẽ sớm liên hệ vs bạn !')
+						setTimeout(function(){
+							location.reload();
+						}, 1000);
+                    }else if(res.status === 422){
+                        let errors = res.messages;
+						for(let field in errors){
+							let errorMessage = errors[field];
+							$('.'+ field + '-error').text(errorMessage);
+						}
+					}
+				},
+			});
+			
+		})
+    }
 
 
 	$(document).ready(function(){
+        HT.advise()
         HT.addVoucher()
 		HT.removePagination()
 		HT.wow()

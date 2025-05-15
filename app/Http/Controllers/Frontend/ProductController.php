@@ -92,8 +92,9 @@ class ProductController extends FrontendController
             ['keyword' => 'news-feature'],
             ['keyword' => 'projects-feature'],
             ['keyword' => 'news','object' => true],
+            ['keyword' => 'news-outstanding','object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
-
 
         $productSeen = [
             'id' => $product->id,

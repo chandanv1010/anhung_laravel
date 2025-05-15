@@ -59,16 +59,19 @@ class postController extends FrontendController
             ['keyword' => 'news-feature'],
             ['keyword' => 'projects-feature'],
             ['keyword' => 'news'],
+            ['keyword' => 'news-outstanding','object' => true],
         ], $this->language);
 
         /* ------------------- */
         
-
         $config = $this->config();
         $system = $this->system;
         $seo = seo($post);
 
-        if(Agent::isMobile()){
+        if(Agent::isMobile() && $post->template == '1'){
+            $template = 'mobile.post.post.design';
+        }
+        else if(Agent::isMobile()){
             $template = 'mobile.post.post.index';
         }else{
             $template = 'frontend.post.post.index';
@@ -89,6 +92,14 @@ class postController extends FrontendController
     private function config(){
         return [
             'language' => $this->language,
+            'js' => [
+                'frontend/core/library/cart.js',
+                'frontend/core/library/product.js',
+                'frontend/core/library/review.js'
+            ],
+            'css' => [
+                'frontend/core/css/product.css',
+            ]
         ];
     }
 

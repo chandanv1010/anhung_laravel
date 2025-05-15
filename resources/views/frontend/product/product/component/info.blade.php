@@ -8,13 +8,14 @@
     </div>
     <div class="uk-grid uk-grid-medium">
         <div class="uk-width-large-1-2">
-            <a class="button-item suggest">
+            <a class="button-item suggest" data-uk-modal="{target:'#suggest'}">
                 <span class="main-text">Yêu cầu tư vấn</span>
                 <span class="small-text">Thông tin chi tiết nhất</span>
             </a>
+            @include('frontend.product.product.component.suggest', ['product' => $product])
         </div>
         <div class="uk-width-large-1-2">
-            <a class="button-item book">
+            <a class="button-item book" data-uk-modal="{target:'#suggest'}">
                 <span class="main-text">Hẹn lịch đến xem</span>
                 <span class="small-text">Được sắp chỗ để xe miễn phí</span>
             </a>
@@ -23,7 +24,7 @@
     <div class="quick-consult">
         <div class="quick-consult-title">Tư vấn nhanh</div>
         <div class="quick-consult-form">
-            <input type="tel" class="phone-input" placeholder="Nhập số điện thoại..." required>
+            <input type="number" name="phone" class="phone-input" placeholder="Nhập số điện thoại..." required>
             <button type="submit" class="submit-button">Gửi</button>
         </div>
     </div>
@@ -41,7 +42,7 @@
                 </button>
             </div>
             <div class="uk-width-large-1-2">
-                <button class="order-button-item order-buy-now">
+                <button class="order-button-item order-buy-now" data-id="{{ $product->id }}">
                     Mua ngay
                 </button>
             </div>

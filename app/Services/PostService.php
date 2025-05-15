@@ -55,11 +55,6 @@ class PostService extends BaseService implements PostServiceInterface
 
     public function paginate($request, $languageId, $postCatalogue = null, $page = 1, $extend = []){
         
-        // if(!is_null($postCatalogue)){
-        //     Paginator::currentPageResolver(function () use ($page) {
-        //         return $page;
-        //     });
-        // }
      
         $perPage = (!is_null($postCatalogue))  ? 15 : 20;
         $condition = [
@@ -207,7 +202,10 @@ class PostService extends BaseService implements PostServiceInterface
             'posts.publish',
             'posts.image',
             'posts.order',
+            'posts.created_at',
+            'posts.template',
             'tb2.name', 
+            'tb2.description',
             'tb2.canonical',
         ];
     }
@@ -220,6 +218,7 @@ class PostService extends BaseService implements PostServiceInterface
             'album',
             'post_catalogue_id',
             'video',
+            'template'
         ];
     }
 

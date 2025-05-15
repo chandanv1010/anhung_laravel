@@ -31,7 +31,7 @@
                                 <div class="cart-item-price">
                                     <div class="uk-flex uk-flex-bottom">
                                         <span class="cart-price-sale">{{ convert_price($cart->price * $cart->qty - $discountVoucherForProduct * $cart->qty , true) }}đ</span>
-                                        <span class="voucher-discount">-{{ convert_price($discountVoucherForProduct * $cart->qty, true) }}đ</span>
+                                        {{-- <span class="voucher-discount">-{{ convert_price($discountVoucherForProduct * $cart->qty, true) }}đ</span> --}}
                                     </div>
                                 </div>
                                 <div class="cart-item-remove" data-row-id="{{ $cart->rowId }}">

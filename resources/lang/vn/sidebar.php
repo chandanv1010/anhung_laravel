@@ -123,6 +123,17 @@ return [
             ]
         ],
         [
+            'title' => 'QL Liên Hệ',
+            'icon' => 'fa fa-github',
+            'name' => ['contacts'],
+            'subModule' => [
+                [
+                    'title' => 'QL Liên Hệ',
+                    'route' => 'contact/index'
+                ]
+            ]
+        ],
+        [
             'title' => 'QL Nhóm Thành Viên',
             'icon' => 'fa fa-user',
             'name' => ['user','permission'],

@@ -336,6 +336,15 @@ return [
             'title' => 'Quản lý kích hoạt bảo hành',
         ],
     ],
+    'contact' => [
+        'index' => [
+            'title' => 'Quản lý Liên hệ',
+            'table' => 'Danh sách Liên hệ'
+        ],
+        'delete' => [
+            'title' => 'Xóa Liên hệ'
+        ],
+    ],
     'parent' => 'Chọn danh mục cha',
     'parentNotice' => 'Chọn Root nếu không có danh mục cha',
     'subparent' => 'Chọn danh mục phụ (nếu có)',

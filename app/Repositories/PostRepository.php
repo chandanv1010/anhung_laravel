@@ -33,6 +33,7 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
                 'posts.publish',
                 'posts.follow',
                 'posts.video',
+                'posts.template',
                 'posts.created_at',
                 'tb2.name',
                 'tb2.description',

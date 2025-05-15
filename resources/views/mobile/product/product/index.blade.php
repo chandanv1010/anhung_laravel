@@ -15,7 +15,7 @@
 @extends('mobile.homepage.layout')
 @section('content')
     <div id="mobile-container" class="mobile-product-detail">
-        @include('frontend.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
+        @include('mobile.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="uk-container uk-container-center">
             <div class="panel-head">
                 <h1 class="product-detail-name ">{{ $name }}</h1>
@@ -57,13 +57,14 @@
                             </div>
                             <div class="uk-grid uk-grid-medium">
                                 <div class="uk-width-1-2 uk-width-large-1-2">
-                                    <a class="button-item suggest">
+                                    <a class="button-item suggest" data-uk-modal="{target:'#suggest'}">
                                         <span class="main-text">Yêu cầu tư vấn</span>
                                         <span class="small-text">Thông tin chi tiết nhất</span>
                                     </a>
+                                    @include('mobile.product.product.component.suggest', ['product' => $product])
                                 </div>
                                 <div class="uk-width-1-2 uk-width-large-1-2">
-                                    <a class="button-item book">
+                                    <a class="button-item book" data-uk-modal="{target:'#suggest'}">
                                         <span class="main-text">Hẹn lịch đến xem</span>
                                         <span class="small-text">Được sắp chỗ để xe miễn phí</span>
                                     </a>
@@ -86,11 +87,11 @@
                                 <div class="uk-grid uk-grid-medium">
                                     <div class="uk-width-1-2 uk-width-large-1-2">
                                         <button class="btn-product-button addToCart order-button-item" data-id="{{ $product->id }}">
-                                            Thêm vào giỏ hàng
+                                            Thêm giỏ hàng
                                         </button>
                                     </div>
                                     <div class="uk-width-1-2 uk-width-large-1-2">
-                                        <button class="order-button-item order-buy-now">
+                                        <button class="order-button-item order-buy-now" data-id="{{ $product->id }}">
                                             Mua ngay
                                         </button>
                                     </div>
@@ -116,7 +117,7 @@
                                     <button class="view-more-btn">Xem thêm</button>
                                 </li>
                             </ul>
-                            @include('frontend.product.product.component.review', ['model' => $product, 'reviewable' => 'App\Models\Product'])
+                            @include('mobile.product.product.component.review', ['model' => $product, 'reviewable' => 'App\Models\Product'])
                         </div>
                         <div class="content-aside">
                             @if(isset($widgets['news-feature']))
@@ -183,10 +184,10 @@
                                         <div class="post-feature-item">
                                             <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                             <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                            <div class="created_at uk-flex uk-flex-middle">
+                                            {{-- <div class="created_at uk-flex uk-flex-middle">
                                                 <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
                                                 <span><i class="fa fa-user"></i>Admin</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         @endforeach
                                     </div>
@@ -194,7 +195,6 @@
                                 @endif
                         </div>
                     </div>
-                    
                     <script>
                         document.addEventListener('DOMContentLoaded', function() {
                             // Lấy tất cả các nút "Xem thêm"
@@ -224,5 +224,6 @@
                 </div>
             </div>
         </div>
+        @include('mobile.component.news-outstanding')
     </div>
 @endsection

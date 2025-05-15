@@ -25,8 +25,13 @@ class System{
                     ]
                 ],
                 'short_intro' => ['type' => 'editor', 'label' => 'Giới thiệu ngắn'],
-                'viettelpost_email' => ['type' => 'text', 'label' => 'ViettelPost Email'],
-                'viettelpost_password' => ['type' => 'text', 'label' => 'ViettelPost Password'],
+                // 'viettelpost_email' => ['type' => 'text', 'label' => 'ViettelPost Email'],
+                // 'viettelpost_password' => ['type' => 'text', 'label' => 'ViettelPost Password'],
+                'video_youtube' => [
+                    'type' => 'textarea', 
+                    'label' => 'Video youtube(mobile)', 
+                ],
+                'đkkd' => ['type' => 'text', 'label' => 'Số ĐKKD'],
             ]
         ];
 
@@ -100,6 +105,24 @@ class System{
                 'twitter' => ['type' => 'text', 'label' => 'Twitter'],
                 'tiktok' => ['type' => 'text', 'label' => 'Tiktok'],
                 'instagram' => ['type' => 'text', 'label' => 'Instagram'],
+            ]
+        ];
+
+        $data['text'] = [
+            'label' => 'Cấu hình text',
+            'description' => '',
+            'value' => [
+                '1' => ['type' => 'text', 'label' => 'Text_1'],
+                '2' => ['type' => 'text', 'label' => 'Text_2'],
+            ]
+        ];
+
+        $data['image'] = [
+            'label' => 'Cấu hình ảnh',
+            'description' => '',
+            'value' => [
+                '1' => ['type' => 'images', 'label' => 'Ảnh(chứng chỉ 1)'],
+                '2' => ['type' => 'images', 'label' => 'Ảnh(chứng chỉ 2)'],
             ]
         ];
 

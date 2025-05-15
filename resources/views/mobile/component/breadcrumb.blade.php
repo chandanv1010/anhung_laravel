@@ -5,8 +5,8 @@
     <div class="uk-container uk-container-center">
         <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
             <li>
-                <a href="/"><i class="fi-rs-home mr5"></i>{{ __('frontend.home') }}</a>
-                <span><i class="fi-rs-angle-right"></i></span>
+                <a href="/">{{ __('frontend.home') }}</a>
+                <span class="text-gray-11">/</span>
             </li>
             @if(!is_null($breadcrumb))
                 @foreach($breadcrumb as $key => $val)
@@ -16,7 +16,7 @@
                 @endphp
                 <li>
                     <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
-                    <span><i class="fi-rs-angle-right"></i></span>
+                    <span class="text-gray-11">/</span>
                 </li>
                 @endforeach
             @endif

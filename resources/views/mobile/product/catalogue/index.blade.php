@@ -1,10 +1,11 @@
 @extends('mobile.homepage.layout')
 @section('content')
     <div id="mobile-container">
-        @include('frontend.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
+        @include('mobile.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="product-catalogue-wrapper panel-product">
             <div class="uk-container uk-container-center">
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
+
                 <div class="panel-body">
                     <div class="wrapper ">
                         @if(!is_null($products))
@@ -18,7 +19,7 @@
                                 </div>
                             </div>
                             <div class="uk-flex uk-flex-center">
-                                @include('frontend.component.pagination', ['model' => $products])
+                                @include('mobile.component.pagination', ['model' => $products])
                             </div>
                         @endif
                     </div>

@@ -17,7 +17,6 @@ use App\Http\ViewComposers\WishlistComposer;
 use App\Http\ViewComposers\CustomerComposer;
 use App\Http\ViewComposers\ProductCatalogueComposer;
 use App\Models\Language;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -52,6 +51,7 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\AgencyServiceInterface' => 'App\Services\AgencyService',
         'App\Services\Interfaces\ConstructServiceInterface' => 'App\Services\ConstructService',
         'App\Services\Interfaces\VoucherServiceInterface' => 'App\Services\VoucherService',
+        'App\Services\Interfaces\ContactServiceInterface' => 'App\Services\ContactService',
     ];
 
     /**

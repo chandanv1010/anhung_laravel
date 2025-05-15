@@ -2,16 +2,17 @@
 	"use strict";
 	var HT = {}; // Khai báo là 1 đối tượng
 	var timer;
+    var _token = $('meta[name="csrf-token"]').attr('content');
 
 
 	HT.productSwiperSlide = () => {
 		document.querySelectorAll(".product-gallery").forEach(product => {
 			var swiper = new Swiper(product.querySelector(".swiper-container"), {
 				loop: true,
-				autoplay: {
-					delay: 2000,
-					disableOnInteraction: false,
-				},
+				// autoplay: {
+				// 	delay: 2000,
+				// 	disableOnInteraction: false,
+				// },
 				pagination: {
 					el: '.swiper-pagination',
 				},
@@ -171,8 +172,35 @@
 		})
 	}
 
+    HT.quickConsult = () => {
+        $(document).on('click', '.quick-consult-form button', function(e){
+            e.preventDefault()
+            let phone =  $('.quick-consult-form input[name=phone]').val()
+            if (!phone || !/^(0[3|5|7|8|9][0-9]{8})$/.test(phone)) {
+                alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
+                return;
+            }
+            $.ajax({
+				url: 'ajax/contact/quickConsult', 
+				type: 'POST', 
+				data: {
+					'phone' : phone,
+                    '_token' : _token
+				}, 
+				dataType: 'json', 
+				success: function(res) {
+					if(res.status == true){
+                        toastr.success(res.messages, 'Thông báo từ hệ thống !')
+                        $('.quick-consult-form input[name=phone]').val('')
+                    }
+				},
+			});
+        })
+    }
+
 	$(document).ready(function(){
 		/* CORE JS */
+        HT.quickConsult()
 		HT.changeQuantity()
 		HT.productSwiperSlide()
 		HT.selectVariantProduct()

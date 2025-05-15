@@ -12,11 +12,9 @@ use App\Http\Controllers\Backend\User\PermissionController;
 use App\Http\Controllers\Backend\Customer\CustomerController;
 use App\Http\Controllers\Backend\Customer\CustomerCatalogueController;
 use App\Http\Controllers\Backend\Customer\SourceController;
-use App\Http\Controllers\Backend\DistributionController;
 use App\Http\Controllers\Backend\Post\PostCatalogueController;
 use App\Http\Controllers\Backend\Post\PostController;
 use App\Http\Controllers\Backend\LanguageController;
-use App\Http\Controllers\Backend\GenerateController;
 use App\Http\Controllers\Backend\MenuController;
 use App\Http\Controllers\Backend\SlideController;
 use App\Http\Controllers\Backend\WidgetController;
@@ -25,6 +23,7 @@ use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\Promotion\PromotionController;
 use App\Http\Controllers\Backend\ReviewController;
 use App\Http\Controllers\Backend\VoucherController;
+use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Ajax\AttributeController as AjaxAttributeController;
 use App\Http\Controllers\Ajax\MenuController as AjaxMenuController;
@@ -50,9 +49,6 @@ use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\CrawlerController;
 use App\Http\Controllers\Frontend\ContactController as FeContactController;
 use App\Http\Controllers\Frontend\AuthController as FeAuthController;
-use App\Http\Controllers\Frontend\AgencyAuthController as FeAgencyAuthController;
-use App\Http\Controllers\Frontend\CustomerController as FeCustomerController;
-use App\Http\Controllers\Frontend\AgencyController as FeAgencyController;
 
 use App\Http\Controllers\Frontend\DistributionController as FeDistributionController;
 use App\Http\Controllers\Frontend\ProductCatalogueController as FeProductCatalogueController;
@@ -61,6 +57,7 @@ use App\Http\Controllers\Backend\Crm\AgencyController;
 use App\Http\Controllers\Backend\Crm\ConstructionController;
 use App\Http\Controllers\Ajax\ConstructController as AjaxConstructController;
 use App\Http\Controllers\Ajax\CustomerController as AjaxCustomerController;
+use App\Http\Controllers\Ajax\ContactController as AjaxContactController;
 
 /* Buyer */
 use App\Http\Controllers\Buyer\BuyerAuthController;
@@ -85,6 +82,7 @@ use App\Http\Controllers\Ajax\ViettelPostController;
 |
 */
 /* FRONTEND ROUTES  */
+
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('crawler', [CrawlerController::class, 'index'])->name('crawler.index');
@@ -93,9 +91,12 @@ Route::get('/thumb', [App\Http\Controllers\ImageResizerController::class, 'resiz
     ->name('thumb');
 
 Route::get('tim-kiem', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search');
-Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');;
-Route::get('lien-he'.config('apps.general.suffix'), [FeContactController::class, 'index'])->name('fe.contact.index');
 
+Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'search'])->name('product.catalogue.search')->where('page', '[0-9]+');
+
+Route::post('ajax/contact/quickConsult', [AjaxContactController::class, 'quickConsult'])->name('fe.contact.quickConsult');
+
+Route::post('ajax/contact/advise', [AjaxContactController::class, 'advise'])->name('fe.contact.advise');
 
 /* CUSTOMER  */
 Route::get('customer/login'.config('apps.general.suffix'), [FeAuthController::class, 'index'])->name('fe.auth.login'); 
@@ -410,7 +411,11 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
         Route::get('customer', [ReportController::class, 'customer'])->name('report.customer');
     });
 
-
+    Route::group(['prefix' => 'contact'], function () {
+        Route::get('index', [ContactController::class, 'index'])->name('contact.index');
+        Route::get('{id}/delete', [ContactController::class, 'delete'])->where(['id' => '[0-9]+'])->name('contact.delete');
+        Route::delete('{id}/destroy', [ContactController::class, 'destroy'])->where(['id' => '[0-9]+'])->name('contact.destroy');
+    });
    
 
 

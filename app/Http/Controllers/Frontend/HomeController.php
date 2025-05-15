@@ -38,8 +38,6 @@ class HomeController extends FrontendController
 
 
     public function index(){
-
-
         $config = $this->config();
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'intro'],
@@ -54,11 +52,9 @@ class HomeController extends FrontendController
             ['keyword' => 'video','object' => true],
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
+            ['keyword' => 'customer-perception','object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
-
-        // dd($widgets['intro']);
-
-
         $slides = $this->slideService->getSlide(
             [SlideEnum::BANNER, SlideEnum::MAIN, 'mobile-slide' , 'banner-1', 'brand-baochi'],
             $this->language
@@ -78,7 +74,6 @@ class HomeController extends FrontendController
         }else{
             $template = 'frontend.homepage.home.index';
         }
-
         return view($template, compact(
             'config',
             'slides',
@@ -88,21 +83,6 @@ class HomeController extends FrontendController
             'language',
             'ishome'
         ));
-        //  $view = view($template, compact(
-        //     'config',
-        //     'slides',
-        //     'widgets',
-        //     'seo',
-        //     'system',
-        //     'language',
-        //     'ishome'
-        // ));
-        
-        // $cachedHtml = Cache::remember('home_cache', 60*24, function() use ($view) {
-        //     return $view->render(); 
-        // });
-        
-        // return response($cachedHtml);
     }
 
     public function ckfinder(){

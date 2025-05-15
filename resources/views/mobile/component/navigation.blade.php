@@ -1,4 +1,4 @@
-<div class="navigation-mobile">
+<div class="navigation-mobile" data-uk-sticky>
     <ul class="uk-flex uk-flex-middle uk-list uk-clearfix uk-navbar-nav main-menu">
         <li>
             <a href="">

@@ -46,6 +46,23 @@
 </div>
 <div class="ibox w">
     <div class="ibox-title">
+        <h5>Chọn giao diện</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row mb15">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <select name="template" class="form-control setupSelect2" id="">
+                        <option value="0">Chọn giao diện</option>
+                        <option value="1" {{ $post->template == 1 ? 'selected' : '' }}>Thi công nội thất, thiết kế nội thất</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ibox w">
+    <div class="ibox-title">
        
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <h5>Video Clip</h5>

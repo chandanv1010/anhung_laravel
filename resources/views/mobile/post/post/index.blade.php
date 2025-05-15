@@ -3,26 +3,18 @@
     <div id="mobile-container">
         
         <div class="post-detail">
-            @include('frontend.component.breadcrumb', ['model' => $postCatalogue, 'breadcrumb' => $breadcrumb])
-            <div class="product-catalogue-wrapper mt30">
+            {{-- @include('mobile.component.breadcrumb', ['model' => $postCatalogue, 'breadcrumb' => $breadcrumb]) --}}
+            <div class="product-catalogue-wrapper">
                 <div class="uk-container uk-container-center">
-                    <h1 class="page-heading">{{ $postCatalogue->languages->first()->pivot->name }}</h1>
-                    <div class="description">
-                        {!! $postCatalogue->languages->first()->pivot->description !!}
-                    </div>
+                    <h1 class="page-heading">{{ $post->languages->first()->pivot->name }}</h1>
                 </div>
             </div>
             <div class="panel-body">
-                <div class="uk-container uk-container-center" style="padding-top:30px;padding-bottom:30px;">
+                <div class="uk-container uk-container-center" style="padding-top:20px;padding-bottom:30px;">
                     <div class="post-detail-container">
                         <div class="post-content">
-                            <div class="category-name">{{ $post->post_catalogues[0]->languages()->first()->pivot->name }}</div>
                             <div class="created_at uk-flex uk-flex-middle">
-                                <div class="time"><i class="fa fa-calendar"></i> {{ $post->created_at }} </div>
-                                <span><i class="fa fa-user"></i>Admin</span>
-                            </div>
-                            <div class="description">
-                                {!! $post->languages->first()->pivot->description !!}
+                                <div class="time">Đã đăng vào {{ convertDateTime($post->created_at, 'H:i:s d/m/Y') }} </div>
                             </div>
                             <div class="content">
                                 {!! $post->languages->first()->pivot->content !!}
@@ -52,37 +44,35 @@
                             @endif
 
                             @if($widgets['projects-feature'])
-                            <div class="post-featured mt40" data-uk-sticky="{boundary: true}">
-                                <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
-                                <div>
-                                    @foreach($widgets['projects-feature']->object as $key => $val)
-                                    @php
-                                        $name = $val->languages->first()->pivot->name;
-                                        $canonical = write_url($val->languages->first()->pivot->canonical);
-                                        $createdAt = $val->created_at;
-                                        $image = thumb($val->image, 280, 186);
-                                    @endphp
-                                    <div class="post-feature-item">
-                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                        <div class="created_at uk-flex uk-flex-middle">
-                                            <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
-                                            <span><i class="fa fa-user"></i>Admin</span>
+                                <div class="post-featured project-featured mt40">
+                                    <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
+                                    <div>
+                                        @foreach($widgets['projects-feature']->object as $key => $val)
+                                        @php
+                                            $name = $val->languages->first()->pivot->name;
+                                            $canonical = write_url($val->languages->first()->pivot->canonical);
+                                            $createdAt = $val->created_at;
+                                            $image = thumb($val->image, 280, 186);
+                                        @endphp
+                                        <div class="post-feature-item">
+                                            <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                            {{-- <div class="created_at uk-flex uk-flex-middle">
+                                                <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
+                                                <span><i class="fa fa-user"></i>Admin</span>
+                                            </div> --}}
                                         </div>
+                                        @endforeach
                                     </div>
-                                    @endforeach
                                 </div>
-                            </div>
                             @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         @include('mobile.component.news-outstanding')
     </div>
-
     
 <script>
 
