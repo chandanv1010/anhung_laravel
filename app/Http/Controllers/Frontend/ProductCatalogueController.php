@@ -9,7 +9,6 @@ use App\Services\Interfaces\ProductCatalogueServiceInterface as ProductCatalogue
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
-use App\Models\System;
 use Cart;
 use Jenssegers\Agent\Facades\Agent;
 
@@ -95,8 +94,6 @@ class ProductCatalogueController extends FrontendController
 
     private function filter($productCatalogue){
         $filters = null;
-        
-        
         $children = $this->productCatalogueRepository->getChildren($productCatalogue);
         $groupedAttributes = [];
         foreach ($children as $child) {
@@ -123,16 +120,21 @@ class ProductCatalogueController extends FrontendController
     public function search(Request $request){
 
         $products = $this->productRepository->search($request->input('keyword'), $this->language);
-        // dd($products);
 
         $productId = $products->pluck('id')->toArray();
+
         if(count($productId) && !is_null($productId)){
             $products = $this->productService->combineProductAndPromotion($productId, $products);
         }
 
-
         $config = $this->config();
+
         $system = $this->system;
+
+        $widgets = $this->widgetService->getWidget([
+            ['keyword' => 'news-outstanding','object' => true],
+        ], $this->language);
+
         $seo = [
             'meta_title' => 'Tìm kiếm cho từ khóa: '.$request->input('keyword'),
             'meta_keyword' => '',
@@ -140,11 +142,19 @@ class ProductCatalogueController extends FrontendController
             'meta_image' => '',
             'canonical' => write_url('tim-kiem')
         ];
-        return view('frontend.product.catalogue.search', compact(
+
+        if(Agent::isMobile()){
+            $template = 'mobile.product.catalogue.search';
+        }else{
+            $template = 'frontend.product.catalogue.search';
+        }
+
+        return view($template , compact(
             'config',
             'seo',
             'system',
             'products',
+            'widgets'
         ));
     }
 

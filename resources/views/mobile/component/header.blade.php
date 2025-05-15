@@ -6,7 +6,7 @@
                     <a href="." title="{{ $system['seo_meta_title'] }}" class="image img-cover">
                         <img src="{{ $system['homepage_logo'] }}" alt="Mobile Logo">
                     </a>
-                    <form action="{{ write_url('tim-kiem')  }}" class="search">
+                    <form action="{{ 'tim-kiem' }}" class="search">
                         <input type="text" name="keyword" placeholder="Tìm kiếm">
                     </form>
                 </div>

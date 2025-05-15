@@ -2,7 +2,6 @@
 @section('content')
     <div class="product-catalogue page-wrapper">
         <div class="uk-container uk-container-center mt20">
-           
             <div class="panel-body">
                 <h2 class="heading-1 mb20"><span>{{ $seo['meta_title'] }}</span></h2>
                 @if(!is_null($products) && count($products))
