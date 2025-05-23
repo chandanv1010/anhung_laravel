@@ -35,6 +35,7 @@ class PostCatalogueRepository extends BaseRepository implements PostCatalogueRep
                 'post_catalogues.follow',
                 'post_catalogues.lft',
                 'post_catalogues.rgt',
+                'post_catalogues.created_at',
                 'tb2.name',
                 'tb2.description',
                 'tb2.content',

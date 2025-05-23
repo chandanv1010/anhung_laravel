@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Ajax;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\ProductServiceInterface  as ProductService;
-use App\Repositories\Interfaces\ProductRepositoryInterface  as ProductRepository;
+use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface  as ProductCatalogueRepository;
 use App\Repositories\Interfaces\ProductVariantRepositoryInterface  as ProductVariantRepository;
 use App\Repositories\Interfaces\PromotionRepositoryInterface  as PromotionRepository;
 use App\Repositories\Interfaces\AttributeRepositoryInterface  as AttributeRepository;
@@ -16,20 +16,21 @@ use Cart;
 class ProductController extends Controller
 {
     protected $productService;
-    protected $productRepository;
+    protected $productCatalogueService;
+    protected $productCatalogueRepository;
     protected $productVariantRepository;
     protected $promotionRepository;
     protected $attributeRepository;
     protected $language;
 
     public function __construct(
-        ProductRepository $productRepository,
+        ProductCatalogueRepository $productCatalogueRepository,
         ProductVariantRepository $productVariantRepository,
         PromotionRepository $promotionRepository,
         AttributeRepository $attributeRepository,
         ProductService $productService,
     ){
-        $this->productRepository = $productRepository;
+        $this->productCatalogueRepository = $productCatalogueRepository;
         $this->productVariantRepository = $productVariantRepository;
         $this->promotionRepository = $promotionRepository;
         $this->attributeRepository = $attributeRepository;
@@ -223,6 +224,18 @@ class ProductController extends Controller
         }
 
         return response()->json($response);
+    }
+
+    public function updateOrder(Request $request){
+        $payload['order'] =  $request->input('order');
+        unset($payload['product_id']);
+        $id = $request->input('product_id');
+        $update_order = $this->productCatalogueRepository->update($id, $payload);
+        return response()->json([
+            'response' => $update_order, 
+            'messages' => 'Cập nhật thứ tự thành công',
+            'code' => (!$update_order) ? 11 : 10,
+        ]);  
     }
     
 }

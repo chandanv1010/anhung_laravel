@@ -18,6 +18,14 @@ class ContactController extends Controller
         $this->contactService = $contactService;
     }
 
+    public function requestConsult(Request $request){
+        $flag = $this->contactService->create($request);
+        return response()->json([
+            'status' => $flag['code'] == 10 ? true : false,
+            'messages' => 'Gửi yêu cầu thành công , chúng tôi sẽ sớm liên hệ với bạn',
+        ]);
+    }
+
     public function quickConsult(Request $request){
         $flag = $this->contactService->create($request);
         return response()->json([

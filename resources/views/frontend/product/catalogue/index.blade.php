@@ -5,12 +5,9 @@
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
-                <div class="description">
-                    {!! $productCatalogue->languages->first()->pivot->description !!}
-                </div>
             </div>
         </div>
-        <div class="panel-body">
+        <div class="panel-body mb30">
             <div class="uk-container uk-container-center mt20">
                 <div class="wrapper ">
                     <div class="gray-box mb20">
@@ -32,6 +29,11 @@
                         </div>
                     @endif
                 </div>
+            </div>
+        </div>
+        <div class="uk-container uk-container-center">
+            <div class="description">
+                {!! $productCatalogue->languages->first()->pivot->description !!}
             </div>
         </div>
     </div>

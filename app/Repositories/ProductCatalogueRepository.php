@@ -21,6 +21,31 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         parent::__construct($model);
     }
 
+
+    public function findByCondition(
+        $condition = [] , 
+        $flag = false, 
+        $relation = [], 
+        array $orderBy = ['order', 'asc'],
+        array $param = [],
+        array $withCount = [],
+    )
+    {
+
+        $query = $this->model->newQuery();
+        foreach($condition as $key => $val){
+            $query->where($val[0], $val[1] , $val[2]);
+        }
+        if(isset($param['whereIn'])){
+            $query->whereIn($param['whereInField'], $param['whereIn']);
+        }
+        
+        $query->with($relation);
+        $query->withCount($withCount);
+        $query->orderBy($orderBy[0], $orderBy[1]);
+        return ($flag == false) ? $query->first() : $query->get();
+    }
+
     
     public function getProductCatalogueById(int $id = 0, $language_id = 0){
         return $this->model->select([

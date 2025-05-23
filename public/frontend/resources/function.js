@@ -59,6 +59,9 @@
 			pagination: {
 				el: '.swiper-pagination',
 			},
+            autoplay: {
+                delay : 2000,
+            },
 			spaceBetween: 15,
 			slidesPerView: 1.5,
 			breakpoints: {
@@ -91,9 +94,9 @@
             speed: 500,
             slidesPerView: 1.5,
             spaceBetween: 120,
-            autoplay: {
-                delay: 3000,
-            },
+            // autoplay: {
+            //     delay: 3000,
+            // },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -336,8 +339,48 @@
 		})
     }
 
+    HT.scroll = () => {
+        $(document).ready(function() {
+            $('a[href="#system"]').on('click', function(event) {
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $('#system').offset().top - 50
+                }, 800); 
+            });
+        });
+    }
+
+
+    HT.requestConsult = () => {
+        $(document).on('click', '#advise button', function(e){
+            e.preventDefault()
+            let phone =  $('#advise input[name=phone]').val()
+            if (!phone || !/^(0[3|5|7|8|9][0-9]{8})$/.test(phone)) {
+                alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
+                return;
+            }
+            $.ajax({
+				url: 'ajax/contact/requestConsult', 
+				type: 'POST', 
+				data: {
+					'phone' : phone,
+                    '_token' : _token
+				}, 
+				dataType: 'json', 
+				success: function(res) {
+					if(res.status == true){
+                        toastr.success(res.messages, 'Thông báo từ hệ thống !')
+                        $('#advise input[name=phone]').val('')
+                    }
+				},
+			});
+        })
+    }
+
 
 	$(document).ready(function(){
+        HT.requestConsult()
+        HT.scroll()
         HT.advise()
         HT.addVoucher()
 		HT.removePagination()

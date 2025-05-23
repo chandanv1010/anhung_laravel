@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="panel-official">
+    <div class="panel-official" id="system">
         <div class="uk-container uk-container-center">
             <div class="uk-grid uk-grid-large">
                 <div class="uk-width-large-1-2">
@@ -21,7 +21,7 @@
                                 <span class="value">{{ $system['contact_email'] }}</span>
                             </div>
                             <div class="row uk-clearfix">
-                                <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xương:</span>
+                                <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
                                 <span class="value">{{ $system['contact_xuong'] }}</span>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 <span class="value">{{ $system['hcm_email'] }}</span>
                             </div>
                             <div class="row uk-clearfix">
-                                <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xương:</span>
+                                <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
                                 <span class="value">{{ $system['hcm_xuong'] }}</span>
                             </div>
                         </div>
@@ -78,9 +78,9 @@
                     </div>
                     <div class="footer-social">
                         <div class="uk-flex uk-flex-middle">
-                            <a href="{{ $system['social_facebook'] }}" class="social-item"><i class="fa fa-facebook"></i></a>
-                            <a href="{{ $system['social_twitter'] }}" class="social-item"><i class="fa fa-twitter"></i></a>
-                            <a href="{{ $system['social_instagram'] }}" class="social-item"><i class="fa fa-instagram"></i></a>
+                            <a href="{{ $system['social_facebook'] }}" class="social-item" target="_blank"><i class="fa fa-facebook"></i></a>
+                            <a href="{{ $system['social_twitter'] }}" class="social-item" target="_blank"><i class="fa fa-twitter"></i></a>
+                            <a href="{{ $system['social_instagram'] }}" class="social-item" target="_blank"><i class="fa fa-instagram"></i></a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                                     @foreach($val['children'] as $keyChild => $valChild)
                                     @php
                                         $name = $valChild['item']->languages->first()->pivot->name;
-                                        $canonical = $valChild['item']->languages->first()->pivot->canonical;
+                                        $canonical = write_url($valChild['item']->languages->first()->pivot->canonical);
                                     @endphp
                                     <li><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></li>
                                     @endforeach
@@ -132,6 +132,37 @@
         </div>
     </div>
 </footer>
+<div class="contact-fixed">
+    <ul>
+        <li>
+            <a href="https://zalo.me/{{ $system['social_zalo'] }}" target="_blank">
+                <img src="/userfiles/image/logo/q-BI_3-uzZ.png" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="" data-uk-modal="{target:'#advise'}">
+                <img src="/userfiles/image/logo/q-Dfr87qKq.png" alt="">
+            </a>
+            @include('frontend.component.advise')
+        </li>
+        <li>
+            <a href="#system">
+                <img src="/userfiles/image/logo/q-DVjHfTNn.png" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="https://m.me/{{ $system['social_messenger'] }}" target="_blank">
+                <img src="/userfiles/image/logo/q-ByOnyI_n.webp" alt="">
+            </a>
+        </li>
+        <li>
+            <a href="tel:{{ $system['contact_hotline'] }}" class="hotline">
+                <img src="/userfiles/image/logo/q-B6gPmnEf.webp" alt="">
+                <span>{{ $system['contact_hotline'] }}</span>
+            </a>
+        </li>
+    </ul>
+</div>
 
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0&appId=103609027035330"></script>

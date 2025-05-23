@@ -8,9 +8,6 @@ use App\Repositories\Interfaces\PromotionRepositoryInterface as PromotionReposit
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 /**
  * Class WidgetService
@@ -239,17 +236,16 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             $model = lcfirst(str_replace('Catalogue','', $widget->model)).'s';
             if(isset($param['object'])){
                 $relation[$model] = function($query) use ($param, $language){
+                    // $query->orderBy('order', 'asc');
                     $query->whereHas('languages', function($query) use ($language){
                         $query->where('language_id', $language);
                     });
                     $query->take(($param['limit']) ?? 10);
-                    $query->orderBy('order', 'desc');
                 };
             }
             if(isset($param['countObject'])){
                 $withCount[] = $model;
             }
-            
         }else{
             $model = lcfirst($widget->model).'_catalogues';
             $relation[$model] = function($query) use ($language){

@@ -669,9 +669,33 @@
         console.log(123)
     }
 
+    HT.changeOrder = () => {
+        $(document).on('change','.sort-order', function(){
+            let _this = $(this)
+            let option = {
+                product_id : _this.data('id'),
+                order : _this.val(),
+            }
+            $.ajax({
+                url: 'ajax/product/updateOrder', 
+                type: 'GET', 
+                data: option,
+                dataType: 'json', 
+                success: function(res) {
+                    if(res.code === 10){
+                        toastr.success('Cập nhật thứ tự thành công', 'Thông báo từ hệ thống!')
+                    }
+                },
+                beforeSend: function() {
+                    
+                },
+            });
+        })
+    }
+
 
 	$(document).ready(function(){
-        
+        HT.changeOrder()
         HT.setupProductVariant()
         HT.addVariant()
         HT.niceSelect()

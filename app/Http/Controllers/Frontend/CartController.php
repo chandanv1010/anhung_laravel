@@ -16,11 +16,8 @@ use App\Classes\Vnpay;
 use App\Classes\Momo;
 use App\Classes\Paypal;
 use App\Classes\Zalo;
-use App\Classes\ViettelPost;
-use App\Enums\VoucherEnum;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use GuzzleHttp\Client;
 
 class CartController extends FrontendController
 {
@@ -72,15 +69,6 @@ class CartController extends FrontendController
    
     public function checkout(){
 
-        // $viettelPost = new ViettelPost(
-        //     $this->system['homepage_viettelpost_email'], 
-        //     $this->system['homepage_viettelpost_password']
-        // );
-
-        // $accessToken = $viettelPost->getToken();
-
-        // $provinces = $viettelPost->getProvinces($accessToken);
-
         $provinces = $this->provinceRepository->all();
 
         $carts = Cart::instance('shopping')->content();
@@ -92,10 +80,6 @@ class CartController extends FrontendController
         $cartPromotion = $this->cartService->cartPromotion($cartCaculate['cartTotal']);
 
         $buyer = $this->getBuyer();
-
-        // if(is_null($buyer->province_id) || is_null($buyer->district_id) || is_null($buyer->ward_id)){
-        //     return redirect()->route('buyer.profile')->with('success','Bạn phải nhập đầy đủ thông tin thành phố , quận / huyện , phường / xã để thực hiện chức năng này');
-        // }
 
         $shipping = $this->cartService->totalShipping($buyer);
 
@@ -142,12 +126,6 @@ class CartController extends FrontendController
         $system = $this->system;
         $orders = $this->cartService->order($request, $system, $buyer);
         if($orders['flag']){
-            // if(!empty($orders['orders']) && $request->method !== 'cod'){
-            //     $response = $this->paymentMethod($order);
-            //     if($response['errorCode'] == 0){
-            //         return redirect()->away($response['url']);
-            //     }
-            // }
             return redirect()->route('cart.success')->with('success','Đặt hàng thành công');
         }
         return redirect()->route('cart.checkout')->with('error','Đặt hàng không thành công. Hãy thử lại');
@@ -191,7 +169,6 @@ class CartController extends FrontendController
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
             ],
             'js' => [
-                // 'backend/library/location.js',
                 'frontend/core/library/cart.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
                 'buyer/resources/buyer.js'

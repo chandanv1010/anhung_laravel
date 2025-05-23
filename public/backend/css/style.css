@@ -8595,3 +8595,6 @@ body.md-skin {
 .vc.price{
     font-size: 16px !important;
 }
+td.sort{
+    width: 100px;
+}

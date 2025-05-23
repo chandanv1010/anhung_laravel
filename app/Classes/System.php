@@ -25,9 +25,11 @@ class System{
                     ]
                 ],
                 'short_intro' => ['type' => 'editor', 'label' => 'Giới thiệu ngắn'],
-                // 'viettelpost_email' => ['type' => 'text', 'label' => 'ViettelPost Email'],
-                // 'viettelpost_password' => ['type' => 'text', 'label' => 'ViettelPost Password'],
-                'video_youtube' => [
+                'video_youtube_pc' => [
+                    'type' => 'textarea', 
+                    'label' => 'Video youtube(pc)', 
+                ],
+                'video_youtube_mobile' => [
                     'type' => 'textarea', 
                     'label' => 'Video youtube(mobile)', 
                 ],
@@ -114,6 +116,7 @@ class System{
             'value' => [
                 '1' => ['type' => 'text', 'label' => 'Text_1'],
                 '2' => ['type' => 'text', 'label' => 'Text_2'],
+                '3' => ['type' => 'text', 'label' => 'Text_3'],
             ]
         ];
 
@@ -123,6 +126,14 @@ class System{
             'value' => [
                 '1' => ['type' => 'images', 'label' => 'Ảnh(chứng chỉ 1)'],
                 '2' => ['type' => 'images', 'label' => 'Ảnh(chứng chỉ 2)'],
+            ]
+        ];
+
+        $data['link'] = [
+            'label' => 'Cấu hình đường dẫn',
+            'description' => '',
+            'value' => [
+                '1' => ['type' => 'text', 'label' => 'Gỗ óc chó nhập khẩu 100%'],
             ]
         ];
 

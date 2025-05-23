@@ -98,6 +98,8 @@ Route::post('ajax/contact/quickConsult', [AjaxContactController::class, 'quickCo
 
 Route::post('ajax/contact/advise', [AjaxContactController::class, 'advise'])->name('fe.contact.advise');
 
+Route::post('ajax/contact/requestConsult', [AjaxContactController::class, 'requestConsult'])->name('fe.contact.requestConsult');
+
 /* CUSTOMER  */
 Route::get('customer/login'.config('apps.general.suffix'), [FeAuthController::class, 'index'])->name('fe.auth.login'); 
 Route::get('customer/check/login'.config('apps.general.suffix'), [FeAuthController::class, 'login'])->name('fe.auth.dologin');
@@ -446,6 +448,8 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
    Route::post('ajax/construct/createCustomer', [AjaxCustomerController::class,'createCustomer'])->name('ajax.construct.createCustomer');
    Route::post('ajax/product/deleteProduct', [AjaxConstructController::class, 'deleteProduct'])->name('ajax.product.deleteProduct');
    Route::get('ajax/dashboard/findInformationObject', [AjaxDashboardController::class, 'findInformationObject'])->name('ajax.findInformationObject');
+
+   Route::get('ajax/product/updateOrder', [AjaxProductController::class, 'updateOrder'])->name('ajax.updateOrder');
 });
 
 
