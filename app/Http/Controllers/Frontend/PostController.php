@@ -70,6 +70,8 @@ class postController extends FrontendController
 
         if(Agent::isMobile() && $post->template == '1'){
             $template = 'mobile.post.post.design';
+        }else if($post->template == '1'){
+            $template = 'frontend.post.post.design';
         }
         else if(Agent::isMobile()){
             $template = 'mobile.post.post.index';

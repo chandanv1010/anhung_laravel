@@ -3,7 +3,6 @@
         <h2 class="cart-heading">
             <span>Thông tin giao hàng</span>
         </h2>
-        {{-- <span class="has-account">Bạn đã có tài khoản? <a href="" title="Đăng nhập ngay">Đăng nhập ngay</a></span> --}}
     </div>
     
 </div>

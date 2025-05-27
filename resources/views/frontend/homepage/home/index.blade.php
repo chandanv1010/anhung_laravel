@@ -120,29 +120,30 @@
             </div>
         </div>
         @if(isset($widgets['intro']))
-        <div class="panel-intro">
-            <div class="uk-container uk-container-center">
-                <h2 class="heading-2"><span>{{ $widgets['intro']->name }}</span></h2>
-                <div class="intro-container uk-container-center">
-                    <span class="image img-cover img-zoominhgh"><img src="{{ $widgets['intro']->album[0] }}" alt=""></span>
-                    <div class="intro-item-container">
-                        @foreach($widgets['intro']->object as $key => $val)
-                            @php
-                                $name = $val->languages->first()->pivot->name;
-                                $canonical = write_url($val->languages->first()->pivot->canonical);
-                                $description = cutnchar(strip_tags($val->languages->first()->pivot->description), 100);
-                            @endphp
-                            <div class="intro-item">
-                                <h3 class="title"><a href="{{ write_url('ve-chung-toi') }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                <div class="description">
-                                    {{ $description  }}
+            <div class="panel-intro">
+                <div class="uk-container uk-container-center">
+                    <h2 class="heading-2"><span>{{ $widgets['intro']->name }}</span></h2>
+                    <div class="intro-container uk-container-center">
+                        <span class="image img-cover img-zoominhgh">
+                            <img src="{{ $widgets['intro']->album[0] }}" alt="">
+                        </span>
+                        <div class="intro-item-container">
+                            @foreach($widgets['intro']->object as $key => $val)
+                                @php
+                                    $name = $val->languages->first()->pivot->name;
+                                    $canonical = write_url($val->languages->first()->pivot->canonical);
+                                    $description = cutnchar(strip_tags($val->languages->first()->pivot->description), 100);
+                                @endphp
+                                <div class="intro-item">
+                                    <h3 class="title">
+                                        <a href="{{ write_url('ve-chung-toi') }}" title="{{ $name }}">{{ $name }}</a>
+                                    </h3>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         @endif
         @if(isset($widgets['category-1'] ))
             @php
@@ -198,7 +199,7 @@
                             <div class="uk-grid uk-grid-medium">
                                 @foreach($cat->products as $keyProduct => $product)
                                 @if($keyProduct > 2) @break @endif
-                                <div class="uk-width-medium-1-5">
+                                <div class="uk-width-medium-1-3">
                                     @include('frontend/component/product-item', ['product' => $product])
                                 </div>
                                 @endforeach
@@ -226,24 +227,6 @@
                         </div>
                         @if(isset($val->posts) && count($val->posts))
                             <div class="panel-body">
-                                {{-- <div class="swiper-container">
-                                    <div class="swiper-button-next"></div>
-                                    <div class="swiper-button-prev"></div>
-                                    <div class="swiper-wrapper">
-                                        @foreach($val->posts as $keyPost => $post )
-                                        @php
-                                            $name = $post->languages->first()->pivot->name;
-                                            $canonical = write_url($post->languages->first()->pivot->canonical);
-                                            $image = thumb($post->image, 630, 362)
-                                        @endphp
-                                        <div class="swiper-slide">
-                                            <div class="service-item">
-                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div> --}}
                                 <div class="uk-grid uk-grid-medium">
                                     @foreach($val->posts as $keyPost => $post)
                                         @if($keyPost > 5) @break; @endif
@@ -284,7 +267,7 @@
                 <div class="uk-container uk-container-center">
                     <div class="panel-head">
                         <h2 class="heading-6">
-                            <span>{{ $nameC }}</span>
+                            <span>{{$widgets['video']->name }}</span>
                             <i class="fa fa-play"></i>
                             <span class="line"></span>
                         </h2>
@@ -299,11 +282,10 @@
                                 $canonical = write_url($post->languages->first()->pivot->canonical);
                                 $image = thumb($post->image, 210, 315);
                             @endphp
-                            <div class="uk-width-small-1-6">
+                            <div class="uk-width-small-1-4">
                                 <div class="video-item">
-                                    <a href="{{ $post->video }}" class="image img-cover img-zoomin" target="_blank">
-                                        <img src="{{ $image }}" alt="{{ $name }}">
-                                        {{-- <span><i class="fa fa-play"></i></span> --}}
+                                    <a href="" class="image img-scaledown">
+                                        {!! $post->video !!}
                                     </a>
                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
                                 </div>

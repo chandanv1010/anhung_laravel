@@ -11,10 +11,6 @@
             <div class="uk-container uk-container-center" style="padding-top:30px;padding-bottom:30px;">
                 <div class="post-detail-container about-us">
                     <div class="post-content">
-                        <div class="created_at uk-flex uk-flex-middle">
-                            <div class="time"><i class="fa fa-calendar"></i> {{ $postCatalogue->created_at }} </div>
-                            <span><i class="fa fa-user"></i>Admin</span>
-                        </div>
                         <div class="description">
                             {!! $postCatalogue->languages->first()->pivot->description !!}
                         </div>

@@ -12,7 +12,7 @@
                 <span class="main-text">Yêu cầu tư vấn</span>
                 <span class="small-text">Thông tin chi tiết nhất</span>
             </a>
-            @include('frontend.product.product.component.suggest', ['product' => $product])
+            @include('frontend.product.product.component.suggest', ['payload' => $product])
         </div>
         <div class="uk-width-large-1-2">
             <a class="button-item book" data-uk-modal="{target:'#suggest'}">
@@ -44,6 +44,10 @@
             <div class="uk-width-large-1-2">
                 <button class="order-button-item order-buy-now" data-id="{{ $product->id }}">
                     Mua ngay
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 320 512" class="w-5 h-5 text-[#B20000]"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"></path>
+                        </svg>
+                    </div>
                 </button>
             </div>
         </div>

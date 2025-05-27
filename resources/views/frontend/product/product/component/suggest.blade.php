@@ -5,18 +5,18 @@
                 <div class="uk-width-medium-1-3">
                     <div class="info-product">
                         <h3 class="heading-2">
-                            <span>{{ $product->name }}</span>
+                            <span>{{ $payload->name }}</span>
                             <div class="border-remark"></div>
                         </h3>
                         <a href="" class="image img-cover">
-                            <img src="{{ $product->image }}" alt="">
+                            <img src="{{ $payload->image }}" alt="">
                         </a>
                         <div class="product-price">
-                            {!! $price['html'] !!}
+                            {!! $price['html'] ?? null !!} 
                         </div>
-                        <div class="description">
-                            {!! $product->description !!}
-                        </div>
+                        {{-- <div class="description">
+                            {!! $payload->description !!}
+                        </div> --}}
                     </div>
                 </div>
                 <div class="uk-width-medium-2-3">
@@ -63,7 +63,7 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="product_id" value="{{ $payload->id }}">
                             <button type="submit" class="advise">Gửi tin tư vấn</button>
                         </div>
                     </form>

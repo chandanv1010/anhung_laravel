@@ -78,9 +78,20 @@
                     </div>
                     <div class="footer-social">
                         <div class="uk-flex uk-flex-middle">
-                            <a href="{{ $system['social_facebook'] }}" class="social-item" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="{{ $system['social_twitter'] }}" class="social-item" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="{{ $system['social_instagram'] }}" class="social-item" target="_blank"><i class="fa fa-instagram"></i></a>
+                            <a href="{{ $system['social_facebook'] }}" class="social-item" target="_blank">
+                                <i class="fa fa-facebook"></i>
+                            </a>
+                            <a href="{{ $system['social_youtube'] }}" class="social-item" target="_blank">
+                                <i class="fa fa-youtube"></i>
+                            </a>
+                            <a href="{{ $system['social_instagram'] }}" class="social-item" target="_blank">
+                                <i class="fa fa-instagram"></i>
+                            </a>
+                            <a href="{{ $system['social_tiktok'] }}" class="social-item" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 448 512">
+                                    <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25v178.72A162.55 162.55 0 1 1 185 188.31v89.89a74.62 74.62 0 1 0 52.23 71.18V0h88a121 121 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"></path>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>

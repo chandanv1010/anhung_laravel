@@ -80,7 +80,6 @@
     @include('frontend.component.news')
 </div>
 
-
 <script>
 
 

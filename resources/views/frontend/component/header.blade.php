@@ -82,7 +82,7 @@
                 <ul class="uk-flex uk-flex-middle navigation">
                     {!! $menu['main-menu'] !!}
                 </ul>
-                <a href="{{ $system['link_1'] }}" class="certificate">
+                <a href="{{ write_url( $system['link_1']) }}" class="certificate">
                     <span class="quality">100%</span>
                     <div class="certificate-content">
                         <div class="certificate-title">Gỗ óc chó</div>
