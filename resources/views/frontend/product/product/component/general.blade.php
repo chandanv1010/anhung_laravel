@@ -7,7 +7,6 @@
             <li><a href="">Gợi ý kết hợp</a></li>
         </ul>
 
-        <!-- This is the container of the content items -->
         <ul id="my-id" class="uk-switcher">
             <li>
                 <div class="content-container">
@@ -31,42 +30,41 @@
                     @endphp
                     <div class="post-feature-item">
                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                        <div class="created_at uk-flex uk-flex-middle">
+                        {{-- <div class="created_at uk-flex uk-flex-middle">
                             <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
                             <span><i class="fa fa-user"></i>Admin</span>
-                        </div>
+                        </div> --}}
                     </div>
                     @endforeach
                 </div>
             </div>
         @endif
 
-        {{-- @dd($cartSeen) --}}
         @if(isset($cartSeen))
-        <div class="product-seen mt30 mb30">
-            <div class="aside-heading">Sản phẩm đã xem</div>
-            <div>
-                @foreach($cartSeen as $key => $val)
-                @php
-                    $name = $val->name;
-                    $canonical = write_url($val->options['canonical']);
-                    $image = $val->options['image'];
-                    $price = $val->price;
-                @endphp
-                <div class="product-seen-item">
-                    <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                    <div class="info">
-                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
-                            <div class="price">
-                                Giá: <span>{{ number_format($price, 0, ',', '.') }}</span>
+            <div class="product-seen mt30 mb30">
+                <div class="aside-heading">Sản phẩm đã xem</div>
+                <div>
+                    @foreach($cartSeen as $key => $val)
+                    @php
+                        $name = $val->name;
+                        $canonical = write_url($val->options['canonical']);
+                        $image = $val->options['image'];
+                        $price = $val->price;
+                    @endphp
+                    <div class="product-seen-item">
+                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                        <div class="info">
+                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                            <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                                <div class="price">
+                                    Giá: <span>{{ number_format($price, 0, ',', '.') }}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
         @endif
 
         @if(isset($widgets['projects-feature']))

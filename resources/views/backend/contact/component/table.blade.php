@@ -33,10 +33,10 @@
                         {{ $contact->address }}
                     </td>
                     <td>
-
+                       {{ $contact->products->languages->first()->pivot->name  }}
                     </td>
                     <td>
-                        
+                        {{ $contact->posts->languages->first()->pivot->name  }}
                     </td>
                     <td class="text-center"> 
                         <a href="{{ route('contact.delete', $contact->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>

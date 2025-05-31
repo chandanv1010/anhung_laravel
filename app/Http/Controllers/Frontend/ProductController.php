@@ -14,7 +14,6 @@ use App\Repositories\Interfaces\CustomerRepositoryInterface as CustomerRepositor
 use App\Repositories\Interfaces\ReviewRepositoryInterface as ReviewRepository;
 use App\Repositories\Interfaces\VoucherRepositoryInterface as VoucherRepository;
 use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
-use App\Models\System;
 use Illuminate\Support\Facades\Auth;
 use Cart;
 use Jenssegers\Agent\Facades\Agent;

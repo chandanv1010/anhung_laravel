@@ -540,8 +540,66 @@ class CartService  implements CartServiceInterface
     public function order($request, $system, $buyer = null){
         DB::beginTransaction();
         try{
-            // Tách đơn, các sản phẩm của shop nào thì về shop đấy
             $carts = Cart::instance('shopping')->content();
+            $orderSeparate = $this->orderSeparate();
+            $orders = [];
+            $totalAmount = 0;
+            $totalItems = 0;
+            $orderIds = [];
+            if($orderSeparate){
+                foreach($orderSeparate as $keySellerOrder => $sellerOrder){
+                    //Tính toán lại tổng tiền cho mỗi đơn hàng tách ra
+                    $cartCaculateForSeller = $this->calculateCartForSeller($sellerOrder['items']);
+                    $cartPromotion = $this->cartPromotion($cartCaculateForSeller['cartTotal']);
+                    $payload = $this->request($request, $cartCaculateForSeller, $cartPromotion);
+                    // Thêm vào thông tin người mua
+                    if(!is_null($buyer)){
+                        $payload['customer_id'] = $buyer->id;
+                    }
+                    $shipping = $this->totalShipping($buyer);
+                    $payload['cart']['cartVoucher'] = $this->handleTotalVoucher($carts);
+                    $payload['shipping'] = $shipping['sellerShippingCost'][$sellerOrder['seller_id']]['cost'] ?? 0;
+                    $order = $this->orderRepository->create($payload, ['products']);
+                    if($order->id > 0){
+                        $this->createOrderProduct($payload, $order, $sellerOrder, $request);
+                        if($payload['cart']['cartVoucher'] !== 0){
+                            $this->createOrderVoucher($order, $carts);
+                        }
+                        $orders[] = $order;
+                        $totalAmount += $order['cart']['cartTotal'];
+                        $totalItems += $order['cart']['cartTotalItems'];
+                        $orderIds[] = $order->id;
+                    }
+                }
+            } 
+            $orderSummary = [
+                'orders' => $orders,
+                'totalAmount' => $totalAmount,
+                'totalItems' => $totalItems,
+                'orderIds' => $orderIds,
+                'buyer' => $buyer,
+                'orderCount' => count($orders),
+                'flag' => TRUE,
+            ];
+            session(['orderSummary' => $orderSummary]);
+            Cart::instance('shopping')->destroy();
+            DB::commit();
+            return $orderSummary;
+        }catch(\Exception $e ){
+            DB::rollBack();
+            // Log::error($e->getMessage());
+            echo $e->getMessage();die();
+            return [
+                'order' => null,
+                'flag' => false,
+            ];
+        }
+    }
+
+    public function pay($request, $system, $buyer = null){
+        DB::beginTransaction();
+        try{
+            $carts = Cart::instance('pay')->content();
             $orderSeparate = $this->orderSeparate();
             $orders = [];
             $totalAmount = 0;

@@ -4,13 +4,15 @@
         @include('mobile.component.slide')
         @if(isset($widgets['intro']))
             <div class="panel-mobile-intro">
-                <h2 class="heading-1"><span>{{ $widgets['intro']->name }}</span></h2>
-                <div class="description">
-                    {!! $widgets['intro']->description[1] !!}
-                </div>
+                <a href="{{ write_url('ve-chung-toi') }}">
+                    <h2 class="heading-1"><span>{{ $widgets['intro']->name }}</span></h2>
+                    <div class="description">
+                        {!! $widgets['intro']->description[1] !!}
+                    </div>
+                </a>
             </div>
         @endif
-        @if(isset($widgets['category-mobile']))
+        {{-- @if(isset($widgets['category-mobile']))
             <div class="panel-category">
                 @foreach($widgets['category-mobile']->object as $category)
                 @php
@@ -24,7 +26,7 @@
                 </div>
                 @endforeach
             </div>
-        @endif
+        @endif --}}
         @if(isset($widgets['services-1']))
             <div class="mobile-service-container">
                 @foreach($widgets['services-1']->object as $key => $val)
@@ -87,13 +89,21 @@
                         </div>
                         @if($cat->products)
                         <div class="panel-body">
-                            <div class="uk-grid uk-grid-medium">
+                            {{-- <div class="uk-grid uk-grid-medium">
                                 @foreach($cat->products as $keyProduct => $product)
-                                @if($keyProduct > 2) @break @endif
-                                <div class="uk-width-medium-1-3">
-                                    @include('frontend/component/product-item', ['product' => $product])
-                                </div>
+                                    <div class="uk-width-medium-1-3">
+                                    </div>
                                 @endforeach
+                            </div> --}}
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    @foreach($cat->products as $keyProduct => $product)
+                                        @if($keyProduct > 2) @break @endif
+                                        <div class="swiper-slide">
+                                            @include('frontend/component/product-item', ['product' => $product])
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         @endif

@@ -1857,7 +1857,7 @@ ul li,ol li{
 .product-general-info {
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 15px;
+    /* padding: 0 15px; */
     gap: 20px;
 }
 
@@ -2354,6 +2354,7 @@ ul li,ol li{
 }
 .sys-item label{
     font-weight: 400;
+    font-size: 15px;
 }
 #suggest .showroom-sys p{
     margin-bottom: 20px;
@@ -2649,4 +2650,14 @@ ul li,ol li{
 }
 .design-general .button-item{
     padding: 14px;
+}
+.pay{
+    padding: 50px 0;
+}
+.pay .showroom-sys p{
+    font-weight: 600 !important;
+    font-size: 16px;
+}
+.info-form label{
+    cursor: pointer;
 }

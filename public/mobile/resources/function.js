@@ -169,9 +169,6 @@
             loop: false,
             speed: 500,
             spaceBetween: 30,
-            // autoplay: {
-            //     delay: 3000,
-            // },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
@@ -231,10 +228,33 @@
 		})
     }
 
+    HT.product = () => {
+		const swiper = new Swiper('.panel-product .swiper-container', {
+            centeredSlides: false,
+            loop: false,
+            autoplay:{
+                delay: 3000
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                300: {
+                    slidesPerView: 1,
+                },
+                1280: {
+					slidesPerView: 1,
+				}
+            },
+        });
+		
+	}
 
 
 
     $(document).ready(function(){
+        HT.product()
         HT.advise()
         HT.video()
         HT.service()

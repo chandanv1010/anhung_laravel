@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\QueryScopes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
@@ -23,5 +24,13 @@ class Contact extends Model
     ];
 
     protected $table = 'contacts';
+
+    public function products(){
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function posts(){
+        return $this->belongsTo(Post::class, 'post_id', 'id');
+    }
 
 }

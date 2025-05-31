@@ -9,7 +9,10 @@ use App\Repositories\Interfaces\ProvinceRepositoryInterface  as ProvinceReposito
 use App\Repositories\Interfaces\PromotionRepositoryInterface  as PromotionRepository;
 use App\Repositories\Interfaces\OrderRepositoryInterface  as OrderRepository;
 use App\Repositories\Interfaces\VoucherRepositoryInterface  as VoucherRepository;
+use App\Repositories\Interfaces\ProductRepositoryInterface  as ProductRepository;
 use App\Services\Interfaces\VoucherServiceInterface as VoucherService;
+use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
+use App\Services\Interfaces\ContactServiceInterface  as ContactService;
 use App\Http\Requests\StoreCartRequest;
 use Cart;
 use App\Classes\Vnpay;
@@ -23,11 +26,14 @@ class CartController extends FrontendController
 {
   
     protected $provinceRepository;
+    protected $productRepository;
     protected $promotionRepository;
     protected $orderRepository;
     protected $voucherRepository;
     protected $cartService;
+    protected $widgetService;
     protected $voucherService;
+    protected $contactService;
     protected $vnpay;
     protected $momo;
     protected $paypal;
@@ -36,11 +42,14 @@ class CartController extends FrontendController
 
     public function __construct(
         ProvinceRepository $provinceRepository,
+        ProductRepository $productRepository,
         PromotionRepository $promotionRepository,
         OrderRepository $orderRepository,
         VoucherRepository $voucherRepository,
         VoucherService $voucherService,
         CartService $cartService,
+        WidgetService $widgetService,
+        ContactService $contactService,
         Vnpay $vnpay,
         Momo $momo,
         Paypal $paypal,
@@ -48,11 +57,14 @@ class CartController extends FrontendController
     ){
        
         $this->provinceRepository = $provinceRepository;
+        $this->productRepository = $productRepository;
         $this->promotionRepository = $promotionRepository;
         $this->orderRepository = $orderRepository;
         $this->voucherRepository = $voucherRepository;
         $this->cartService = $cartService;
         $this->voucherService = $voucherService;
+        $this->widgetService = $widgetService;
+        $this->contactService = $contactService;
         $this->vnpay = $vnpay;
         $this->momo = $momo;
         $this->paypal = $paypal;
@@ -120,6 +132,52 @@ class CartController extends FrontendController
         ));
         
     }
+
+    public function pay(){
+
+        $carts = Cart::instance('pay')->content();
+
+        $product_id = null;
+
+        foreach($carts as $item){
+            $product_id = $item->id;
+        }
+
+        $product = $this->productRepository->findById($product_id);
+
+        $widgets = $this->widgetService->getWidget([
+            ['keyword' => 'showroom-system','object' => true],
+        ], $this->language);
+
+        $seo = [
+            'meta_title' => 'Trang thanh toán đơn hàng',
+            'meta_keyword' => '',
+            'meta_description' => '',
+            'meta_image' => '',
+            'canonical' => write_url('thanh-toan', TRUE, TRUE),
+        ];
+
+        $system = $this->system;
+
+        $config = $this->config();
+
+        return view('frontend.cart.pay', compact(
+            'config',
+            'seo',
+            'system',
+            'product',
+            'widgets'
+        ));
+        
+    }
+
+    public function storePay(StoreCartRequest $request){
+        if($this->contactService->create($request)){
+            return redirect()->route('cart.pay')->with('success','Gửi yêu cầu thành công . Chúng tôi sẽ sớm liên hệ với bạn');
+        }
+        return redirect()->route('cart.pay')->with('error','Gửi yêu cầu không thành công. Hãy thử lại');
+    }
+
 
     public function store(StoreCartRequest $request){
         $buyer = $this->getBuyer();

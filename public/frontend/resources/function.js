@@ -298,7 +298,7 @@
     }
 
     HT.advise = () => {
-        $(document).on('click','#suggest button', function(e){
+        $(document).on('click','.suggest-aj button', function(e){
             e.preventDefault()
             let _this = $(this)
             let option  = {

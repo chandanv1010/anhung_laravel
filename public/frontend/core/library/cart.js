@@ -96,7 +96,7 @@
                 toastr.clear()
                         if(res.code === 10){
                     toastr.success(res.messages, 'Thông báo từ hệ thống!')
-                    window.location.href = 'thanh-toan.html'
+                    window.location.href = 'gio-hang.html'
                 }else{
                     toastr.error('Có vấn đề xảy ra! Hãy thử lại', 'Thông báo từ hệ thống!')
                 }
@@ -420,29 +420,13 @@
             e.preventDefault()
             let _this = $(this)
             let id = _this.attr('data-id')
-            let quantity = $('.quantity-text').val()
-            if(typeof quantity === 'undefined'){
-                quantity = 1
-            }
-            
-            let attribute_id = []
-
-            $('.attribute-value .choose-attribute').each(function(){
-                let _this = $(this)
-                if(_this.hasClass('active')){
-                attribute_id.push(_this.attr('data-attributeid'))
-                }
-            })
-
             let option = {
                 id : id,
-                quantity: quantity,
-                attribute_id: attribute_id,
                 _token: _token
             }
 
             $.ajax({
-                    url: 'ajax/cart/create', 
+                    url: 'ajax/cart/pay', 
                     type: 'POST', 
                     data: option, 
                     dataType: 'json', 
@@ -450,7 +434,7 @@
                         
                     },
                     success: function(res) {
-                window.location.href = 'thanh-toan.html';
+                        window.location.href = 'thanh-toan.html';
                     },
                 });
 

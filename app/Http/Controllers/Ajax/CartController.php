@@ -6,9 +6,6 @@ use App\Http\Controllers\FrontendController;
 use App\Services\CartService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use Illuminate\Http\Request;
-use App\Enums\VoucherEnum;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 
@@ -54,6 +51,26 @@ class CartController extends FrontendController
             'messages' => 'Xóa sản phẩm khỏi giỏ hàng thành công',
             'code' => (!$response) ? 11 : 10,
         ]);  
+    }
+
+    public function pay(Request $request){
+        $id = $request->input('id');
+        if($product = $this->productRepository->findById($id)){
+            $data = [
+                'id' => $product->id,
+                'image' => $product->image,
+                'name' => $product->languages->first()->pivot->name,
+                'price' => $product->price,
+                'qty' => 1,
+            ];
+            Cart::instance('pay')->destroy();
+            Cart::instance('pay')->add($data);
+            $pay = Cart::instance('pay')->content();
+            return response()->json([
+                'pay' => $pay, 
+                'code' => ($product) ? 10 : 11,
+            ]);  
+        }
     }
 
 

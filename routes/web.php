@@ -114,16 +114,24 @@ Route::get('customer/password/update'.config('apps.general.suffix'), [FeAuthCont
 Route::post('customer/password/change'.config('apps.general.suffix'), [FeAuthController::class, 'changePassword'])->name('customer.password.reset');
 
 
-
 Route::get('shop/{account}', [SellerController::class, 'shop'])->name('seller.shop');
 
-
 Route::get('he-thong-phan-phoi'.config('apps.general.suffix'), [FeDistributionController::class, 'index'])->name('distribution.list.index');
+
 Route::get('danh-sach-yeu-thich'.config('apps.general.suffix'), [FeProductCatalogueController::class, 'wishlist'])->name('product.catalogue.wishlist');
-Route::get('thanh-toan'.config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout')->middleware('buyer');
+
+Route::get('gio-hang'.config('apps.general.suffix'), [CartController::class, 'checkout'])->name('cart.checkout');
+
+Route::get('thanh-toan'.config('apps.general.suffix'), [CartController::class, 'pay'])->name('cart.pay');
+
 Route::get('{canonical}'.config('apps.general.suffix'), [RouterController::class, 'index'])->name('router.index')->where('canonical', '[a-zA-Z0-9-]+');
+
 Route::get('{canonical}/trang-{page}'.config('apps.general.suffix'), [RouterController::class, 'page'])->name('router.page')->where('canonical', '[a-zA-Z0-9-]+')->where('page', '[0-9]+');
+
 Route::post('cart/create', [CartController::class, 'store'])->name('cart.store');
+
+Route::post('cart/createPay', [CartController::class, 'storePay'])->name('cart.storePay');
+
 Route::get('cart/success'.config('apps.general.suffix'), [CartController::class, 'success'])->name('cart.success');
 
 /* FRONTEND SYSTEM */
@@ -157,6 +165,8 @@ Route::get('ajax/cart/applyCartVoucher', [AjaxCartController::class, 'applyCartV
 Route::get('ajax/cart/unUseVoucher', [AjaxCartController::class, 'unUseVoucher'])->name('ajax.cart.unUseVoucher');
 Route::get('ajax/location/getLocation', [LocationController::class, 'getLocation'])->name('ajax.location.index');
 Route::post('updatePermission', [CustomerCatalogueController::class, 'updatePermission'])->name('customer.catalogue.updatePermission');
+
+Route::post('ajax/cart/pay', [AjaxCartController::class, 'pay'])->name('ajax.cart.pay');
 
 
 Route::get('ajax/dashboard/findModelObject', [AjaxDashboardController::class, 'findModelObject'])->name('ajax.dashboard.findModelObject');
