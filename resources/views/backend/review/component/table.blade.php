@@ -10,6 +10,7 @@
         <th style="width: 400px;">Nội dung</th>
         <th>Rate</th>
         <th>Đối tượng</th>
+        <th>Trạng thái</th>
         <th class="text-center">Thao tác</th>
     </tr>
     </thead>
@@ -39,7 +40,20 @@
                     <div class="text-navy">{{ $review->score }}</div>
                 </td>
                 <td>
-                    <a href="{{ write_url($reviewableLink) }}" target="_blank">Click để xem đối tượng</a>
+                    @if($review->status == 0)
+                        <a href="{{ write_url($reviewableLink) }}" target="_blank" id="review-link" class="disabled-link">Click để xem đối tượng</a>
+                    @else
+                        <a href="{{ write_url($reviewableLink) }}" target="_blank" id="review-link" class="">Click để xem đối tượng</a>
+                    @endif
+                </td>
+                <td>
+                    @if(!empty(__('messages.status')))
+                        <select name="status" id="status-review" class="form-control" data-id="{{ $review->id }}">
+                            @foreach(__('messages.status') as $key => $val)
+                                <option value="{{ $key }}" {{ $key == $review->status ? 'selected' : '' }}>{{ $val }}</option>
+                            @endforeach
+                        </select>
+                    @endif
                 </td>
                 <td class="text-center"> 
                     <a href="{{ route('review.delete', $review->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>

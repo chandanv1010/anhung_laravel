@@ -9,8 +9,8 @@ use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueServic
 use App\Services\Interfaces\PostServiceInterface as PostService;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
-use App\Models\System;
 use Jenssegers\Agent\Facades\Agent;
+use App\Models\Post;
 
 class postController extends FrontendController
 {
@@ -41,6 +41,8 @@ class postController extends FrontendController
     public function index($id, $request){
         $language = $this->language;
         $post = $this->postRepository->getPostById($id, $this->language, config('apps.general.defaultPublish'));
+        $viewed = $post->viewed;
+        $updateViewed = Post::where('id', $id)->update(['viewed' => $viewed + 1]); 
         if(is_null($post)){
             abort(404);
         }
@@ -60,6 +62,7 @@ class postController extends FrontendController
             ['keyword' => 'projects-feature'],
             ['keyword' => 'news'],
             ['keyword' => 'news-outstanding','object' => true],
+            ['keyword' => 'design_construction_interior', 'object' => true],
         ], $this->language);
 
         /* ------------------- */
@@ -97,10 +100,12 @@ class postController extends FrontendController
             'js' => [
                 'frontend/core/library/cart.js',
                 'frontend/core/library/product.js',
-                'frontend/core/library/review.js'
+                'frontend/core/library/review.js',
+                'https://prohousevn.com/scripts/fancybox-3/dist/jquery.fancybox.min.js'
             ],
             'css' => [
                 'frontend/core/css/product.css',
+                'https://prohousevn.com/scripts/fancybox-3/dist/jquery.fancybox.min.css'
             ]
         ];
     }

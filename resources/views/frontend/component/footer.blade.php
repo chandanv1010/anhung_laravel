@@ -10,7 +10,10 @@
                         <div class="panel-body">
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-home"></i>Địa chỉ:</span>
-                                <span class="value">{{ $system['contact_office'] }}</span>
+                                <a href="{{ $system['contact_office_map'] }}" class="value" target="_blank">
+                                    {{ $system['contact_office'] }}
+                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                </a>
                             </div>
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-phone"></i>Điện thoại: </span>
@@ -22,7 +25,10 @@
                             </div>
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
-                                <span class="value">{{ $system['contact_xuong'] }}</span>
+                                <a href="{{ $system['contact_xuong_map'] }}" class="value" target="_blank">
+                                    {{ $system['contact_xuong'] }}
+                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -35,7 +41,10 @@
                         <div class="panel-body">
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-home"></i>Địa chỉ:</span>
-                                <span class="value">{{ $system['hcm_office'] }}</span>
+                                <a href="{{ $system['hcm_office_map'] }}" class="value" target="_blank">
+                                    {{ $system['hcm_office'] }}
+                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                </a>
                             </div>
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-phone"></i>Điện thoại: </span>
@@ -47,7 +56,10 @@
                             </div>
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
-                                <span class="value">{{ $system['hcm_xuong'] }}</span>
+                                <a href="{{ $system['hcm_xuong_map'] }}" class="value" target="_blank">
+                                    {{ $system['hcm_xuong'] }}
+                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -174,6 +186,5 @@
         </li>
     </ul>
 </div>
-
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0&appId=103609027035330"></script>

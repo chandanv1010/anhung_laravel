@@ -25,7 +25,7 @@
                             <div class="img-cover image-post"><img src="{{ thumb(image($post->image), 80, 50) }}" alt=""></div>
                         </div>
                         <div class="main-info">
-                            <div class="name"><span class="maintitle">{{ $post->name }}</span></div>
+                            <div class="name"><span class="maintitle">{{ $post->name }} ({{ $post->viewed ?? 0 }})</span></div>
                             <div class="catalogue">
                                 <span class="text-danger">{{ __('messages.tableGroup') }} </span>
                                 @foreach($post->post_catalogues as $val)

@@ -23,15 +23,23 @@
     </div>
     <div class="quick-consult">
         <div class="quick-consult-title">Tư vấn nhanh</div>
-        <div class="quick-consult-form">
+        <div class="quick-consult-form" data-id="{{ $product->id }}">
             <input type="number" name="phone" class="phone-input" placeholder="Nhập số điện thoại..." required>
-            <button type="submit" class="submit-button">Gửi</button>
+            <button type="submit" class="submit-button" >Gửi</button>
         </div>
     </div>
     <div class="shopware mb20">
         <p>HỆ THỐNG SHOWROOM CHÍNH HÃNG:</p>
-        <p>Hà Nội: {{ $system['contact_office'] }}</p>
-        <p>TP. HCM: {{ $system['hcm_office'] }}</p>
+        <p>
+            <a href="{{ $system['contact_office_map'] }}" target="_blank">
+                Hà Nội: {{ $system['contact_office'] }}
+            </a>
+        </p>
+        <p>
+            <a href="{{ $system['hcm_office_map'] }}" target="_blank">
+                TP. HCM: {{ $system['hcm_office'] }}
+            </a>
+        </p>
     </div>
 
     <div class="order-group">

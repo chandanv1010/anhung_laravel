@@ -58,8 +58,9 @@ class ProductCatalogueController extends FrontendController
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
+            ['keyword' => 'projects-feature', 'object' => true],
+            ['keyword' => 'design_construction_interior', 'object' => true],
         ], $this->language);
-
 
         $config = $this->config();
         $system = $this->system;

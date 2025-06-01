@@ -21,7 +21,8 @@ class Post extends Model
         'user_id',
         'post_catalogue_id',
         'video',
-        'template'
+        'template',
+        'viewed'
     ];
 
     protected $table = 'posts';

@@ -6,9 +6,14 @@
         <div class="swiper-container">
             <div class="swiper-wrapper big-pic">
                 <?php foreach($gallery as $key => $val){  ?>
-                <div class="swiper-slide" data-swiper-autoplay="2000">
-                    <a href="{{ $val }}" data-uk-lightbox="{group:'my-group'}" class="image img-cover"><img src="{{ image($val) }}" alt="<?php echo $val ?>"></a>
-                </div>
+                    <div class="swiper-slide" data-swiper-autoplay="2000">
+                        {{-- <a href="{{ $val }}" data-uk-lightbox="{group:'my-group'}" class="image img-cover">
+                            <img src="{{ image($val) }}" alt="<?php echo $val ?>">
+                        </a> --}}
+                        <a href="{{ $val }}" data-fancybox="my-group" class="image img-cover">
+                            <img src="{{ image($val) }}" alt="<?php echo $val ?>">
+                        </a>
+                    </div>
                 <?php }  ?>
             </div>
             <div class="swiper-pagination"></div>

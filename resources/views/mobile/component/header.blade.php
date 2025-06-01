@@ -54,15 +54,6 @@
                         @endif
                     </li>
                 @endforeach
-                @if(isset($customerAuth))
-                    <li>
-                        <a href="{{ route('buyer.profile') }}" class="l1">Xin chào: {{ $customerAuth->name }}</a>
-                    </li>
-                @else
-                    <li>
-                        <a href="{{ route('buyer.login') }}" class="l1">Đăng nhập</a>
-                    </li>
-                @endif
             </ul>
 		@endif
 	</div>

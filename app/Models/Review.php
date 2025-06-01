@@ -19,6 +19,7 @@ class Review extends Model
         'phone',
         'description',
         'score',
+        'status'
     ];
 
     protected $table = 'reviews';

@@ -1,19 +1,20 @@
-
-<div class="ibox w">
-    <div class="ibox-title">
-        <h5>{{ __('messages.image') }}</h5>
-    </div>
-    <div class="ibox-content">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="form-row">
-                    <span class="image img-cover image-target"><img src="{{ (old('image', ($model->image) ?? '' ) ? old('image', ($model->image) ?? '')   :  'backend/img/not-found.jpg') }}" alt=""></span>
-                    <input type="hidden" name="image" value="{{ old('image', ($model->image) ?? '' ) }}">
+@if(isset($hideImage) && !$hideImage)
+    <div class="ibox w">
+        <div class="ibox-title">
+            <h5>{{ __('messages.image') }}</h5>
+        </div>
+        <div class="ibox-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-row">
+                        <span class="image img-cover image-target"><img src="{{ (old('image', ($model->image) ?? '' ) ? old('image', ($model->image) ?? '')   :  'backend/img/not-found.jpg') }}" alt=""></span>
+                        <input type="hidden" name="image" value="{{ old('image', ($model->image) ?? '' ) }}">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+@endif
 <div class="ibox w">
     <div class="ibox-title">
         <h5>{{ __('messages.advange') }}</h5>

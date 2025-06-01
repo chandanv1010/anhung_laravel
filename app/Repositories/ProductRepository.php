@@ -148,10 +148,11 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
                     }]);
                 }]);
             },
-            'reviews'
+            'reviews' => function ($query) {
+                $query->where('status', '=', 1);
+            },
         ])
         ->where('tb2.language_id', '=', $language_id)
-        // ->where([$condition])
         ->find($id);
     }
 

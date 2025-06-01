@@ -54,6 +54,7 @@ class HomeController extends FrontendController
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'customer-perception','object' => true],
             ['keyword' => 'showroom-system','object' => true],
+            ['keyword' => 'projects-feature', 'object' => true],
         ], $this->language);
         $slides = $this->slideService->getSlide(
             [SlideEnum::BANNER, SlideEnum::MAIN, 'mobile-slide' , 'banner-1', 'brand-baochi'],

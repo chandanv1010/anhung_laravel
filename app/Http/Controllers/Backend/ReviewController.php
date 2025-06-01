@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Services\Interfaces\ReviewServiceInterface  as ReviewService;
 use App\Repositories\Interfaces\ReviewRepositoryInterface as ReviewRepository;
-
-use App\Http\Requests\Review\StoreReviewRequest;
-use App\Http\Requests\Review\UpdateReviewRequest;
-
 
 class ReviewController extends Controller
 {
@@ -23,15 +18,11 @@ class ReviewController extends Controller
     ){
         $this->reviewService = $reviewService;
         $this->reviewRepository = $reviewRepository;
-        
     }
 
     public function index(Request $request){
         $this->authorize('modules', 'review.index');
         $reviews = $this->reviewService->paginate($request);
-
-        // dd($reviews);
-      
         $config = [
             'js' => [
                 'backend/js/plugins/switchery/switchery.js',

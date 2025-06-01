@@ -273,7 +273,7 @@
 }
 .review-form .form-row textarea{
     height:72px;
-    padding:5px;
+    padding:8px;
 }
 .review-form .form-row .review-text{
     height:40px;
@@ -308,7 +308,7 @@ label{
     margin-right:3px;
 }
 .star-rating {
-    font-size: 25px;
+    font-size: 18px;
     display: inline-block;
     position: relative;
 }

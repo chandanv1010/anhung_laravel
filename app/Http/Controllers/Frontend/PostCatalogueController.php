@@ -49,11 +49,15 @@ class PostCatalogueController extends FrontendController
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'mobile-video','object' => true],
+            ['keyword' => 'projects-feature', 'object' => true],
+            ['keyword' => 'design_construction_interior', 'object' => true],
         ], $this->language);
 
         $template = '';
 
-        if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
+        if($postCatalogue->canonical == 'video'){
+            $template = 'frontend.post.catalogue.video';
+        }else if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
             $template = 'mobile.post.catalogue.video';
         }else if(Agent::isMobile() && $postCatalogue->canonical == 'thiet-ke-noi-that' || Agent::isMobile() && $postCatalogue->canonical == 'thi-cong-noi-that'){
             $template = 'mobile.post.catalogue.design';
@@ -61,6 +65,7 @@ class PostCatalogueController extends FrontendController
             || $postCatalogue->canonical == 'doi-tac' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau'
             || $postCatalogue->canonical == 'bao-hanh-doi-tra' || $postCatalogue->canonical == 'van-chuyen-giao-hang'
             || $postCatalogue->canonical == 'quy-trinh-lam-viec' || $postCatalogue->canonical == 'hinh-thuc-thanh-toan'
+            || $postCatalogue->canonical == 'bao-gia' || $postCatalogue->canonical == 'lien-he'
         ){
             $template = 'frontend.post.catalogue.about-us';
         }else if(Agent::isMobile()){

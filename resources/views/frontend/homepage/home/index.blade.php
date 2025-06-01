@@ -12,9 +12,9 @@
                                 <ul class="uk-list uk-clearfix">
                                     @foreach($widgets['categories']->object as $key => $item)
                                     @php
-                                        $name = $item->languages->first()->pivot->name;
+                                        $name = $item->short_name ?? $item->languages->first()->pivot->name;
                                         $canonical = write_url($item->languages->first()->pivot->canonical);
-                                        $icon = $item->icon;
+                                        $icon = $item->icon ?? '/userfiles/image/logo/ban-an.png';
                                     @endphp
                                     <li>
                                         <a href="{{ $canonical }}" title="{{ $name }}" class="uk-flex uk-flex-middle">
@@ -122,7 +122,9 @@
         @if(isset($widgets['intro']))
             <div class="panel-intro">
                 <div class="uk-container uk-container-center">
-                    <h2 class="heading-2"><span>{{ $widgets['intro']->name }}</span></h2>
+                    <h2 class="heading-2">
+                        <a href="{{ write_url('ve-chung-toi') }}">{{ $widgets['intro']->name }}</a>
+                    </h2>
                     <div class="intro-container uk-container-center">
                         <span class="image img-cover img-zoominhgh">
                             <img src="{{ $widgets['intro']->album[0] }}" alt="">
@@ -138,6 +140,9 @@
                                     <h3 class="title">
                                         <a href="{{ write_url('ve-chung-toi') }}" title="{{ $name }}">{{ $name }}</a>
                                     </h3>
+                                    <div class="description">
+                                        {!! $description !!}
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -276,25 +281,25 @@
                     <div class="panel-body">
                         <div class="uk-grid uk-grid-small">
                             @foreach($val->posts as $keyPost => $post)
-                            @php
-                                if($keyPost > 4) break;
-                                $name = $post->languages->first()->pivot->name;
-                                $canonical = write_url($post->languages->first()->pivot->canonical);
-                                $image = thumb($post->image, 210, 315);
-                            @endphp
-                            <div class="uk-width-small-1-4">
-                                <div class="video-item">
-                                    <a href="" class="image img-scaledown">
-                                        {!! $post->video !!}
-                                    </a>
-                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                @php
+                                    if($keyPost > 4) break;
+                                    $name = $post->languages->first()->pivot->name;
+                                    $canonical = write_url($post->languages->first()->pivot->canonical);
+                                    $image = thumb($post->image, 210, 315);
+                                @endphp
+                                <div class="uk-width-small-1-5">
+                                    <div class="video-item">
+                                        <a href="" class="image img-scaledown">
+                                            {!! $post->video !!}
+                                        </a>
+                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
                     @endif
-                    <div class="panel-foot uk-text-center mt40">
+                    <div class="panel-foot uk-text-center mt20">
                         <a href="{{ $canonicalC }}" title="Readmore" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>

@@ -93,6 +93,7 @@ class ProductController extends FrontendController
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'showroom-system','object' => true],
+            ['keyword' => 'design_construction_interior', 'object' => true],
         ], $this->language);
 
         $productSeen = [
@@ -154,10 +155,12 @@ class ProductController extends FrontendController
             'js' => [
                 'frontend/core/library/cart.js',
                 'frontend/core/library/product.js',
-                'frontend/core/library/review.js'
+                'frontend/core/library/review.js',
+                'https://prohousevn.com/scripts/fancybox-3/dist/jquery.fancybox.min.js'
             ],
             'css' => [
                 'frontend/core/css/product.css',
+                'https://prohousevn.com/scripts/fancybox-3/dist/jquery.fancybox.min.css'
             ]
         ];
     }

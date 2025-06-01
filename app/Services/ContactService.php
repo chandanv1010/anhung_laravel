@@ -32,7 +32,7 @@ class ContactService extends BaseService implements ContactServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except('_token');
-            $payload['name'] = $request->input('fullname');
+            $payload['name'] = $request->input('name') ?? $request->input('fullname');
             $contact = $this->contactRepository->create($payload);
             DB::commit();
             return [

@@ -55,7 +55,7 @@
 
 	HT.category = () => {
 		var swiper = new Swiper(".panel-category .swiper-container", {
-			loop: false,
+			loop: true,
 			pagination: {
 				el: '.swiper-pagination',
 			},
@@ -349,7 +349,6 @@
             });
         });
     }
-
 
     HT.requestConsult = () => {
         $(document).on('click', '#advise button', function(e){

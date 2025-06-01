@@ -12,21 +12,6 @@
                 </a>
             </div>
         @endif
-        {{-- @if(isset($widgets['category-mobile']))
-            <div class="panel-category">
-                @foreach($widgets['category-mobile']->object as $category)
-                @php
-                    $name = $category->languages->first()->pivot->name;
-                    $canonical = write_url($category->languages->first()->pivot->canonical);
-                    $image = thumb($category->image, 360, 240)
-                @endphp
-                <div class="category-item">
-                    <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                </div>
-                @endforeach
-            </div>
-        @endif --}}
         @if(isset($widgets['services-1']))
             <div class="mobile-service-container">
                 @foreach($widgets['services-1']->object as $key => $val)
@@ -53,17 +38,17 @@
                                 {{-- <div class="swiper-button-prev"></div> --}}
                                 <div class="swiper-wrapper">
                                     @foreach($val->posts as $keyPost => $post )
-                                    @php
-                                        $name = $post->languages->first()->pivot->name;
-                                        $canonical = write_url($post->languages->first()->pivot->canonical);
-                                        $image = thumb($post->image, 630, 362)
-                                    @endphp
-                                    <div class="swiper-slide">
-                                        <div class="service-item">
-                                            <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                        @php
+                                            $name = $post->languages->first()->pivot->name;
+                                            $canonical = write_url($post->languages->first()->pivot->canonical);
+                                            $image = thumb($post->image, 630, 362)
+                                        @endphp
+                                        <div class="swiper-slide">
+                                            <div class="service-item">
+                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                            </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -89,12 +74,6 @@
                         </div>
                         @if($cat->products)
                         <div class="panel-body">
-                            {{-- <div class="uk-grid uk-grid-medium">
-                                @foreach($cat->products as $keyProduct => $product)
-                                    <div class="uk-width-medium-1-3">
-                                    </div>
-                                @endforeach
-                            </div> --}}
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     @foreach($cat->products as $keyProduct => $product)
@@ -118,86 +97,108 @@
                     $nameC = $val->languages->first()->pivot->name;
                     $canonicalC = write_url($val->languages->first()->pivot->canonical);
                 @endphp
-                <div class="panel-video ">
+                <div class="panel-video">
                     <div class="uk-container uk-container-center">
                         <div class="panel-head">
                             <h2 class="heading-6">
-                                <span>{{ $nameC }}</span>
+                                <span>{{ $widgets['video']->name }}</span>
                                 <span class="line"></span>
                             </h2>
                         </div>
                         @if($val->posts)
-                        <div class="panel-body">
-                            @foreach($val->posts as $keyPost => $post)
-                                @php
-                                    if($keyPost > 4) break;
-                                    $name = $post->languages->first()->pivot->name;
-                                    $canonical = write_url($post->languages->first()->pivot->canonical);
-                                    $video = $post->video;
-                                @endphp
-                            <div class="video-item">
-                                <a href="{{ $canonical }}" class="image img-cover img-zoomin">
-                                    {!! $video !!}
-                                </a>
-                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                            <div class="panel-body">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        @foreach($val->posts as $keyPost => $post)
+                                            @php
+                                                if($keyPost > 4) break;
+                                                $name = $post->languages->first()->pivot->name;
+                                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                                $video = $post->video;
+                                            @endphp
+                                            <div class="swiper-slide">
+                                                <div class="video-item">
+                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin">
+                                                        {!! $video !!}
+                                                    </a>
+                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
-                            @endforeach
-                        </div>
                         @endif
                     </div>
                 </div>
             @endforeach
         @endif
-        @if($widgets['customer-perception'])
-            <div class="panel-perception">
-                <div class="uk-container uk-container-center">
-                    <div class="panel-head">
-                        <h2 class="heading-6">
-                            <span>{{ $widgets['customer-perception']->name }}</span>
-                            <span class="line"></span>
-                        </h2>
-                    </div>
-                    <div class="panel-body">
-                        @foreach($widgets['customer-perception']->object as $key => $post)
-                            <div class="video-item">
+        @if(isset($widgets['projects-feature']))
+            <div class="uk-container uk-container-center">
+                <div class="post-featured project-featured index">
+                    <h2 class="heading-6">
+                        <span>{{ $widgets['projects-feature']->name }}</    span>
+                    </h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach($widgets['projects-feature']->object as $key => $val)
                                 @php
-                                    $name = $post->languages->first()->pivot->name;
-                                    $canonical = write_url($post->languages->first()->pivot->canonical);
-                                    $video = $post->video;
+                                    $name = $val->languages->first()->pivot->name;
+                                    $canonical = write_url($val->languages->first()->pivot->canonical);
+                                    $createdAt = $val->created_at;
+                                    $image = thumb($val->image, 280, 186);
                                 @endphp
-                                <a href="{{ $canonical }}" class="image img-cover img-zoomin">
-                                    {!! $video !!}
-                                </a>
-                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        @endif
-        @include('mobile.component.news-outstanding')
-        {{-- @if($slides['brand-baochi'])
-            <div class="panel-paper">
-                <div class="uk-container uk-container-center">
-                    <div class="panel-head">
-                        <div class="top-heading-1">Báo Chí</div>
-                        <h2 class="heading-5"><span>Báo chí nói về An Hưng</span></h2>
-                    </div>
-                    <div class="panel-body">
-                        <div class="uk-grid uk-grid-small">
-                            @foreach($slides['brand-baochi']['item'] as $item)
-                            <div class="uk-width-medium-1-6">
-                                <div class="paper-item">
-                                    <a target="_blank" href="{{ $item['canonical'] }}" class="image img-scaledown img-zoomin">
-                                        <img src="{{ thumb($item['image']) }}" alt="{{ $item['name'] }}">
-                                    </a>
+                                <div class="swiper-slide">
+                                    <div class="post-feature-item">
+                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                    </div>
                                 </div>
-                            </div>
                             @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        @endif --}}
+        @endif
+        @if(isset($widgets['news']))
+            @foreach($widgets['news']->object as $key => $val)
+                @php
+                    $catCanonical = write_url($val->languages->first()->pivot->canonical);
+                @endphp
+                <div class="panel-news fix index">
+                    <div class="uk-container uk-container-center">
+                        <div class="panel-head uk-text-center">
+                            <h2 class="heading-6"><span>{{ $widgets['news']->name }}</span></h2>
+                        </div>
+                        <div class="panel-body">
+                            @if($val->posts)
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        @foreach($val->posts as $keyPost => $post)
+                                            @php
+                                                if($keyPost > 2) break;
+                                                $name = $post->languages->first()->pivot->name;
+                                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                                $image = thumb($post->image, 344, 230);
+                                                $description = cutnchar(strip_tags($post['description']), 150);
+                                                $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
+                                            @endphp
+                                            <div class="swiper-slide">
+                                                <div class="news-item">
+                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                                    <div class="info">
+                                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
     </div>
 @endsection

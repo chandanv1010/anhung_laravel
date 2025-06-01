@@ -3,7 +3,7 @@
     <div id="mobile-container">
         <div class="post-catalogue-wrapper pn-video">
             <div class="uk-container uk-container-center">
-                @if(isset($widgets['mobile-video']))
+                {{-- @if(isset($widgets['mobile-video']))
                     @foreach ($widgets['mobile-video']->object as $key => $item)
                         @php
                             $cat_name = $item->languages->first()->pivot->name;
@@ -25,9 +25,9 @@
                             </div>
                         </div>
                     @endforeach
-                @endif
+                @endif --}}
             </div>
         </div>
-        @include('mobile.component.news-outstanding')
+        {{-- @include('mobile.component.news-outstanding') --}}
     </div>
 @endsection

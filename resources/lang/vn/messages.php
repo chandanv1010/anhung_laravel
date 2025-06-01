@@ -389,6 +389,10 @@ return [
         '2' => 'Nofollow',
         
     ],
+    'status' => [
+        '0' => 'Chưa phê duyệt',
+        '1' => 'Phê duyệt',
+    ],
     'album' => [
         'heading' => 'Album Ảnh',
         'image' => 'Chọn Hình',

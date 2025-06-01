@@ -54,7 +54,9 @@
                 <div class="form-row">
                     <select name="template" class="form-control setupSelect2" id="">
                         <option value="0">Chọn giao diện</option>
-                        <option value="1" {{ $post->template == 1 ? 'selected' : '' }}>Thi công nội thất, thiết kế nội thất</option>
+                        @if(isset($post))
+                            <option value="1" {{ $post->template == 1 ? 'selected' : '' }}>Thi công nội thất, thiết kế nội thất</option>
+                        @endif
                     </select>
                 </div>
             </div>

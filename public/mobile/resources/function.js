@@ -165,20 +165,18 @@
 
     HT.video = () => {
 		const swiper = new Swiper('.panel-video .swiper-container', {
-            centeredSlides: false,
-            loop: false,
+            loop: true,
             speed: 500,
-            spaceBetween: 30,
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',
             },
             breakpoints: {
                 300: {
-                    slidesPerView: 1.5,
+                    slidesPerView: 1,
                 },
                 1280: {
-					slidesPerView: 5,
+					slidesPerView: 1,
 				}
             },
         });
@@ -251,9 +249,81 @@
 		
 	}
 
+    HT.projectFeature = () => {
+        const swiper = new Swiper('.project-featured.index .swiper-container', {
+            centeredSlides: false,
+            loop: false,
+            autoplay:{
+                delay: 3000
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                300: {
+                    slidesPerView: 1,
+                },
+                1280: {
+					slidesPerView: 1,
+				}
+            },
+        });
+    }
+
+
+    HT.news = () => {
+        const swiper = new Swiper('.panel-news.index .swiper-container', {
+            centeredSlides: false,
+            loop: false,
+            autoplay:{
+                delay: 3000
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                300: {
+                    slidesPerView: 1,
+                },
+                1280: {
+					slidesPerView: 1,
+				}
+            },
+        });
+    }
+
+    HT.design = () => {
+        const swiper = new Swiper('.panel-design .swiper-container', {
+            centeredSlides: false,
+            loop: false,
+            autoplay:{
+                delay: 3000
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                300: {
+                    slidesPerView: 1,
+                },
+                1280: {
+					slidesPerView: 1,
+				}
+            },
+        });
+    }
+
+
+
 
 
     $(document).ready(function(){
+        HT.design()
+        HT.news()
+        HT.projectFeature()
         HT.product()
         HT.advise()
         HT.video()

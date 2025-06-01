@@ -1,6 +1,6 @@
 @if(!isset($offTitle))
 <div class="row mb15">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="form-row">
             <label for="" class="control-label text-left">{{ __('messages.title') }}<span class="text-danger">(*)</span></label>
             <input 
@@ -9,6 +9,21 @@
                 value="{{ old('name', ($model->name) ?? '' ) }}"
                 class="form-control change-title"
                 data-flag = "{{ (isset($model->name)) ? 1 : 0 }}"
+                placeholder=""
+                autocomplete="off"
+                {{ (isset($disabled)) ? 'disabled' : '' }}
+            >
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-row">
+            <label for="" class="control-label text-left">Tên ngắn</label>
+            <input 
+                type="text"
+                name="short_name"
+                value="{{ old('short_name', ($model->short_name) ?? '' ) }}"
+                class="form-control "
+                data-flag = "{{ (isset($model->short_name)) ? 1 : 0 }}"
                 placeholder=""
                 autocomplete="off"
                 {{ (isset($disabled)) ? 'disabled' : '' }}

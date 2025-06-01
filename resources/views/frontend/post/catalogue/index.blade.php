@@ -6,14 +6,12 @@
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
                 <h1 class="page-heading">{{ $postCatalogue->languages->first()->pivot->name }}</h1>
-                <div class="description">
-                    {!! $postCatalogue->languages->first()->pivot->description !!}
-                </div>
+                
             </div>
         </div>
         <div class="post-container">
             <div class="uk-container uk-container-center" style="padding-top:20px;padding-bottom:20px;">
-                <div class="wrapper">
+                <div class="wrapper mb20">
                     <div class="uk-grid uk-grid-medium">
                         @foreach($posts as $keyPost => $post)
                         @php
@@ -25,12 +23,11 @@
                         @endphp
                         <div class="uk-width-medium-1-3 mb20">
                             <div class="news-item">
-                                
                                 <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
                                 <div class="info">
-                                    <div class="category-name">{{ $cat }}</div>
+                                    {{-- <div class="category-name">{{ $cat }}</div> --}}
                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
-                                    <div class="time">
+                                    {{-- <div class="time">
                                         <div class="uk-flex uk-flex-middle">
                                             <div class="created_at">
                                                 <i class="fa fa-calendar"></i>
@@ -41,7 +38,7 @@
                                                 <span>Admin</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -51,15 +48,14 @@
                         @include('frontend.component.pagination', ['model' => $posts])
                     </div>    
                 </div>
-             
+                <div class="description">
+                    {!! $postCatalogue->languages->first()->pivot->description !!}
+                </div>
                 <div class="mt--80">
                     @include('frontend.component.news')
                 </div>
-
-               
             </div>
         </div>
-
     </div>
 @endsection
 

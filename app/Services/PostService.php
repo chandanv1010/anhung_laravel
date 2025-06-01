@@ -204,6 +204,8 @@ class PostService extends BaseService implements PostServiceInterface
             'posts.order',
             'posts.created_at',
             'posts.template',
+            'posts.video',
+            'posts.viewed',
             'tb2.name', 
             'tb2.description',
             'tb2.canonical',

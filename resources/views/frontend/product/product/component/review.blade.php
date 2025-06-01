@@ -1,9 +1,8 @@
 @php
-    $totalReviews = $model->reviews()->count();
-    $totalRate = number_format($model->reviews()->avg('score'), 1);
+    $totalReviews = $model->reviews()->where('status', 1)->count();
+    $totalRate = number_format($model->reviews()->where('status', 1)->avg('score'), 1);
     $starPercent = ($totalReviews == 0) ? '0' : $totalRate/5*100;
-
-    $fiveStar = $model->reviews()->where('score', 5)->count();
+    $fiveStar = $model->reviews()->where('status', 1)->where('score', 5)->count();
 @endphp
 <div class="review-container">
     <div class="panel-head">
@@ -24,7 +23,7 @@
                     <div class="progress-block review-item">
                         @for($i = 5; $i >= 1; $i--)
                         @php
-                            $countStar = $model->reviews()->where('score', $i)->count();
+                            $countStar = $model->reviews()->where('status', 1)->where('score', $i)->count();
                             $starPercent = ($countStar > 0) ? $countStar / $totalReviews * 100 : 0;
                         @endphp
                         <div class="progress-item">
@@ -60,43 +59,43 @@
         <div class="review-wrapper">
             @if(!is_null($product->reviews))
                 @foreach($product->reviews as  $review)
-                @php
-                    $avatar = getReviewName($review->fullname);
-                    $name = $review->fullname;
-                    $email = $review->email;
-                    $phone = $review->phone;
-                    $description = $review->description;
-                    $rating = generateStar($review->score);
-                    $created_at = convertDateTime($review->created_at);
-                @endphp
-                <div class="review-block-item ">
-                    <div class="review-general uk-clearfix">
-                        <div class="review-avatar">
-                            <span class="shae">{{ $avatar }}</span>
-                        </div>
-                        <div class="review-content-block">
-                            <div class="review-content">
-                                <div class="name uk-flex uk-flex-middle">
-                                    <span>{{ $name }}</span>
-                                    <span class="review-buy">
-                                        <i class="fa fa-check-circle" aria-hidden="true"></i>
-                                        Đã mua hàng tại {{ $system['homepage_brand'] }}
-                                    </span>
-                                </div>
-                                {!! $rating !!}
-                                <div class="description">
-                                    {{ $description }}
-                                </div>
-                                <div class="review-toolbox">
-                                    <div class="uk-flex uk-flex-middle">
-                                        <div class="created_at">Ngày {{ $created_at }}</div>
-                                        <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div>
+                    @php
+                        $avatar = getReviewName($review->fullname);
+                        $name = $review->fullname;
+                        $email = $review->email;
+                        $phone = $review->phone;
+                        $description = $review->description;
+                        $rating = generateStar($review->score);
+                        $created_at = convertDateTime($review->created_at);
+                    @endphp
+                    <div class="review-block-item ">
+                        <div class="review-general uk-clearfix">
+                            <div class="review-avatar">
+                                <span class="shae">{{ $avatar }}</span>
+                            </div>
+                            <div class="review-content-block">
+                                <div class="review-content">
+                                    <div class="name uk-flex uk-flex-middle">
+                                        <span>{{ $name }}</span>
+                                        <span class="review-buy">
+                                            <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                            Đã mua hàng tại {{ $system['homepage_brand'] }}
+                                        </span>
+                                    </div>
+                                    {!! $rating !!}
+                                    <div class="description">
+                                        {{ $description }}
+                                    </div>
+                                    <div class="review-toolbox">
+                                        <div class="uk-flex uk-flex-middle">
+                                            <div class="created_at">Ngày {{ $created_at }}</div>
+                                            <div class="review-reply" data-uk-modal="{target:'#review'}">Trả lời</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
             @endif
         </div>

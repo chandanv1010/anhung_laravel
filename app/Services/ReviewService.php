@@ -43,7 +43,6 @@ class ReviewService extends BaseService implements ReviewServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except('_token');
-            // dd($payload);
             $review = $this->reviewRepository->create($payload);
             $this->reviewNestedset = new ReviewNested([
                 'table' => 'reviews',
@@ -80,6 +79,7 @@ class ReviewService extends BaseService implements ReviewServiceInterface
             'score',
             'description',
             'created_at',
+            'status'
         ];
 
     }

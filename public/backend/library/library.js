@@ -207,12 +207,36 @@
             })
         }
     }
+    
 
-    
-    
+    HT.approve = () => {
+        $(document).on('change', '#status-review', function(e){
+            e.preventDefault()
+            let _this = $(this)
+            let id = _this.data('id')
+            let status = _this.val()
+            $.ajax({
+                url: 'ajax/review/changeStatus', 
+                type: 'POST', 
+                data: {
+                    '_token' : _token,
+                    'id' : id,
+                    'status' : status
+                },
+                dataType: 'json', 
+                success: function(res) {
+                    if(res){
+                        toastr.success('Cập nhật trạng thái thành công !')
+                        _this.closest('tr').find('#review-link').removeClass()
+                    }
+                },
+            })
+        })
+    }
     
 
 	$(document).ready(function(){
+        HT.approve()
         HT.switchery()
         HT.select2()
         HT.changeStatus()

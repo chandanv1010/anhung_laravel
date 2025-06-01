@@ -21,6 +21,21 @@
 </div>
 <div class="ibox w">
     <div class="ibox-title">
+        <h5>{{ __('messages.image') }}</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <span class="image img-cover image-target"><img src="{{ (old('image', ($productCatalogue->image) ?? '' ) ? old('image', ($productCatalogue->image) ?? '')   :  'backend/img/not-found.jpg') }}" alt=""></span>
+                    <input type="hidden" name="image" value="{{ old('image', ($productCatalogue->image) ?? '' ) }}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ibox w">
+    <div class="ibox-title">
         <h5>Icon Danh mục</h5>
     </div>
     <div class="ibox-content">
@@ -38,4 +53,4 @@
         </div>
     </div>
 </div>
-@include('backend.dashboard.component.publish', ['model' => ($productCatalogue) ?? null])
+@include('backend.dashboard.component.publish', ['model' => ($productCatalogue) ?? null, 'hideImage' => true])

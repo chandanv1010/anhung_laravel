@@ -8598,3 +8598,9 @@ body.md-skin {
 td.sort{
     width: 100px;
 }
+.disabled-link {
+    pointer-events: none;
+    color: #ccc;
+    text-decoration: none;
+    cursor: not-allowed;
+}

@@ -23,7 +23,7 @@
 				thumbs: {
 					swiper: {
 						el: product.querySelector('.swiper-container-thumbs'),
-						slidesPerView: 6,
+						slidesPerView: 8,
 						spaceBetween: 10,
 						slideToClickedSlide: true,
 					}
@@ -176,6 +176,7 @@
         $(document).on('click', '.quick-consult-form button', function(e){
             e.preventDefault()
             let phone =  $('.quick-consult-form input[name=phone]').val()
+            let product_id =  $('.quick-consult-form').data('id')
             if (!phone || !/^(0[3|5|7|8|9][0-9]{8})$/.test(phone)) {
                 alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
                 return;
@@ -185,6 +186,7 @@
 				type: 'POST', 
 				data: {
 					'phone' : phone,
+                    'product_id' : product_id,
                     '_token' : _token
 				}, 
 				dataType: 'json', 

@@ -282,6 +282,7 @@ class ProductCatalogueService extends BaseService implements ProductCatalogueSer
             'image',
             'album',
             'icon',
+            'short_name'
         ];
     }
     private function payloadLanguage(){

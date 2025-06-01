@@ -196,15 +196,15 @@
                             <div class="menu-item">
                                 <div class="menu-heading">{{ $nameC }}</div>
                                 @if($val['children'] && count($val['children']))
-                                <ul class="uk-list uk-clearfix">
-                                    @foreach($val['children'] as $keyChild => $valChild)
-                                    @php
-                                        $name = $valChild['item']->languages->first()->pivot->name;
-                                        $canonical = $valChild['item']->languages->first()->pivot->canonical;
-                                    @endphp
-                                    <li><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></li>
-                                    @endforeach
-                                </ul>
+                                    <ul class="uk-list uk-clearfix">
+                                        @foreach($val['children'] as $keyChild => $valChild)
+                                        @php
+                                            $name = $valChild['item']->languages->first()->pivot->name;
+                                            $canonical = $valChild['item']->languages->first()->pivot->canonical;
+                                        @endphp
+                                        <li><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></li>
+                                        @endforeach
+                                    </ul>
                                 @endif
                             </div>
                         </div>
@@ -243,6 +243,9 @@
                     @endforeach
                 @endif
                 <div class="info-contact">
+                    <p class="name_company">
+                        {{ $system['homepage_company'] }}
+                    </p>
                     <p class="hotline">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 512 512">
                             <path d="M375.8 275.2c-16.4-7-35.4-2.4-46.7 11.4l-33.2 40.6c-46-26.7-84.4-65.1-111.1-111.1l40.5-33.1c13.8-11.3 18.5-30.3 11.4-46.7l-48-112C181.2 6.7 162.3-3.1 143.6.9l-112 24C13.2 28.8 0 45.1 0 64c0 231.2 175.2 421.6 400.1 445.5 9.8 1 19.6 1.8 29.6 2.2h.1c6.1.2 12.1.4 18.2.4 18.9 0 35.2-13.2 39.1-31.6l24-112c4-18.7-5.8-37.6-23.4-45.1l-112-48zM441.5 464c-215.7-3.5-390-177.8-393.4-393.5l99.2-21.3 43 100.4-35.9 29.4c-18.2 14.9-22.9 40.8-11.1 61.2 30.9 53.3 75.3 97.7 128.6 128.6 20.4 11.8 46.3 7.1 61.2-11.1l29.4-35.9 100.4 43zM48 64"></path>
@@ -261,13 +264,17 @@
                     </p>
                 </div>
                 <div class="certificate">
-                    <div class="uk-flex uk-flex-middle mb20">
-                        <a href="" class="image img-scaledown">
-                            <img src="{{ $system['image_1'] }}" alt="">
-                        </a>
-                        <a href="" class="image img-scaledown">
-                            <img src="{{ $system['image_2'] }}" alt="">
-                        </a>
+                    <div class="uk-flex uk-flex-middle mb10">
+                        @if(!is_null($system['image_1']))
+                            <a href="" class="image img-scaledown">
+                                <img src="{{ $system['image_1'] }}" alt="">
+                            </a>
+                        @endif
+                        @if(!is_null($system['image_2']))
+                            <a href="" class="image img-scaledown">
+                                <img src="{{ $system['image_2'] }}" alt="">
+                            </a>
+                        @endif
                     </div>
                     <p class="copyright">
                         {{ $system['homepage_copyright'] }}

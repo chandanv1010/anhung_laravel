@@ -47,7 +47,6 @@ use App\Http\Controllers\Frontend\Payment\VnpayController;
 use App\Http\Controllers\Frontend\Payment\MomoController;
 use App\Http\Controllers\Frontend\Payment\PaypalController;
 use App\Http\Controllers\Frontend\CrawlerController;
-use App\Http\Controllers\Frontend\ContactController as FeContactController;
 use App\Http\Controllers\Frontend\AuthController as FeAuthController;
 
 use App\Http\Controllers\Frontend\DistributionController as FeDistributionController;
@@ -460,6 +459,8 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
    Route::get('ajax/dashboard/findInformationObject', [AjaxDashboardController::class, 'findInformationObject'])->name('ajax.findInformationObject');
 
    Route::get('ajax/product/updateOrder', [AjaxProductController::class, 'updateOrder'])->name('ajax.updateOrder');
+
+   Route::post('ajax/review/changeStatus', [AjaxReviewController::class,'changeStatus'])->name('ajax.review.changeStatus');
 });
 
 

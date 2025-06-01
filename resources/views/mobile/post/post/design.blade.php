@@ -23,9 +23,11 @@
                                     <div class="swiper-button-prev"></div>
                                     <div class="swiper-wrapper big-pic">
                                         <?php foreach($gallery as $key => $val){  ?>
-                                        <div class="swiper-slide" data-swiper-autoplay="2000">
-                                            <a href="{{ $val }}" data-uk-lightbox="{group:'my-group'}" class="image img-cover"><img src="{{ image($val) }}" alt="<?php echo $val ?>"></a>
-                                        </div>
+                                            <div class="swiper-slide" data-swiper-autoplay="2000">
+                                                <a href="{{ $val }}" data-fancybox="my-group" class="image img-cover">
+                                                    <img src="{{ image($val) }}" alt="<?php echo $val ?>">
+                                                </a>
+                                            </div>
                                         <?php }  ?>
                                     </div>
                                 </div>
@@ -70,10 +72,17 @@
                             </div>
                             <div class="shopware mb20">
                                 <p>HỆ THỐNG SHOWROOM CHÍNH HÃNG:</p>
-                                <p>Hà Nội: {{ $system['contact_office'] }}</p>
-                                <p>TP. HCM: {{ $system['hcm_office'] }}</p>
+                                <p>
+                                    <a href="{{ $system['contact_office_map'] }}" target="_blank">
+                                        Hà Nội: {{ $system['contact_office'] }}
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="{{ $system['hcm_office_map'] }}" target="_blank">
+                                        TP. HCM: {{ $system['hcm_office'] }}
+                                    </a>
+                                </p>
                             </div>
-                        
                         </div>
                     </div>
                     <div class="product-general-info">
@@ -107,10 +116,10 @@
                                         @endphp
                                         <div class="post-feature-item">
                                             <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                            <div class="created_at uk-flex uk-flex-middle">
+                                            {{-- <div class="created_at uk-flex uk-flex-middle">
                                                 <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
                                                 <span><i class="fa fa-user"></i>Admin</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         @endforeach
                                     </div>
@@ -172,7 +181,7 @@
                 </div>
             </div>
         </div>
-        @include('mobile.component.news-outstanding')
+        {{-- @include('mobile.component.news-outstanding') --}}
     </div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {

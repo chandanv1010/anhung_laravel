@@ -112,10 +112,10 @@
                                                 @endphp
                                                 <div class="post-feature-item">
                                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                                    <div class="created_at uk-flex uk-flex-middle">
+                                                    {{-- <div class="created_at uk-flex uk-flex-middle">
                                                         <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
                                                         <span><i class="fa fa-user"></i>Admin</span>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 @endforeach
                                             </div>
@@ -163,10 +163,10 @@
                                                 <div class="post-feature-item">
                                                     <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                                    <div class="created_at uk-flex uk-flex-middle">
+                                                    {{-- <div class="created_at uk-flex uk-flex-middle">
                                                         <div class="time"><i class="fa fa-calendar"></i> {{ $createdAt }} </div>
                                                         <span><i class="fa fa-user"></i>Admin</span>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 @endforeach
                                             </div>

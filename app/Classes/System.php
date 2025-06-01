@@ -42,15 +42,32 @@ class System{
             'description' => 'Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đồ, vv...',
             'value' => [
                 'office' => ['type' => 'text', 'label' => 'Địa chỉ công ty'],
+                'office_map' => [
+                    'type' => 'textarea', 
+                    'label' => 'Bản đồ công ty',
+                    'link' => [
+                        'text' => 'Hướng dẫn thiết lập bản đồ',
+                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
+                        'target' => '_blank'
+                    ]
+                ],
                 'address' => ['type' => 'text', 'label' => 'Văn phòng giao dịch'],
                 'xuong' => ['type' => 'text', 'label' => 'Xưởng'],
+                'xuong_map' => [
+                    'type' => 'textarea', 
+                    'label' => 'Bản đồ xưởng',
+                    'link' => [
+                        'text' => 'Hướng dẫn thiết lập bản đồ',
+                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
+                        'target' => '_blank'
+                    ]
+                ],
                 'hotline' => ['type' => 'text', 'label' => 'Hotline'],
                 'technical_phone' => ['type' => 'text', 'label' => 'Hotline kỹ thuật'],
                 'sell_phone' => ['type' => 'text', 'label' => 'Hotline kinh doanh'],
                 'phone' => ['type' => 'text', 'label' => 'Số cố định'],
                 'fax' => ['type' => 'text', 'label' => 'Fax'],
                 'email' => ['type' => 'text', 'label' => 'Email'],
-                // 'tax' => ['type' => 'text', 'label' => 'Mã số thuế'],
                 'website' => ['type' => 'text', 'label' => 'Website'],
                 'map' => [
                     'type' => 'textarea', 
@@ -69,8 +86,26 @@ class System{
             'description' => 'Cài đặt thông tin liên hệ của website ví dụ: Địa chỉ công ty, Văn phòng giao dịch, Hotline, Bản đồ, vv...',
             'value' => [
                 'office' => ['type' => 'text', 'label' => 'Địa chỉ công ty'],
+                'office_map' => [
+                    'type' => 'textarea', 
+                    'label' => 'Bản đồ công ty',
+                    'link' => [
+                        'text' => 'Hướng dẫn thiết lập bản đồ',
+                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
+                        'target' => '_blank'
+                    ]
+                ],
                 'address' => ['type' => 'text', 'label' => 'Văn phòng giao dịch'],
                 'xuong' => ['type' => 'text', 'label' => 'Xưởng'],
+                'xuong_map' => [
+                    'type' => 'textarea', 
+                    'label' => 'Bản đồ xưởng',
+                    'link' => [
+                        'text' => 'Hướng dẫn thiết lập bản đồ',
+                        'href' => 'https://manhan.vn/hoc-website-nang-cao/huong-dan-nhung-ban-do-vao-website/',
+                        'target' => '_blank'
+                    ]
+                ],
                 'hotline' => ['type' => 'text', 'label' => 'Hotline'],
                 'email' => ['type' => 'text', 'label' => 'Email'],
                 'map' => [

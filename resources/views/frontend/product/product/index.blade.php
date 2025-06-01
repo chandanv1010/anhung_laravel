@@ -5,7 +5,6 @@
     $price = getPrice($product);
     $catName = $productCatalogue->name;
     $review = getReview($product);
-    
     $description = $product->description;
     $content = $product->content;
     $attributeCatalogue = $product->attributeCatalogue;
@@ -31,6 +30,33 @@
         </div>
         <div class="panel-body">
             @include('frontend.product.product.component.general')
+        </div>
+    </div>
+    <div class="product-related">
+        <div class="uk-container uk-container-center">
+            <div class="panel-product">
+                <div class="main-heading">
+                    <div class="panel-head">
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <h2 class="heading-1"><span>Sản phẩm liên quan</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body list-product">
+                    @if(count($productCatalogue->products))
+                        <div class="uk-grid uk-grid-medium">
+                            @foreach($productCatalogue->products as $index => $item)
+                                @if($item->id != $product->id)
+                                    @if($index > 2) @break @endif
+                                    <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-3 ">
+                                        @include('frontend.component.product-item', ['product' => $item])
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
     @include('frontend.component.news')
