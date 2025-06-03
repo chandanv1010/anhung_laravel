@@ -42,15 +42,48 @@ class ReviewService extends BaseService implements ReviewServiceInterface
     public function create($request){
         DB::beginTransaction();
         try{
+
             $payload = $request->except('_token');
+
+            if($request->hasFile('image')){
+
+                $image = $request->file('image');
+
+                $allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+
+                if(!in_array($image->getClientMimeType(), $allowedTypes)) {
+                    throw new \Exception('Loại tệp không được phép. Chỉ chấp nhận PNG, JPEG, WebP.');
+                }
+
+                $maxSize = 5 * 1024 * 1024; 
+                
+                if ($image->getSize() > $maxSize) {
+                    throw new \Exception('Tệp hình ảnh quá lớn. Vui lòng chọn tệp dưới 5MB.');
+                }
+
+                $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+                
+                $destinationPath = public_path('/userfiles/image');
+
+                $image->move($destinationPath, $imageName);
+    
+                $payload['image'] = 'userfiles/image/' . $imageName;
+
+            }
+
             $review = $this->reviewRepository->create($payload);
+
             $this->reviewNestedset = new ReviewNested([
                 'table' => 'reviews',
                 'reviewable_type' => $payload['reviewable_type']
             ]);
+
             $this->reviewNestedset->Get('level ASC, order ASC');
+
             $this->reviewNestedset->Recursive(0, $this->reviewNestedset->Set());
+
             $this->reviewNestedset->Action();
+
             DB::commit();
             return [
                 'code' => 10,
@@ -79,7 +112,8 @@ class ReviewService extends BaseService implements ReviewServiceInterface
             'score',
             'description',
             'created_at',
-            'status'
+            'status',
+            'image'
         ];
 
     }

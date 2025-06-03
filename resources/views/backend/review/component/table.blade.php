@@ -8,6 +8,7 @@
         <th>Số điện thoại</th>
         <th>Email</th>
         <th style="width: 400px;">Nội dung</th>
+        <th>Ảnh</th>
         <th>Rate</th>
         <th>Đối tượng</th>
         <th>Trạng thái</th>
@@ -35,6 +36,9 @@
                 </td>
                 <td>
                     {{ $review->description }}
+                </td>
+                <td class="image" style="width:100%; height:auto; display:flex; justify-content:center;">
+                    <img src="/{{ $review->image ?? null }}" alt="" style="width:150px;">
                 </td>
                 <td class="text-center">
                     <div class="text-navy">{{ $review->score }}</div>

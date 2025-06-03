@@ -84,6 +84,7 @@
                                 </div>
                             </div>
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="type" value="2">
                             <button type="" class="advise">Mua hàng</button>
                         </div>
                     </form>

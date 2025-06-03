@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\QueryScopes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contact extends Model
 {
@@ -20,7 +19,8 @@ class Contact extends Model
         'product_id',
         'post_id',
         'publish',
-        'created_at'
+        'created_at',
+        'type'
     ];
 
     protected $table = 'contacts';

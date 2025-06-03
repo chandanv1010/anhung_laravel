@@ -40,10 +40,14 @@ class ProductCatalogueController extends FrontendController
 
     public function index($id, $request, $page = 1){
 
-
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $this->language);
+
+        $children = $this->productCatalogueRepository->getChildren($productCatalogue);
+
         $filters = $this->filter($productCatalogue);
+
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $this->language);
+
         $products = $this->productService->paginate(
             $request, 
             $this->language, 
@@ -52,9 +56,10 @@ class ProductCatalogueController extends FrontendController
             ['path' => $productCatalogue->canonical],
         );
         
-
         $products = $this->combineProductValues($products);
+
         $config = $this->config();
+
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'news','object' => true],
             ['keyword' => 'news-outstanding','object' => true],
@@ -63,7 +68,9 @@ class ProductCatalogueController extends FrontendController
         ], $this->language);
 
         $config = $this->config();
+
         $system = $this->system;
+
         $seo = seo($productCatalogue, $page);
 
         if(Agent::isMobile()){
@@ -73,6 +80,7 @@ class ProductCatalogueController extends FrontendController
         }
 
         return view($template, compact(
+            'children',
             'config',
             'seo',
             'system',

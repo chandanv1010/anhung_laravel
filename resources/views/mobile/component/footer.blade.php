@@ -216,32 +216,34 @@
                         <div class="fb-page" data-href="<?php echo $system['social_facebook'] ?>" data-tabs="" data-width="400" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="<?php echo $system['social_facebook'] ?>" class="fb-xfbml-parse-ignore"><a href="<?php echo $system['social_facebook'] ?>">Facebook</a></blockquote></div>
                     </div>
                 </div>
-                @if(isset($widgets['showroom-system']))
-                    @foreach($widgets['showroom-system']->object as $key => $val)
-                        <div class="showroom-sys">
-                            <div class="panel-head">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 576 512" class="w-7 h-7 fill-light"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1-1.4.1-2.8.1-4.2.1H392c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.6H32c-18 0-32-14-32-32.1 0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg>
-                                <h3 class="heading-2">
-                                    <span>{{ $widgets['showroom-system']->name }}</span>
-                                </h3>
+                <div class="panel-offical" id="system">
+                    @if(isset($widgets['showroom-system']))
+                        @foreach($widgets['showroom-system']->object as $key => $val)
+                            <div class="showroom-sys">
+                                <div class="panel-head">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 576 512" class="w-7 h-7 fill-light"><path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40h-16c-1.1 0-2.2 0-3.3-.1-1.4.1-2.8.1-4.2.1H392c-22.1 0-40-17.9-40-40v-88c0-17.7-14.3-32-32-32h-64c-17.7 0-32 14.3-32 32v88c0 22.1-17.9 40-40 40h-55.9c-1.5 0-3-.1-4.5-.2-1.2.1-2.4.2-3.6.2h-16c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9.1-2.8v-69.6H32c-18 0-32-14-32-32.1 0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7l255.4 224.5c8 7 12 15 11 24"></path></svg>
+                                    <h3 class="heading-2">
+                                        <span>{{ $widgets['showroom-system']->name }}</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    @foreach($val->posts as $k => $post)
+                                        <div class="showroom-item">
+                                            @php
+                                                $name = $post->languages->first()->pivot->name;
+                                                $description = $post->languages->first()->pivot->description;
+                                            @endphp
+                                            <p class="name">
+                                                {{ $name }}
+                                            </p>
+                                            {!! $description !!}
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                @foreach($val->posts as $k => $post)
-                                    <div class="showroom-item">
-                                        @php
-                                            $name = $post->languages->first()->pivot->name;
-                                            $description = $post->languages->first()->pivot->description;
-                                        @endphp
-                                        <p class="name">
-                                            {{ $name }}
-                                        </p>
-                                        {!! $description !!}
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+                        @endforeach
+                    @endif
+                </div>
                 <div class="info-contact">
                     <p class="name_company">
                         {{ $system['homepage_company'] }}
@@ -286,31 +288,32 @@
     <div class="button-fixed">
         <ul class="uk-clearfix uk-flex uk-flex-middle uk-flex-space-between">
             <li>
-                <a href="{{ $system['social_zalo'] }}">
+                <a href="https://zalo.me/{{ $system['social_zalo'] }}" target="_blank">
                     <img src="/userfiles/image/logo/zalo.png" alt="">
                     <span>Zalo</span>
                 </a>
             </li>
             <li>
-                <a href="{{ $system['contact_hotline'] }}">
+                <a href="{{ $system['contact_hotline'] }}" data-uk-modal="{target:'#advise'}">
                     <img src="/userfiles/image/logo/advise.png" alt="">
                     <span>Tư vấn</span>
                 </a>
+                @include('frontend.component.advise')
             </li>
             <li>
-                <a href="{{ $system['contact_map'] }}">
+                <a href="#system">
                     <img src="/userfiles/image/logo/location.png" alt="">
                     <span>Vị trí</span>
                 </a>
             </li>
             <li>
-                <a href="{{ $system['social_messenger'] }}">
+                <a href="https://m.me/{{ $system['social_messenger'] }}" target="_blank">
                     <img src="/userfiles/image/logo/mess.webp" alt="">
                     <span>Messenger</span> 
                 </a>
             </li>
             <li>
-                <a href="{{ $system['contact_hotline'] }}">
+                <a href="tel:{{ $system['contact_hotline'] }}">
                     <img src="/userfiles/image/logo/phone.webp">
                     <span>Gọi điện</span>
                 </a>

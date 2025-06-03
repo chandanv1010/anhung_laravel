@@ -143,7 +143,10 @@
                         </div>
                     </div>
                     <div class="review-form">
-                        <div action="" class="uk-form form">
+                        <form action="" class="uk-form form" method="post" enctype="multipart/form-data">
+                            <div class="form-row mb20">
+                                <input type="file" name="image" class="review-image" accept="image/png,image/jpeg,image/webp">
+                            </div>
                             <div class="form-row">
                                 <textarea name="" id="" class="review-textarea" placeholder="Hãy chia sẻ cảm nhận của bạn về sản phẩm..."></textarea>
                             </div>
@@ -195,7 +198,7 @@
                             <div class="uk-text-center">
                                 <button type="submit" value="send" class="btn-send-review" name="create">Hoàn tất</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

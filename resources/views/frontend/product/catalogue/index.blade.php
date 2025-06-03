@@ -5,6 +5,19 @@
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
+                @if($children)
+                    <ul class="children">
+                        @foreach($children as $key => $item)
+                            @php
+                                $name = $item->languages->first()->pivot->name;
+                                $canonical = write_url($item->languages->first()->pivot->canonical);
+                            @endphp
+                            <li>
+                                <a href="{{ $canonical }}">{{ $name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
         </div>
         <div class="panel-body mb30">

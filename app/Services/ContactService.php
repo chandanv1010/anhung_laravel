@@ -4,20 +4,28 @@ namespace App\Services;
 use App\Services\Interfaces\ContactServiceInterface;
 use App\Repositories\Interfaces\ContactRepositoryInterface as ContactRepository;
 use Illuminate\Support\Facades\DB;
+use App\Mail\ContactMail;
+use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
+use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 
 class ContactService extends BaseService implements ContactServiceInterface 
 {
     protected $contactRepository;
+    protected $productRepository;
+    protected $postRepository;
 
     public function __construct(
-        ContactRepository $contactRepository
+        ContactRepository $contactRepository,
+        ProductRepository $productRepository,
+        PostRepository $postRepository
     ){
         $this->contactRepository = $contactRepository;
+        $this->productRepository = $productRepository;
+        $this->postRepository = $postRepository;
     }
 
     public function paginate($request){
         $condition['keyword'] = addslashes($request->input('keyword'));
-        // $condition['publish'] = $request->integer('publish');
         $perPage = $request->integer('perpage');
         $contacts = $this->contactRepository->pagination(
             $this->paginateSelect(), 
@@ -34,6 +42,20 @@ class ContactService extends BaseService implements ContactServiceInterface
             $payload = $request->except('_token');
             $payload['name'] = $request->input('name') ?? $request->input('fullname');
             $contact = $this->contactRepository->create($payload);
+            $product_name = ($contact->product_id != null) ? $this->productRepository->getProductById($contact->product_id, 1)->name : null;
+            $post_name = ($contact->post_id != null) ?  $this->postRepository->getPostById($contact->post_id, 1)->name : null;
+            $to = 'cuongdev2003@gmail.com';
+            $cc = 'cuongdev2003@gmail.com';
+            $data = [
+                'name' => $contact->name, 
+                'created_at' => $contact->created_at,
+                'phone' => $contact->phone,
+                'address' => $contact->address,
+                'type' => $contact->type ?? null,
+                'product_name' => $product_name,
+                'post_id' => $post_name 
+            ];
+            \Mail::to($to)->cc($cc)->send(new ContactMail($data));
             DB::commit();
             return [
                 'code' => 10,
@@ -88,7 +110,8 @@ class ContactService extends BaseService implements ContactServiceInterface
             'post_id',
             'gender',
             'publish',
-            'created_at'
+            'created_at',
+            'type'
         ];
     }
 }

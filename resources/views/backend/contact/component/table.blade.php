@@ -10,6 +10,7 @@
             <th>Địa chỉ</th>
             <th>Sản phẩm</th>
             <th>Showroom gần nhất</th>
+            <th>Loại</th>
             <th class="text-center">Thao tác</th>
         </tr>
     </thead>
@@ -37,6 +38,9 @@
                     </td>
                     <td>
                         {{ isset($contact->posts) ? $contact->posts->languages->first()->pivot->name : null }}
+                    </td>
+                    <td>
+                        {{ $contact->type == 2 ? 'Đặt hàng' : 'Tư vấn sản phẩm' }}
                     </td>
                     <td class="text-center"> 
                         <a href="{{ route('contact.delete', $contact->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>

@@ -89,6 +89,7 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
             ]
         )
         ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
+        ->where('parent_id' , '>=', $productCatalogue->id)
         ->where('lft' , '>=', $productCatalogue->lft)
         ->where('rgt', '<=', $productCatalogue->rgt)
         ->get();
