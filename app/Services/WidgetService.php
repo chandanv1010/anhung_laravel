@@ -171,13 +171,13 @@ class WidgetService extends BaseService implements WidgetServiceInterface
 
                          // ---------- LẤY SẢN PHẨM ---------------//
                         $childId = $class->recursiveCategory($objectValue->id, $model);
-                        // dd($childId);
-                        // dd($childId);
+
                         $ids = [];
+
                         foreach($childId as $child_id){
                             $ids[] = $child_id->id;
                         }
-                        
+
                         $objectValue->{$replace} = $classRepo->findObjectByCategoryIds($ids, $model, $language);
 
                         if(
@@ -220,7 +220,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             ],
             'param' => [
                 'whereIn' => $objectId,
-                'whereInField' => 'parent_id'
+                'whereInField' => 'parent_id',
             ]
         ];
     }
@@ -236,7 +236,6 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             $model = lcfirst(str_replace('Catalogue','', $widget->model)).'s';
             if(isset($param['object'])){
                 $relation[$model] = function($query) use ($param, $language){
-                    // $query->orderBy('order', 'asc');
                     $query->whereHas('languages', function($query) use ($language){
                         $query->where('language_id', $language);
                     });

@@ -100,7 +100,7 @@ class ProductService extends BaseService implements ProductServiceInterface
             'groupBy' => $this->paginateSelect()
         ];
 
-        $orderBy = ['products.id', 'DESC'];
+        $orderBy = ['products.order', 'DESC'];
 
         $relations = ['product_catalogues'];
 

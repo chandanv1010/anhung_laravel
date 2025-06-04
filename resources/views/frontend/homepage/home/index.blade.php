@@ -176,7 +176,6 @@
                                         <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
                                     </div>
-                                    
                                 </div>
                                 @endforeach
                             </div>
@@ -203,10 +202,10 @@
                         <div class="panel-body">
                             <div class="uk-grid uk-grid-medium">
                                 @foreach($cat->products as $keyProduct => $product)
-                                @if($keyProduct > 2) @break @endif
-                                <div class="uk-width-medium-1-3">
-                                    @include('frontend/component/product-item', ['product' => $product])
-                                </div>
+                                    @if($keyProduct > 2) @break @endif
+                                    <div class="uk-width-medium-1-3">
+                                        @include('frontend/component/product-item', ['product' => $product])
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
