@@ -68,13 +68,20 @@ class HomeController extends FrontendController
             'meta_image' => $this->system['seo_meta_images'],
             'canonical' => config('app.url'),
         ];
+
         $language = $this->language;
+  
+        $schema = $this->schema($seo);
+        
         $ishome = true;
+
         if(Agent::isMobile()){
             $template = 'mobile.homepage.home.index';
         }else{
             $template = 'frontend.homepage.home.index';
         }
+
+
         return view($template, compact(
             'config',
             'slides',
@@ -82,7 +89,8 @@ class HomeController extends FrontendController
             'seo',
             'system',
             'language',
-            'ishome'
+            'ishome',
+            'schema'
         ));
     }
 
@@ -90,6 +98,32 @@ class HomeController extends FrontendController
         return view('frontend.homepage.home.ckfinder');
     }
 
+
+    private function schema($seo){
+        $schema = "<script type='application/ld+json'>
+            {
+                \"@context\": \"https://schema.org\",
+                \"@type\": \"WebSite\",
+                \"name\": \"" . $seo['meta_title'] . "\",
+                \"url\": \"" . $seo['canonical'] . "\",
+                \"description\": \"" . $seo['meta_description'] . "\",
+                \"publisher\": {
+                    \"@type\": \"Organization\",
+                    \"name\": \"" . $seo['meta_title'] . "\"
+                },
+                \"potentialAction\": {
+                    \"@type\": \"SearchAction\",
+                    \"target\": {
+                        \"@type\": \"EntryPoint\",
+                        \"urlTemplate\": \"" . $seo['canonical'] . "search?q={search_term_string}\"
+                    },
+                    \"query-input\": \"required name=search_term_string\"
+                }
+            }
+            </script>";
+
+        return $schema;
+    }
   
 
     private function config(){

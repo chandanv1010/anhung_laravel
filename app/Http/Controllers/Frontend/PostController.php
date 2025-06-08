@@ -82,6 +82,8 @@ class postController extends FrontendController
             $template = 'frontend.post.post.index';
         }
 
+        $schema = $this->schema($post, $postCatalogue, $breadcrumb);
+
         return view($template, compact(
             'config',
             'seo',
@@ -91,8 +93,101 @@ class postController extends FrontendController
             'post',
             'asidePost',
             'widgets',
+            'schema'
         ));
     }
+
+    private function schema($post, $postCatalogue, $breadcrumb){
+
+        $image = $post->image;
+
+        $name = $post->languages->first()->pivot->name;
+
+        $description = strip_tags($post->languages->first()->pivot->description);
+
+        $canonical = write_url($post->languages->first()->pivot->canonical);
+
+        $itemBreadcrumbElements = '';
+
+        $positionBreadcrumb = 2;
+
+        foreach ($breadcrumb as $key => $item) {
+
+            $name = $item->languages->first()->pivot->name;
+
+            $canonical = write_url($item->languages->first()->pivot->canonical);
+
+            $itemBreadcrumbElements .= "
+                {
+                    \"@type\": \"ListItem\",
+                    \"position\": $positionBreadcrumb,
+                    \"name\": \"" . $name . "\",
+                    \"item\": \"" . $canonical . "\",
+                },";
+            $positionBreadcrumb++;
+        }
+
+        $itemBreadcrumbElements = rtrim($itemBreadcrumbElements, ',');
+
+        $schema = "
+            <script type=\"application/ld+json\">
+                {
+                    \"@type\": \"BreadcrumbList\",
+                    \"itemListElement\": [
+                        {
+                            \"@type\": \"ListItem\",
+                            \"position\": 1,
+                            \"name\": \" Trang chủ  \",
+                            \"item\": \" ". config('app.url') . " \"
+                        },
+                        $itemBreadcrumbElements
+                    ]
+                },
+                {
+                    \"@context\": \"https://schema.org\",
+                    \"@type\": \"BlogPosting\",
+                    \"headline\": \" " . $name .  " \",
+                    \"description\": \"  " . $description .  "  \",
+                    \"image\": \"  " . $image .  "  \",
+                    \"url\": \"  " . $canonical .  "  \",
+                    \"datePublished\": \"  " . convertDateTime($post->created_at, 'd-m-y') .  "  \",
+                    \"dateModified\": \"  " . convertDateTime($post->created_at, 'd-m-y') .  "  \",
+                    \"author\": [
+                        \"@type\": \"Person\",
+                        \"name\": \"\",
+                        \"url\": \"\",
+                    ],
+                    \"publisher\": [
+                        \"@type\": \"Organization\",
+                        \"name\": \" An Hưng  \",
+                        \"logo\": [
+                            \"@type\": \"ImageObject\",
+                            \"url\": \"   \",
+                        ],
+                    ],
+                    \"mainEntityOfPage\": [
+                        \"@type\": \"Organization\",
+                        \"@id\": \" " . $canonical . " \",
+                    ],
+                    \"articleSection\": \"  " . $postCatalogue->languages->first()->pivot->name .  "  \",
+                    \" keywords \": \"  \",
+                    \" timeRequired \": \"  \",
+                    \"about\": [
+                        \"@type\": \"Thing\",
+                        \"name\": \" \",
+                    ],
+                    \"mentions\": [
+                        {
+                            \"@type\": \"Product\",
+                            \"name\": \" \",
+                        }
+                    ],
+                }
+            </script>
+        ";
+        return $schema;
+
+    } 
 
     private function config(){
         return [

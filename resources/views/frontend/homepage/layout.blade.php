@@ -3,6 +3,7 @@
     <head>
         @include('frontend.component.head')
     </head>
+    {!! $schema !!}
     <body>
         @include('frontend.component.header')
 
@@ -10,6 +11,5 @@
 
         @include('frontend.component.footer')
         @include('frontend.component.script')
-        {{-- @include('frontend.component.popup') --}}
     </body>
 </html>

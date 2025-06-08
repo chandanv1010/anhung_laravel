@@ -77,6 +77,9 @@ class PostCatalogueController extends FrontendController
         $config = $this->config();
         $system = $this->system;
         $seo = seo($postCatalogue, $page);
+
+        $schema = $this->schema($postCatalogue, $posts, $breadcrumb);
+
         return view($template, compact(
             'config',
             'seo',
@@ -85,10 +88,90 @@ class PostCatalogueController extends FrontendController
             'postCatalogue',
             'posts',
             'widgets',
+            'schema'
         ));
     }
 
+    private function schema($postCatalogue, $posts, $breadcrumb){
 
+        $cat_name = $postCatalogue->languages->first()->pivot->name;
+
+        $cat_canonical = write_url($postCatalogue->languages->first()->pivot->canonical);
+
+        $cat_description = strip_tags($postCatalogue->languages->first()->pivot->description);
+
+        $itemListElements = '';
+
+        $position = 1;
+
+        foreach ($posts as $post) {
+            $name = $post->languages->first()->pivot->name;
+            $canonical = write_url($post->languages->first()->pivot->canonical);
+            $itemListElements .= "
+                {
+                    \"@type\": \"BlogPosting\",
+                    \"headline\": \" ". $name ." \",
+                    \"url\": \" ". $canonical ." \",
+                    \"datePublished\": \" ". convertDateTime($post->created_at, 'd-m-Y') ." \",
+                    \"author\": {
+                        \"@type\": \" Person  \",
+                        \"name\": \" An Hưng \",
+                    }
+                },";
+            $position++;
+        }
+
+        $itemListElements = rtrim($itemListElements, ',');
+
+        $itemBreadcrumbElements = '';
+
+        $positionBreadcrumb = 2;
+
+        foreach ($breadcrumb as $key => $item) {
+            $name = $item->languages->first()->pivot->name;
+            $canonical = write_url($item->languages->first()->pivot->canonical);
+            $itemBreadcrumbElements .= "
+                {
+                    \"@type\": \"ListItem\",
+                    \"position\": $positionBreadcrumb,
+                    \"name\": \"" . $name . "\",
+                    \"item\": \"" . $canonical . "\",
+                },";
+            $positionBreadcrumb++;
+        }
+
+        $itemBreadcrumbElements = rtrim($itemBreadcrumbElements, ',');
+
+        $schema = "<script type='application/ld+json'>
+            {
+                \"@type\": \"BreadcrumbList\",
+                \"itemListElement\": [
+                    {
+                        \"@type\": \"ListItem\",
+                        \"position\": 1,
+                        \"name\": \" Trang chủ  \",
+                        \"item\": \" ". config('app.url') . " \"
+                    },
+                    $itemBreadcrumbElements
+                ]
+            },
+            {
+                \"@context\": \"https://schema.org\",
+                \"@type\": \"Blog\",
+                \"name\": \"" . $cat_name . "\",
+                \"description\": \" " . $cat_description . " \",
+                \"url\": \"" . $cat_canonical . "\",
+                \"publisher\": [
+                    \"@type\": \"Organization\",
+                    \"name\": \" An Hưng \",
+                ],
+                \"blogPost\": {
+                    $itemListElements
+                }
+            }
+            </script>";
+        return $schema;
+    }
    
 
     private function config(){

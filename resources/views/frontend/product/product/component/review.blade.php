@@ -66,7 +66,7 @@
                         $phone = $review->phone;
                         $description = $review->description;
                         $rating = generateStar($review->score);
-                        $created_at = convertDateTime($review->created_at);
+                    $created_at = convertDateTime($review->created_at);
                     @endphp
                     <div class="review-block-item ">
                         <div class="review-general uk-clearfix">

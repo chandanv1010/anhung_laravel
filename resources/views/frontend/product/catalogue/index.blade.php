@@ -53,6 +53,4 @@
     <div class="mt--80">
         @include('frontend.component.news')
     </div>
-
 @endsection
-

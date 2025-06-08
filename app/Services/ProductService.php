@@ -720,5 +720,5 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $products;
     }
 
-    
 }
+
