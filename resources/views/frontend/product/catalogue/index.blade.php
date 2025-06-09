@@ -13,7 +13,7 @@
                                 $canonical = write_url($item->languages->first()->pivot->canonical);
                             @endphp
                             <li>
-                                <a href="{{ $canonical }}">{{ $name }}</a>
+                                <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
                             </li>
                         @endforeach
                     </ul>

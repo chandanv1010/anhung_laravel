@@ -6,7 +6,6 @@
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
                 <h1 class="page-heading">{{ $postCatalogue->languages->first()->pivot->name }}</h1>
-                
             </div>
         </div>
         <div class="post-container">
@@ -23,22 +22,9 @@
                         @endphp
                         <div class="uk-width-medium-1-3 mb20">
                             <div class="news-item">
-                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                 <div class="info">
-                                    {{-- <div class="category-name">{{ $cat }}</div> --}}
                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
-                                    {{-- <div class="time">
-                                        <div class="uk-flex uk-flex-middle">
-                                            <div class="created_at">
-                                                <i class="fa fa-calendar"></i>
-                                                <span>{{ $post->created_at }}</span>
-                                            </div>
-                                            <div class="user-created">
-                                                <i class="fa fa-user"></i>
-                                                <span>Admin</span>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
