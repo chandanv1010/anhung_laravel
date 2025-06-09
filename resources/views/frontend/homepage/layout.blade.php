@@ -3,7 +3,9 @@
     <head>
         @include('frontend.component.head')
     </head>
-    {!! $schema !!}
+    @if(isset($schema))
+        {!! $schema !!}
+    @endif
     <body>
         @include('frontend.component.header')
 
