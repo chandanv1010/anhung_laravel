@@ -9,10 +9,11 @@
                         </div>
                         <div class="panel-body">
                             <div class="row uk-clearfix">
-                                <span class="label"><i class="fa fa-home"></i>Địa chỉ:</span>
-                                <a href="{{ $system['contact_office_map'] }}" class="value" target="_blank">
+                                <span class="label">
+                                    <i class="fa fa-home"></i>Địa chỉ:</span>
+                                <a href="{{ $system['contact_office_map'] }}" title="{{ $system['contact_office'] }}" class="value" target="_blank">
                                     {{ $system['contact_office'] }}
-                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                    <img src="/userfiles/image/logo/map.png" alt="{{ $system['contact_office'] }}">
                                 </a>
                             </div>
                             <div class="row uk-clearfix">
@@ -25,9 +26,9 @@
                             </div>
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
-                                <a href="{{ $system['contact_xuong_map'] }}" class="value" target="_blank">
+                                <a href="{{ $system['contact_xuong_map'] }}" title="{{ $system['contact_xuong'] }}" class="value" target="_blank">
                                     {{ $system['contact_xuong'] }}
-                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                    <img src="/userfiles/image/logo/map.png" alt="{{ $system['contact_xuong'] }}">
                                 </a>
                             </div>
                         </div>
@@ -41,9 +42,9 @@
                         <div class="panel-body">
                             <div class="row uk-clearfix">
                                 <span class="label"><i class="fa fa-home"></i>Địa chỉ:</span>
-                                <a href="{{ $system['hcm_office_map'] }}" class="value" target="_blank">
+                                <a href="{{ $system['hcm_office_map'] }}" title="{{ $system['hcm_office'] }}" class="value" target="_blank">
                                     {{ $system['hcm_office'] }}
-                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                    <img src="/userfiles/image/logo/map.png" alt="{{ $system['hcm_office'] }}">
                                 </a>
                             </div>
                             <div class="row uk-clearfix">
@@ -58,7 +59,7 @@
                                 <span class="label"><i class="fa fa-university" aria-hidden="true"></i>Xưởng:</span>
                                 <a href="{{ $system['hcm_xuong_map'] }}" class="value" target="_blank">
                                     {{ $system['hcm_xuong'] }}
-                                    <img src="/userfiles/image/logo/map.png" alt="">
+                                    <img src="/userfiles/image/logo/map.png" alt="{{ $system['hcm_xuong'] }}">
                                 </a>
                             </div>
                         </div>
@@ -90,16 +91,16 @@
                     </div>
                     <div class="footer-social">
                         <div class="uk-flex uk-flex-middle">
-                            <a href="{{ $system['social_facebook'] }}" class="social-item" target="_blank">
+                            <a href="{{ $system['social_facebook'] }}" title="Facebook" class="social-item" target="_blank">
                                 <i class="fa fa-facebook"></i>
                             </a>
-                            <a href="{{ $system['social_youtube'] }}" class="social-item" target="_blank">
+                            <a href="{{ $system['social_youtube'] }}" title="Youtube" class="social-item" target="_blank">
                                 <i class="fa fa-youtube"></i>
                             </a>
-                            <a href="{{ $system['social_instagram'] }}" class="social-item" target="_blank">
+                            <a href="{{ $system['social_instagram'] }}" title="Instagram" class="social-item" target="_blank">
                                 <i class="fa fa-instagram"></i>
                             </a>
-                            <a href="{{ $system['social_tiktok'] }}" class="social-item" target="_blank">
+                            <a href="{{ $system['social_tiktok'] }}" title="Tiktok" class="social-item" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 448 512">
                                     <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25v178.72A162.55 162.55 0 1 1 185 188.31v89.89a74.62 74.62 0 1 0 52.23 71.18V0h88a121 121 0 0 0 1.86 22.17A122.18 122.18 0 0 0 381 102.39a121.43 121.43 0 0 0 67 20.14Z"></path>
                                 </svg>
@@ -119,11 +120,13 @@
                                 @if($val['children'] && count($val['children']))
                                 <ul class="uk-list uk-clearfix">
                                     @foreach($val['children'] as $keyChild => $valChild)
-                                    @php
-                                        $name = $valChild['item']->languages->first()->pivot->name;
-                                        $canonical = write_url($valChild['item']->languages->first()->pivot->canonical);
-                                    @endphp
-                                    <li><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></li>
+                                        @php
+                                            $name = $valChild['item']->languages->first()->pivot->name;
+                                            $canonical = write_url($valChild['item']->languages->first()->pivot->canonical);
+                                        @endphp
+                                        <li>
+                                            <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
+                                        </li>
                                     @endforeach
                                 </ul>
                                 @endif
@@ -135,7 +138,7 @@
                 <div class="footer-network">
                     <div class="menu-heading">Fanpage</div>
                     <div class="footer-logo mb20">
-                        <a href="." class="image"><img src="{{ asset('frontend/resources/img/footer-logo.png') }}" alt="Logo Footer"></a>
+                        <a href="." title="Logo" class="image"><img src="{{ asset('frontend/resources/img/footer-logo.png') }}" alt="Logo Footer"></a>
                     </div>
                     <div class="page" style="padding:0;">
                         <div class="fb-page" data-href="<?php echo $system['social_facebook'] ?>" data-tabs="" data-width="400" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="<?php echo $system['social_facebook'] ?>" class="fb-xfbml-parse-ignore"><a href="<?php echo $system['social_facebook'] ?>">Facebook</a></blockquote></div>
@@ -158,29 +161,29 @@
 <div class="contact-fixed">
     <ul>
         <li>
-            <a href="https://zalo.me/{{ $system['social_zalo'] }}" target="_blank">
-                <img src="/userfiles/image/logo/q-BI_3-uzZ.png" alt="">
+            <a href="https://zalo.me/{{ $system['social_zalo'] }}" title="Zalo" target="_blank">
+                <img src="/userfiles/image/logo/q-BI_3-uzZ.png" alt="Zalo">
             </a>
         </li>
         <li>
-            <a href="" data-uk-modal="{target:'#advise'}">
-                <img src="/userfiles/image/logo/q-Dfr87qKq.png" alt="">
+            <a href="" data-uk-modal="{target:'#advise'}" title="Advise">
+                <img src="/userfiles/image/logo/q-Dfr87qKq.png" alt="Advise">
             </a>
             @include('frontend.component.advise')
         </li>
         <li>
-            <a href="#system">
-                <img src="/userfiles/image/logo/q-DVjHfTNn.png" alt="">
+            <a href="#system" title="System">
+                <img src="/userfiles/image/logo/q-DVjHfTNn.png" alt="System">
             </a>
         </li>
         <li>
-            <a href="https://m.me/{{ $system['social_messenger'] }}" target="_blank">
-                <img src="/userfiles/image/logo/q-ByOnyI_n.webp" alt="">
+            <a href="https://m.me/{{ $system['social_messenger'] }}" title="Messenger" target="_blank">
+                <img src="/userfiles/image/logo/q-ByOnyI_n.webp" alt="Messenger">
             </a>
         </li>
         <li>
-            <a href="tel:{{ $system['contact_hotline'] }}" class="hotline">
-                <img src="/userfiles/image/logo/q-B6gPmnEf.webp" alt="">
+            <a href="tel:{{ $system['contact_hotline'] }}" title="Hotline" class="hotline">
+                <img src="/userfiles/image/logo/q-B6gPmnEf.webp" alt="Hotline">
                 <span>{{ $system['contact_hotline'] }}</span>
             </a>
         </li>

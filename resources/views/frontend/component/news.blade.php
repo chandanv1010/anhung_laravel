@@ -2,6 +2,7 @@
  @if(isset($widgets['news']))
     @foreach($widgets['news']->object as $key => $val)
         @php
+            $catName = $val->languages->first()->pivot->name;
             $catCanonical = write_url($val->languages->first()->pivot->canonical);
         @endphp
         <div class="panel-news fix">
@@ -24,7 +25,7 @@
                             @endphp
                             <div class="uk-width-medium-1-3 ">
                                 <div class="news-item">
-                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                     <div class="info">
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
                                     </div>
@@ -35,7 +36,7 @@
                     @endif
                 </div>
                 <div class="panel-foot mt30 uk-text-center">
-                    <a href="{{ $catCanonical }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
+                    <a href="{{ $catCanonical }}" title="{{ $catName }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
                 </div>
             </div>
         </div>

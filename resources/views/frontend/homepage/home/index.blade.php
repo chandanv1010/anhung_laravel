@@ -2,6 +2,7 @@
 
 @section('content')
     <div id="homepage" class="homepage">
+
         <div class="panel-slide-group">
             <div class="uk-container uk-container-center">
                 <div class="container">
@@ -26,7 +27,7 @@
                                     <li class="uk-position-relative">
                                         <a href="#" class="uk-flex uk-flex-middle uk-flex-space-between">
                                             <span class="uk-flex uk-flex-middle">
-                                                <img src="{{ asset('frontend/resources/img/xem-them.png') }}" alt="">
+                                                <img src="{{ asset('frontend/resources/img/xem-them.png') }}" alt="Xem thêm">
                                                 <span>Xem thêm</span>
                                             </span>
                                             <i class="fa fa-angle-right"></i>
@@ -51,7 +52,9 @@
                                                     </ul>
                                                 </div>
                                                 <div class="dropright-image">
-                                                    <span class="image img-cover"><img src="{{ $widgets['categories-readmore']->album[0] }}" alt=""></span>
+                                                    <span class="image img-cover">
+                                                        <img src="{{ $widgets['categories-readmore']->album[0] }}" alt="{{ $widgets['categories-readmore']->name }}">
+                                                    </span>
                                                 </div>
                                             </div>
                                             @endif
@@ -67,12 +70,12 @@
                                 @php
                                     $name = $item->languages->first()->pivot->name;
                                     $canonical = write_url($item->languages->first()->pivot->canonical);
-                                    $icon = $item->image
+                                    $icon = $item->image;
                                 @endphp
                                 <li class="uk-position-relative">
-                                    <a href="{{ $canonical }}" class="uk-flex uk-flex-middle uk-flex-space-between">
+                                    <a href="{{ $canonical }}" title="{{ $name }}" class="uk-flex uk-flex-middle uk-flex-space-between">
                                         <span class="uk-flex uk-flex-middle">
-                                            <img src="{{ $icon }}" alt="">
+                                            <img src="{{ $icon }}" alt="{{ $name }}">
                                             <span>{{ $name }}</span>
                                         </span>
                                         <i class="fa fa-angle-right"></i>
@@ -109,21 +112,22 @@
                     </div>
                     <div class="banner">
                         @foreach($slides['banner-1']['item'] as $key => $val )
-                        <div class="banner-item">
-                            <a href="{{ $val['canonical'] }}" class="image img-cover img-zoomin">
-                                <img src="{{ $val['image'] }}" alt="{{ $val['name'] }}">
-                            </a>
-                        </div>
+                            <div class="banner-item">
+                                <a href="{{ $val['canonical'] }}" title="{{ $val['name'] }}" class="image img-cover img-zoomin">
+                                    <img src="{{ $val['image'] }}" alt="{{ $val['name'] }}">
+                                </a>
+                            </div>
                         @endforeach
                     </div>
                 </div>
             </div>
         </div>
+
         @if(isset($widgets['intro']))
             <div class="panel-intro">
                 <div class="uk-container uk-container-center">
                     <h2 class="heading-2">
-                        <a href="{{ write_url('ve-chung-toi') }}">{{ $widgets['intro']->name }}</a>
+                        <a href="{{ write_url('ve-chung-toi') }}" title="{{ $widgets['intro']->name }}">{{ $widgets['intro']->name }}</a>
                     </h2>
                     <div class="intro-container uk-container-center">
                         <span class="image img-cover img-zoominhgh">
@@ -150,6 +154,7 @@
                 </div>
             </div>
         @endif
+
         @if(isset($widgets['category-1'] ))
             @php
                 $description = $widgets['category-1']['description'][1]
@@ -173,7 +178,7 @@
                                 @endphp
                                 <div class="swiper-slide">
                                     <div class="cat-item">
-                                        <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                        <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
                                     </div>
                                 </div>
@@ -188,30 +193,30 @@
         <div class="product-container">
             @if(isset($widgets['products']))
                 @foreach($widgets['products']->object as $cat)
-                @php
-                    $nameC = $cat->languages->first()->pivot->name;
-                    $canonicalC = write_url($cat->languages->first()->pivot->canonical)
-                @endphp
-                <div class="panel-product">
-                    <div class="uk-container uk-container-center">
-                        <div class="panel-head uk-flex uk-flex-middle uk-flex-space-between">
-                            <h2 class="heading-3"><a href="{{ $canonicalC }}" title="{{  $nameC }}">{{  $nameC }}</a></h2>
-                            <a href="{{ $canonicalC }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
-                        </div>
-                        @if($cat->products)
-                        <div class="panel-body">
-                            <div class="uk-grid uk-grid-medium">
-                                @foreach($cat->products as $keyProduct => $product)
-                                    @if($keyProduct > 2) @break @endif
-                                    <div class="uk-width-medium-1-3">
-                                        @include('frontend/component/product-item', ['product' => $product])
-                                    </div>
-                                @endforeach
+                    @php
+                        $nameC = $cat->languages->first()->pivot->name;
+                        $canonicalC = write_url($cat->languages->first()->pivot->canonical)
+                    @endphp
+                    <div class="panel-product">
+                        <div class="uk-container uk-container-center">
+                            <div class="panel-head uk-flex uk-flex-middle uk-flex-space-between">
+                                <h2 class="heading-3"><a href="{{ $canonicalC }}" title="{{  $nameC }}">{{  $nameC }}</a></h2>
+                                <a href="{{ $canonicalC }}" title="{{ $nameC }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
                             </div>
+                            @if($cat->products)
+                                <div class="panel-body">
+                                    <div class="uk-grid uk-grid-medium">
+                                        @foreach($cat->products as $keyProduct => $product)
+                                            @if($keyProduct > 2) @break @endif
+                                            <div class="uk-width-medium-1-3">
+                                                @include('frontend/component/product-item', ['product' => $product])
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
-                </div>
                 @endforeach
             @endif
         </div>
@@ -241,12 +246,12 @@
                                                 $image = thumb($post->image, 630, 362)
                                             @endphp
                                             <div class="service-item">
-                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin">
+                                                <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
                                                     <img src="{{ $image }}" alt="{{ $name }}">
                                                 </a>
                                                 <div class="text-content">
                                                     <h3 class="heading-2">
-                                                        <a href="{{ $canonical }}">{{ $name }}</a>
+                                                        <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -288,7 +293,7 @@
                                 @endphp
                                 <div class="uk-width-small-1-5">
                                     <div class="video-item">
-                                        <a href="" class="image img-scaledown">
+                                        <a href="" title="{{ $name }}" class="image img-scaledown">
                                             {!! $post->video !!}
                                         </a>
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
@@ -318,7 +323,7 @@
                             @foreach($slides['brand-baochi']['item'] as $item)
                             <div class="uk-width-medium-1-6">
                                 <div class="paper-item">
-                                    <a target="_blank" href="{{ $item['canonical'] }}" class="image img-scaledown img-zoomin">
+                                    <a target="_blank" href="{{ $item['canonical'] }}" title="{{  $item['name'] }}" class="image img-scaledown img-zoomin">
                                         <img src="{{ thumb($item['image']) }}" alt="{{ $item['name'] }}">
                                     </a>
                                 </div>
