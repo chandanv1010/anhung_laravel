@@ -5,10 +5,10 @@
         <div class="uk-container uk-container-center">
             <ul class="uk-list uk-clearfix uk-flex uk-flex-middle">
                 <li>
-                    <a href="/"><i class="fi-rs-home mr5"></i>Trang chủ</a>
+                    <a href="/" title="Trang chủ"><i class="fi-rs-home mr5"></i>Trang chủ</a>
                     <span><i class="fi-rs-angle-right"></i></span>
                 </li>
-                <li><a href="{{ write_url('thanh-toan') }}" title="">Thanh toán</a></li>
+                <li><a href="{{ write_url('thanh-toan') }}" title="Thanh toán">Thanh toán</a></li>
             </ul>
         </div>
     </div>
@@ -24,7 +24,7 @@
         @endif
         <form action="{{ route('cart.store') }}" class="uk-form form" method="post">
             @csrf
-            <h1 class="heading-1"><span>Thông tin đặt hàng</span></h1>
+            <h2 class="heading-1"><span>Thông tin đặt hàng</span></h2>
             <div class="cart-wrapper">
                 <div class="uk-grid uk-grid-medium">
                     <div class="uk-width-large-2-5">

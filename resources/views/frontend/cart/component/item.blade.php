@@ -6,7 +6,7 @@
                 <div class="uk-grid uk-grid-medium"> 
                     <div class="uk-width-small-1-1 uk-width-medium-1-5">
                         <div class="cart-item-image">
-                            <span class="image img-scaledown"><img src="{{ $cart->image }}" alt=""></span>
+                            <span class="image img-scaledown"><img src="{{ $cart->image }}" alt="{{ $cart->name }}"></span>
                             <span class="cart-item-number">{{ $cart->qty }}</span>
                         </div>
                     </div>
