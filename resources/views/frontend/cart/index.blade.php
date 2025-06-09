@@ -24,7 +24,7 @@
         @endif
         <form action="{{ route('cart.store') }}" class="uk-form form" method="post">
             @csrf
-            <h2 class="heading-1"><span>Thông tin đặt hàng</span></h2>
+            <h1 class="heading-1"><span>Thông tin đặt hàng</span></h1>
             <div class="cart-wrapper">
                 <div class="uk-grid uk-grid-medium">
                     <div class="uk-width-large-2-5">
@@ -44,16 +44,6 @@
                             @if(count($carts) && !is_null($carts) )
                             <button type="submit" class="cart-checkout" value="create" name="create">Thanh toán đơn hàng</button>
                             @endif
-                            {{-- <div class="box-info mt-3">
-                                <div class="box-title">Thông tin bổ sung</div>
-                                <div class="info">
-                                    <div class="content-style">
-                                        <h3><strong>Chính sách trả hàng, đổi hàng:</strong></h3>
-                                        <p style="color:red;">*Đơn vị vận chuyển mặc định sẽ là ViettelPost</p>
-                                        <p>Ngoại trừ lỗi do nhà sản xuất hoặc khác mẫu yêu cầu, những trường hợp còn lại Quý khách không được đổi-trả hàng.</p>
-                                    </div>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
