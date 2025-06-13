@@ -3,3 +3,4 @@
 .env
 /public/uploads
 /public/upload
+/public/image-cache
