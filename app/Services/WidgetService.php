@@ -14,6 +14,7 @@ use Illuminate\Support\Str;
 /**
  * Class WidgetService - Fixed Pure Query Builder Implementation
  * @package App\Services
+ * Fix Widget mới
  */
 class WidgetService extends BaseService implements WidgetServiceInterface 
 {
