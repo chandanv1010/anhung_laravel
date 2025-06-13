@@ -7,7 +7,10 @@ use App\Repositories\Interfaces\MenuCatalogueRepositoryInterface  as MenuCatalog
 class MenuComposer
 {
 
+    protected $menuCatalogueRepository;
     protected $language;
+    
+    protected static $menuData = [];
 
     public function __construct(
         MenuCatalogueRepository $menuCatalogueRepository,
@@ -20,6 +23,19 @@ class MenuComposer
     public function compose(View $view)
     {
 
+        $dataKey = 'menu_lang_'.$this->language;
+        if(!isset(static::$menuData[$dataKey])){
+            static::$menuData[$dataKey] = $this->loadMenuData();
+        }
+
+        $view->with('menu', static::$menuData[$dataKey]);
+
+        
+
+        // $view->with('menu', $menus);
+    }
+
+    private function loadMenuData(){
         $agrument = $this->agrument($this->language);
         $menuCatalogue = $this->menuCatalogueRepository->findByCondition(...$agrument);
        
@@ -34,9 +50,9 @@ class MenuComposer
                 $menus[$val->keyword] = frontend_recursive_menu(recursive($val->menus), 0, 1, $type);
             }
         }
-
-        $view->with('menu', $menus);
+        return $menus;
     }
+
 
     private function agrument($language){
 

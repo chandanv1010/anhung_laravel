@@ -13,8 +13,8 @@
                                 <ul class="uk-list uk-clearfix">
                                     @foreach($widgets['categories']->object as $key => $item)
                                     @php
-                                        $name = $item->short_name ?? $item->languages->first()->pivot->name;
-                                        $canonical = write_url($item->languages->first()->pivot->canonical);
+                                        $name = $item->short_name ?? $item->languages->name;
+                                        $canonical = write_url($item->languages->canonical);
                                         $icon = $item->icon ?? '/userfiles/image/logo/ban-an.png';
                                     @endphp
                                     <li>
@@ -39,8 +39,8 @@
                                                     <ul class="uk-list uk-clearfix">
                                                         @foreach($widgets['categories-readmore']->object as $key => $item)
                                                         @php
-                                                            $name = $item->languages->first()->pivot->name;
-                                                            $canonical = write_url($item->languages->first()->pivot->canonical);
+                                                            $name = $item->languages->name;
+                                                            $canonical = write_url($item->languages->canonical);
                                                             $icon = $item->icon
                                                         @endphp
                                                         <li>
@@ -66,10 +66,12 @@
                         <div class="category-item category-service">
                             <h2 class="heading-1"><span>Dịch Vụ</span></h2>
                             <ul class="uk-list uk-clearfix">
+                                {{-- @dd($widgets['services']) --}}
+
                                 @foreach($widgets['services']->object as $key => $item)
                                 @php
-                                    $name = $item->languages->first()->pivot->name;
-                                    $canonical = write_url($item->languages->first()->pivot->canonical);
+                                    $name = $item->languages->name;
+                                    $canonical = write_url($item->languages->canonical);
                                     $icon = $item->image;
                                 @endphp
                                 <li class="uk-position-relative">
@@ -81,14 +83,14 @@
                                         <i class="fa fa-angle-right"></i>
                                     </a>
                                     <div class="dropright-menu">
-                                        @if(isset($item['children']))
+                                        @if(isset($item->children))
                                         <div class="dropright-container">
                                             <div class="sub-menu">
                                                 <ul class="uk-list uk-clearfix">
-                                                    @foreach($item['children']->object as $keyVal => $val)
+                                                    @foreach($item->children as $keyVal => $val)
                                                     @php
-                                                        $nameC = $val->languages->first()->pivot->name;
-                                                        $canonicalC = write_url($val->languages->first()->pivot->canonical);
+                                                        $nameC = $val->languages->name;
+                                                        $canonicalC = write_url($val->languages->canonical);
                                                         $iconC = $val->icon
                                                     @endphp
                                                     <li>
@@ -136,9 +138,9 @@
                         <div class="intro-item-container">
                             @foreach($widgets['intro']->object as $key => $val)
                                 @php
-                                    $name = $val->languages->first()->pivot->name;
-                                    $canonical = write_url($val->languages->first()->pivot->canonical);
-                                    $description = cutnchar(strip_tags($val->languages->first()->pivot->description), 100);
+                                    $name = $val->languages->name;
+                                    $canonical = write_url($val->languages->canonical);
+                                    $description = cutnchar(strip_tags($val->languages->description), 100);
                                 @endphp
                                 <div class="intro-item">
                                     <h3 class="title">
@@ -154,10 +156,10 @@
                 </div>
             </div>
         @endif
-
-        @if(isset($widgets['category-1'] ))
+        
+         @if(isset($widgets['category-1'] ))
             @php
-                $description = $widgets['category-1']['description'][1]
+                $description = $widgets['category-1']->description[1];
             @endphp
             <div class="panel-category">
                 <div class="uk-container uk-container-center">
@@ -172,8 +174,8 @@
                             <div class="swiper-wrapper">
                                 @foreach($widgets['category-1']->object as $key => $val )
                                 @php
-                                    $name = $val->languages->first()->pivot->name;
-                                    $canonical = write_url($val->languages->first()->pivot->canonical);
+                                    $name = $val->languages->name;
+                                    $canonical = write_url($val->languages->canonical);
                                     $image = thumb($val->image, 185, 123)
                                 @endphp
                                 <div class="swiper-slide">
@@ -194,8 +196,9 @@
             @if(isset($widgets['products']))
                 @foreach($widgets['products']->object as $cat)
                     @php
-                        $nameC = $cat->languages->first()->pivot->name;
-                        $canonicalC = write_url($cat->languages->first()->pivot->canonical)
+                        $nameC = $cat->languages->name;
+                        $canonicalC = write_url($cat->languages->canonical);
+                        // dd($cat->products)
                     @endphp
                     <div class="panel-product">
                         <div class="uk-container uk-container-center">
@@ -204,13 +207,19 @@
                                 <a href="{{ $canonicalC }}" title="{{ $nameC }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
                             </div>
                             @if($cat->products)
+                            @php
+                                $productCount = 0;
+                            @endphp
                                 <div class="panel-body">
                                     <div class="uk-grid uk-grid-medium">
                                         @foreach($cat->products as $keyProduct => $product)
-                                            @if($keyProduct > 2) @break @endif
+                                            @if($productCount >= 3) @break @endif
                                             <div class="uk-width-medium-1-3">
                                                 @include('frontend/component/product-item', ['product' => $product])
                                             </div>
+                                            @php
+                                                $productCount++; // Tăng số lượng sản phẩm
+                                            @endphp
                                         @endforeach
                                     </div>
                                 </div>
@@ -221,12 +230,13 @@
             @endif
         </div>
 
+        {{-- @dd($widgets['services-1']) --}}
         @if(isset($widgets['services-1']))
             <div class="service-container">
                 @foreach($widgets['services-1']->object as $key => $val)
                 @php
-                    $nameC = $val->languages->first()->pivot->name;
-                    $canonicalC = write_url($val->languages->first()->pivot->canonical);
+                    $nameC = $val->languages->name;
+                    $canonicalC = write_url($val->languages->canonical);
                 @endphp
                 <div class="panel-service-1">
                     <div class="uk-container uk-container-center">
@@ -235,19 +245,23 @@
                             <h2 class="heading-5"><span>{{ $nameC }}</span></h2>
                         </div>
                         @if(isset($val->posts) && count($val->posts))
+                            @php
+                                $postCount = 0;
+                            @endphp
                             <div class="panel-body">
                                 <div class="uk-grid uk-grid-medium">
                                     @foreach($val->posts as $keyPost => $post)
-                                        @if($keyPost > 5) @break; @endif
+                                        @if($postCount >= 5) @break @endif
                                         <div class="uk-width-medium-1-3 mb25">
                                             @php
-                                                $name = $post->languages->first()->pivot->name;
-                                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                                $name = $post->languages[0]->name;
+                                                $canonical = write_url($post->languages[0]->canonical);
                                                 $image = thumb($post->image, 630, 362)
                                             @endphp
                                             <div class="service-item">
                                                 <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
-                                                    <img src="{{ $image }}" alt="{{ $name }}">
+                                                    <div class="skeleton-loading"></div>
+                                                    <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
                                                 </a>
                                                 <div class="text-content">
                                                     <h3 class="heading-2">
@@ -256,6 +270,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @php
+                                            $postCount++; // Tăng số lượng sản phẩm
+                                        @endphp
                                     @endforeach
                                 </div>
                             </div>
@@ -269,8 +286,8 @@
         @if($widgets['video'])
             @foreach($widgets['video']->object as $key => $val)
             @php
-                $nameC = $val->languages->first()->pivot->name;
-                $canonicalC = write_url($val->languages->first()->pivot->canonical);
+                $nameC = $val->languages->name;
+                $canonicalC = write_url($val->languages->canonical);
             @endphp
             <div class="panel-video ">
                 <div class="uk-container uk-container-center">
@@ -282,13 +299,16 @@
                         </h2>
                     </div>
                     @if($val->posts)
+                    @php
+                        $postCount = 0
+                    @endphp
                     <div class="panel-body">
                         <div class="uk-grid uk-grid-small">
                             @foreach($val->posts as $keyPost => $post)
                                 @php
-                                    if($keyPost > 4) break;
-                                    $name = $post->languages->first()->pivot->name;
-                                    $canonical = write_url($post->languages->first()->pivot->canonical);
+                                    if($postCount > 4) break;
+                                    $name = $post->languages[0]->name;
+                                    $canonical = write_url($post->languages[0]->canonical);
                                     $image = thumb($post->image, 210, 315);
                                 @endphp
                                 <div class="uk-width-small-1-5">
@@ -299,6 +319,9 @@
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
                                     </div>
                                 </div>
+                                @php
+                                    $postCount++
+                                @endphp
                             @endforeach
                         </div>
                     </div>

@@ -24,8 +24,8 @@
                 <div>
                     @foreach($widgets['news-feature']->object as $key => $val)
                     @php
-                        $name = $val->languages->first()->pivot->name;
-                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                        $name = $val->languages->name;
+                        $canonical = write_url($val->languages->canonical);
                         $createdAt = $val->created_at;
                     @endphp
                     <div class="post-feature-item">
@@ -69,8 +69,8 @@
                 <div>
                     @foreach($widgets['projects-feature']->object as $key => $val)
                     @php
-                        $name = $val->languages->first()->pivot->name;
-                        $canonical = write_url($val->languages->first()->pivot->canonical);
+                        $name = $val->languages->name;
+                        $canonical = write_url($val->languages->canonical);
                         $createdAt = $val->created_at;
                         $image = thumb($val->image, 280, 186);
                     @endphp

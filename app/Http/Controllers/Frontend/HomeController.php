@@ -42,7 +42,7 @@ class HomeController extends FrontendController
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'intro'],
             ['keyword' => 'commit-fix'],
-            ['keyword' => 'categories','children' => true],
+            ['keyword' => 'categories'],
             ['keyword' => 'category-mobile'],
             ['keyword' => 'categories-readmore','children' => true],
             ['keyword' => 'services','children' => true],
@@ -56,6 +56,9 @@ class HomeController extends FrontendController
             ['keyword' => 'showroom-system','object' => true],
             ['keyword' => 'projects-feature', 'object' => true],
         ], $this->language);
+
+        // dd($widgets['products']);
+
         $slides = $this->slideService->getSlide(
             [SlideEnum::BANNER, SlideEnum::MAIN, 'mobile-slide' , 'banner-1', 'brand-baochi'],
             $this->language

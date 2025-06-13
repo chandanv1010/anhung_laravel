@@ -692,3 +692,54 @@ if(!function_exists('thumb')){
         return route('thumb', $params);
     }
 }
+
+if (!function_exists('convertImgToAnchor')) {
+    function convertImgToAnchor($html) {
+        if (!$html || !is_string($html)) {
+            return $html;
+        }
+
+        $dom = new DOMDocument();
+        libxml_use_internal_errors(true);
+        $dom->loadHTML('<?xml encoding="utf-8" ?>' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        libxml_clear_errors();
+
+        $images = $dom->getElementsByTagName('img');
+        if ($images->length === 0) {
+            return $html;
+        }
+
+        foreach ($images as $image) {
+            $src = $image->getAttribute('src') ?: '';
+            $alt = $image->getAttribute('alt') ?: '';
+            $class = $image->getAttribute('class') ?: 'img-cover img-zoomin';
+
+            // Tạo thẻ <a>
+            $anchor = $dom->createElement('a');
+            $anchor->setAttribute('href', $src);
+            $anchor->setAttribute('title', $alt);
+            $anchor->setAttribute('class', $class);
+
+            // Thêm <div class="skeleton-loading"> vào trong <a>
+            $skeleton = $dom->createElement('span');
+            $skeleton->setAttribute('class', 'skeleton-loading');
+            $anchor->appendChild($skeleton);
+
+            // Thêm <img class="lazy-image"> vào trong <a>
+            $newImg = $dom->createElement('img');
+            $newImg->setAttribute('class', 'lazy-image');
+            $newImg->setAttribute('data-src', $src);
+            $newImg->setAttribute('alt', $alt);
+            $anchor->appendChild($newImg);
+
+            // Thay thế <img> bằng <a> hoàn chỉnh
+            $image->parentNode->replaceChild($anchor, $image);
+        }
+
+        $html = $dom->saveHTML();
+        // Loại bỏ các thẻ HTML bổ sung do DOMDocument thêm vào
+        $html = preg_replace('/^<!DOCTYPE.+?>/', '', str_replace(['<html><body>', '</body></html>'], '', $html));
+
+        return $html;
+    }
+}

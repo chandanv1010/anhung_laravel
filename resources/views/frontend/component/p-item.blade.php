@@ -1,10 +1,10 @@
 @php
-    $name = $product->languages[0]->name;
-    $canonical = write_url($product->languages[0]->canonical);
+    $name = $product->languages->first()->pivot->name;
+    $canonical = write_url($product->languages->first()->pivot->canonical);
     $image = thumb(image($product->image), 350, 196);
     $price = getPrice($product);
-    $catName = $product->product_catalogues->first()->languages->name;
-    $review = $product->review_average;
+    $catName = $product->product_catalogues->first()->languages->first()->pivot->name;
+    $review = getReview($product);
 @endphp
 <div class="product-item">
     <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
@@ -20,7 +20,7 @@
             <div class="rate">
                 <div class="uk-flex uk-flex-middle">
                     <div class="star-rating">
-                        <div class="stars" style="--star-width: {{ $review }}%"></div>
+                        <div class="stars" style="--star-width: {{ $review['star'] }}%"></div>
                     </div>
                 </div>
             </div>

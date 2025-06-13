@@ -187,6 +187,7 @@ class BaseRepository implements BaseRepositoryInterface
         $table = $table.'_catalogues';
         $results = [];
         
+        // Hàm đệ quy để lấy tất cả parent
         $getParents = function($id) use (&$getParents, &$results, $table) {
             $category = DB::table($table)
                 ->where('id', $id)
@@ -215,7 +216,6 @@ class BaseRepository implements BaseRepositoryInterface
 
 
     public function findObjectByCategoryIds($catIds, $model, $language){
-        $orderByField = ($model == 'product') ? 'order' : $model.'_catalogue_id';
         $query = $this->model->newQuery();
         $this->model->select(
                 $model.'s.*',
@@ -238,7 +238,7 @@ class BaseRepository implements BaseRepositoryInterface
 
             return $query->join($model.'_catalogue_'.$model.' as tb2', 'tb2.'.$model.'_id', '=', $model.'s.id')
             ->whereIn('tb2.'.$model.'_catalogue_id', $catIds)
-            ->orderBy($model.'s.'.$orderByField, 'desc')
+            ->orderBy($model.'s.'.$model.'_catalogue_id', 'desc')
             ->limit(10)
             ->get();
     }

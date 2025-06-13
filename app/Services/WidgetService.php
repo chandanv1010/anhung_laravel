@@ -8,9 +8,10 @@ use App\Repositories\Interfaces\PromotionRepositoryInterface as PromotionReposit
 use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCatalogueRepository;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 /**
- * Class WidgetService
+ * Class WidgetService - Fixed Pure Query Builder Implementation
  * @package App\Services
  */
 class WidgetService extends BaseService implements WidgetServiceInterface 
@@ -20,6 +21,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
     protected $ProductCatalogueRepository;
     protected $ProductService;
     
+    protected static $widgetCache = [];
 
     public function __construct(
         WidgetRepository $widgetRepository,
@@ -32,8 +34,6 @@ class WidgetService extends BaseService implements WidgetServiceInterface
         $this->productCatalogueRepository = $productCatalogueRepository;
         $this->productService = $productService;
     }
-
-    
 
     public function paginate($request){
         $condition['keyword'] = addslashes($request->input('keyword'));
@@ -62,17 +62,14 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             return true;
         }catch(\Exception $e ){
             DB::rollBack();
-            // Log::error($e->getMessage());
             echo $e->getMessage();die();
             return false;
         }
     }
 
-
     public function update($id, $request, $languageId){
         DB::beginTransaction();
         try{
-
             $payload = $request->only('name', 'keyword', 'short_code', 'description', 'album', 'model');
             $payload['model_id'] = $request->input('modelItem.id');
             $payload['description'] = [
@@ -84,7 +81,6 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             return true;
         }catch(\Exception $e ){
             DB::rollBack();
-            // Log::error($e->getMessage());
             echo $e->getMessage();die();
             return false;
         }
@@ -94,12 +90,10 @@ class WidgetService extends BaseService implements WidgetServiceInterface
         DB::beginTransaction();
         try{
             $widget = $this->widgetRepository->delete($id);
-
             DB::commit();
             return true;
         }catch(\Exception $e ){
             DB::rollBack();
-            // Log::error($e->getMessage());
             echo $e->getMessage();die();
             return false;
         }
@@ -120,13 +114,11 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             return true;
         }catch(\Exception $e ){
             DB::rollBack();
-            // Log::error($e->getMessage());
             echo $e->getMessage();die();
             return false;
         }
     }
    
-    
     private function paginateSelect(){
         return [
             'id', 
@@ -138,135 +130,633 @@ class WidgetService extends BaseService implements WidgetServiceInterface
         ];
     }
 
-
     /* FRONTEND SERVICE */
+
+    /**
+     * REBUILT getWidget() - Pure Query Builder approach
+     */
+    public function getWidget(array $params = [], int $language = 1): array {
+        $cacheKey = md5(serialize($params) . '_lang_' . $language);
+        
+        if (isset(static::$widgetCache[$cacheKey])) {
+            return static::$widgetCache[$cacheKey];
+        }
+        
+        $keywords = array_column($params, 'keyword');
+        $paramsMap = collect($params)->keyBy('keyword');
+        
+        // SINGLE QUERY 1: Get all widgets
+        $widgets = $this->getWidgetsQuery($keywords);
+        
+        if ($widgets->isEmpty()) {
+            return static::$widgetCache[$cacheKey] = [];
+        }
+        
+        // Group widgets by model type for batch processing
+        $widgetsByModel = $widgets->groupBy('model');
+        $result = [];
+
+        
+        foreach ($widgetsByModel as $model => $modelWidgets) {
+            $modelResult = $this->processWidgetsByModel($model, $modelWidgets, $paramsMap, $language);
+            $result = array_merge($result, $modelResult);
+        }
+
+        // dd($result);
+        
+        return static::$widgetCache[$cacheKey] = $result;
+    }
     
+    /**
+     * Get widgets với single query - FIXED return type
+     */
+    private function getWidgetsQuery(array $keywords): Collection {
+        if (empty($keywords)) {
+            return collect();
+        }
 
+        $escapedKeywords = array_map('addslashes', $keywords);
+        $keywordList = "'" . implode("','", $escapedKeywords) . "'";
+        
+        $results = DB::select("
+            SELECT id, name, keyword, model, model_id, short_code, description, album
+            FROM widgets 
+            WHERE keyword IN ({$keywordList})
+            AND publish = 2 
+            AND deleted_at IS NULL
+            ORDER BY FIELD(keyword, {$keywordList})
+        ");
 
-    public function getWidget(array $params = [], int $language){
-        $whereIn = [];
-        $whereInField = 'keyword';
-        if(count($params)){
-            foreach($params as $key => $val){
-                $whereIn[] = $val['keyword'];
+        return collect($results)->map(function($widget) {
+            $widget->description = json_decode($widget->description ?? '{}', true);
+            $widget->album = json_decode($widget->album ?? '[]', true);
+            // Decode model_id if it's a JSON string
+            $widget->model_id = is_string($widget->model_id) && json_decode($widget->model_id, true)
+                ? json_decode($widget->model_id, true)
+                : [$widget->model_id];
+            return $widget;
+        });
+    }
+    
+    /**
+     * Process widgets by model type
+     */
+    private function processWidgetsByModel(string $model, Collection $widgets, Collection $paramsMap, int $language): array {
+        $isCatalogue = strpos($model, 'Catalogue') !== false;
+
+        if ($isCatalogue) {
+            return $this->processCatalogueWidgets($model, $widgets, $paramsMap, $language);
+        } else {
+            return $this->processRegularWidgets($model, $widgets, $paramsMap, $language);
+        }
+    }
+    
+    /**
+     * Process Catalogue widgets (ProductCatalogue, PostCatalogue, etc.)
+     */
+    private function processCatalogueWidgets(string $model, Collection $widgets, Collection $paramsMap, int $language): array {
+
+        // dd($widgets);
+
+        $tableName = $this->getTableName($model);
+        // Flatten model_id arrays
+        $modelIds = $widgets->pluck('model_id')
+            ->flatten()
+            ->filter() // Loại bỏ giá trị null hoặc rỗng
+            ->map(function ($id) {
+                return is_numeric($id) ? (int)$id : 0; // Chuyển đổi thành số nguyên, ghi log nếu có lỗi
+            })
+            ->filter(function ($id) {
+                return $id > 0; // Loại bỏ các giá trị 0
+            })
+            ->unique()
+            ->values() // Đảm bảo chỉ số mảng liên tục
+            ->toArray();
+        
+
+        if (empty($modelIds)) {
+            return [];
+        }
+
+        
+        // SINGLE QUERY 2: Get all catalogue data with languages
+        $catalogues = $this->getCataloguesWithLanguages($tableName, $modelIds, $language);
+        
+        // SINGLE QUERY 3: Get children if needed (batch)
+        $childrenMap = $this->getChildrenBatch($tableName, $modelIds, $language, $widgets, $paramsMap);
+        
+        // SINGLE QUERY 4: Get all products/posts for all categories (batch)
+        $objectsMap = $this->getObjectsBatch($model, $catalogues, $language, $widgets, $paramsMap);
+        
+        $result = [];
+        foreach ($widgets as $widget) {
+            // Handle multiple model_ids
+            $widgetModelIds = is_array($widget->model_id) ? $widget->model_id : [$widget->model_id];
+            $cataloguesForWidget = $catalogues->whereIn('id', $widgetModelIds);
+            
+            if ($cataloguesForWidget->isEmpty()) {
+                continue;
+            }
+            
+            foreach ($cataloguesForWidget as $catalogue) {
+                // Attach children if needed
+                if (isset($childrenMap[$catalogue->id])) {
+                    $catalogue->childrens = $childrenMap[$catalogue->id];
+                }
+                
+                // Attach objects (products/posts)
+                $objectKey = $this->getObjectKey($model);
+                $catalogue->{$objectKey} = $objectsMap[$catalogue->id] ?? collect();
+                
+                // Handle promotions if needed
+                $params = $paramsMap->get($widget->keyword, []);
+                if (isset($params['promotion']) && $params['promotion'] && $catalogue->{$objectKey}->isNotEmpty()) {
+                    $catalogue->{$objectKey} = $this->applyPromotions($catalogue->{$objectKey}, $model);
+                }
+                
+                $widget->object = $widget->object ?? collect();
+                $widget->object->push($catalogue);
+            }
+            
+            $result[$widget->keyword] = $widget;
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Process Regular widgets (Product, Post, etc.)
+     */
+    private function processRegularWidgets(string $model, Collection $widgets, Collection $paramsMap, int $language): array {
+        $tableName = $this->getTableName($model);
+        // Flatten model_id arrays
+        $modelIds = $widgets->pluck('model_id')
+            ->flatten()
+            ->filter() // Loại bỏ giá trị null hoặc rỗng
+            ->map(function ($id) {
+                return is_numeric($id) ? (int)$id : 0; // Chuyển đổi thành số nguyên, ghi log nếu có lỗi
+            })
+            ->filter(function ($id) {
+                return $id > 0; // Loại bỏ các giá trị 0
+            })
+            ->unique()
+            ->values() // Đảm bảo chỉ số mảng liên tục
+            ->toArray();
+
+        
+        if (empty($modelIds)) {
+            return [];
+        }
+        
+        // Create modelIdList for the query
+        $modelIdList = implode(',', $modelIds);
+        
+        // SINGLE QUERY: Get all objects with relationships
+        $objects = $this->getObjectsWithRelationships($tableName, $modelIds, $model, $language);
+        
+        $result = [];
+        foreach ($widgets as $widget) {
+            // Handle multiple model_ids
+            $widgetModelIds = is_array($widget->model_id) ? $widget->model_id : [$widget->model_id];
+            $objectsForWidget = $objects->whereIn('id', $widgetModelIds);
+            
+            if ($objectsForWidget->isEmpty()) {
+                continue;
+            }
+            
+            foreach ($objectsForWidget as $object) {
+                // Handle promotions if needed
+                $params = $paramsMap->get($widget->keyword, []);
+                if (isset($params['promotion']) && $params['promotion']) {
+                    $promotedObjects = $this->applyPromotions(collect([$object]), $model);
+                    $object = $promotedObjects->first();
+                }
+                
+                $widget->object = $widget->object ?? collect();
+                $widget->object->push($object);
+            }
+            
+            $result[$widget->keyword] = $widget;
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Get catalogues with languages in single query
+     */
+    private function getCataloguesWithLanguages(string $tableName, array $modelIds, int $language): Collection {
+        if (empty($modelIds)) {
+            return collect();
+        }
+
+        $languageTable = str_replace('_catalogues', '_catalogue_language', $tableName);
+        $catalogueIdField = $this->getCatalogueIdField($tableName);
+        $modelIdList = implode(',', array_map('intval', $modelIds));
+        
+        $results = DB::select("
+            SELECT 
+                c.*,
+                cl.name as language_name,
+                cl.canonical,
+                cl.meta_title,
+                cl.meta_description,
+                cl.description as language_description,
+                cl.content
+            FROM {$tableName} c
+            LEFT JOIN {$languageTable} cl ON c.id = cl.{$catalogueIdField} 
+                AND cl.language_id = ?
+            WHERE c.id IN ({$modelIdList})
+            AND c.publish = 2 
+            AND c.deleted_at IS NULL
+            ORDER BY c.order ASC, c.id DESC
+        ", [$language]);
+
+        return collect($results)->map(function($item) {
+            // Convert to object with proper structure
+            $item->languages = (object)[
+                'name' => $item->language_name,
+                'canonical' => $item->canonical,
+                'meta_title' => $item->meta_title,
+                'meta_description' => $item->meta_description,
+                'description' => $item->language_description,
+                'content' => $item->content
+            ];
+            unset($item->language_name, $item->canonical, $item->meta_title, 
+                  $item->meta_description, $item->language_description, $item->content);
+            return $item;
+        });
+    }
+    
+    /**
+     * Get children batch
+     */
+    private function getChildrenBatch(string $tableName, array $parentIds, int $language, Collection $widgets, Collection $paramsMap): array {
+        $needsChildren = [];
+        foreach ($widgets as $widget) {
+            $params = $paramsMap->get($widget->keyword, []);
+            if (isset($params['children']) && $params['children']) {
+                $widgetModelIds = is_array($widget->model_id) ? $widget->model_id : [$widget->model_id];
+                $needsChildren = array_merge($needsChildren, $widgetModelIds);
             }
         }
-        $widgets = $this->widgetRepository->getWidgetWhereIn($whereIn);
-        if(!is_null($widgets)){
-            $temp = [];
-            foreach($widgets as $key => $widget){
-                $class = loadClass($widget->model);
-                $agrument = $this->widgetAgrument($widget, $language, $params[$key]);
-                $object = $class->findByCondition(...$agrument);
-                $model = lcfirst(str_replace('Catalogue','', $widget->model)); 
-                $replace = $model.'s';
-                $service = $model.'Service';
-                if(count($object) && strpos($widget->model, 'Catalogue')){
-                    $classRepo = loadClass( ucfirst($model) );
-                    foreach($object as $objectKey => $objectValue){
-                        if(isset($params[$key]['children']) && $params[$key]['children']){
-                            $childrenAgrument = $this->childrenAgrument([$objectValue->id], $language);
-                            $objectValue->childrens = $class->findByCondition(...$childrenAgrument);
-                        }
-
-                         // ---------- LẤY SẢN PHẨM ---------------//
-                        $childId = $class->recursiveCategory($objectValue->id, $model);
-
-                        $ids = [];
-
-                        foreach($childId as $child_id){
-                            $ids[] = $child_id->id;
-                        }
-
-                        $objectValue->{$replace} = $classRepo->findObjectByCategoryIds($ids, $model, $language);
-
-                        if(
-                            isset($params[$key]['promotion']) 
-                            && 
-                            $params[$key]['promotion'] == true 
-                        ){
-                            $productId = $objectValue->{$replace}->pluck('id')->toArray();
-                            $objectValue->{$replace} = $this->{$service}->combineProductAndPromotion($productId, $objectValue->{$replace});
-                        }
-                        $widgets[$key]->object = $object;
-                    }  
-                }else{
-                    if(
-                        isset($params[$key]['promotion']) 
-                        && 
-                        $params[$key]['promotion'] == true 
-                    ){
-                        $productId = $object->pluck('id')->toArray();
-                        $object = $this->{$service}->combineProductAndPromotion($productId, $object);
-                    }
-                    $widget->object = $object;
-                }
-                $temp[$widget->keyword] = $widgets[$key];
-            }
+        
+        if (empty($needsChildren)) {
+            return [];
         }
-        return $temp;
-    }
+        
+        $languageTable = str_replace('_catalogues', '_catalogue_language', $tableName);
+        $catalogueIdField = $this->getCatalogueIdField($tableName);
+        $parentIdList = implode(',', array_map('intval', $needsChildren));
+        
+        $results = DB::select("
+            SELECT 
+                c.*,
+                c.parent_id,
+                cl.name as language_name,
+                cl.canonical,
+                cl.meta_title,
+                cl.meta_description
+            FROM {$tableName} c
+            LEFT JOIN {$languageTable} cl ON c.id = cl.{$catalogueIdField} 
+                AND cl.language_id = ?
+            WHERE c.parent_id IN ({$parentIdList})
+            AND c.publish = 2 
+            AND c.deleted_at IS NULL
+            ORDER BY c.order ASC
+        ", [$language]);
 
-    private function childrenAgrument($objectId, $language){
-        return [
-            'condition' => [
-                config('apps.general.defaultPublish')
-            ],
-            'flag' => true,
-            'relation' => [
-                'languages' => function($query) use($language){
-                    $query->where('language_id', $language);
-                }
-            ],
-            'param' => [
-                'whereIn' => $objectId,
-                'whereInField' => 'parent_id',
-            ]
-        ];
+        $children = collect($results)->map(function($item) {
+            $item->languages = (object)[
+                'name' => $item->language_name,
+                'canonical' => $item->canonical,
+                'meta_title' => $item->meta_title,
+                'meta_description' => $item->meta_description
+            ];
+            unset($item->language_name, $item->canonical, $item->meta_title, $item->meta_description);
+            return $item;
+        });
+        
+        return $children->groupBy('parent_id')->toArray();
     }
+    
+    /**
+         * Get objects (products/posts) batch for all categories
+         */
+        private function getObjectsBatch(string $catalogueModel, Collection $catalogues, int $language, Collection $widgets, Collection $paramsMap): array {
+            if ($catalogues->isEmpty()) {
+                return [];
+            }
 
-    private function widgetAgrument($widget, $language, $param){
-        $relation = [
-            'languages' => function($query) use ($language) {
-                $query->where('language_id', $language);
+
+            $objectModel = $this->getObjectModel($catalogueModel);
+            $objectTable = $this->getTableName($objectModel);
+            $pivotTable = $this->getPivotTableName($objectModel);
+            $catalogueIdField = str_replace('Catalogue', '_catalogue', $catalogueModel);
+            $catalogueIdField = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $catalogueIdField)) . '_id';
+            $objectIdField = $objectModel . '_id';
+            
+            // Get all category IDs (including recursive)
+            $allCategoryIds = [];
+            foreach ($catalogues as $catalogue) {
+                $recursiveIds = $this->getRecursiveCategoryIds($catalogue->id, $catalogueModel);
+                $allCategoryIds = array_merge($allCategoryIds, $recursiveIds);
             }
-        ];
-        $withCount = [];
-        if(strpos($widget->model, 'Catalogue')){
-            $model = lcfirst(str_replace('Catalogue','', $widget->model)).'s';
-            if(isset($param['object'])){
-                $relation[$model] = function($query) use ($param, $language){
-                    $query->whereHas('languages', function($query) use ($language){
-                        $query->where('language_id', $language);
-                    });
-                    $query->take(($param['limit']) ?? 10);
-                };
+            $allCategoryIds = array_unique(array_filter($allCategoryIds));
+            
+            if (empty($allCategoryIds)) {
+                return [];
             }
-            if(isset($param['countObject'])){
-                $withCount[] = $model;
+            
+            // MEGA QUERY: Get all objects with all relationships
+            $objectLanguageTable = $objectModel . '_language';
+            $objectCatalogueTable = $this->getTableName($catalogueModel);
+            $objectCatalogueLanguageTable = str_replace('_catalogues', '_catalogue_language', $objectCatalogueTable);
+            $categoryIdList = implode(',', array_map('intval', $allCategoryIds));
+            
+            $sql = "
+                SELECT 
+                    o.*,
+                    p.{$catalogueIdField} as category_id,
+                    ol.name as language_name,
+                    ol.canonical,
+                    ol.meta_title,
+                    ol.meta_description,
+                    ol.description as language_description,
+                    ol.content,
+                    GROUP_CONCAT(DISTINCT oc.id) as catalogue_ids,
+                    GROUP_CONCAT(DISTINCT ocl.name) as catalogue_names
+            ";
+            
+            if ($objectModel === 'product') {
+                $sql .= ",
+                    COUNT(DISTINCT r.id) as review_count,
+                    COALESCE(AVG(r.score), 0) as review_average,
+                    GROUP_CONCAT(DISTINCT pv.id) as variant_ids
+                ";
             }
-        }else{
-            $model = lcfirst($widget->model).'_catalogues';
-            $relation[$model] = function($query) use ($language){
-                $query->with('languages', function($query) use ($language){
-                    $query->where('language_id', $language);
+            
+            $sql .= "
+                FROM {$objectTable} o
+                INNER JOIN {$pivotTable} p ON o.id = p.{$objectIdField}
+                LEFT JOIN {$objectLanguageTable} ol ON o.id = ol.{$objectIdField} AND ol.language_id = ?
+                LEFT JOIN {$pivotTable} poc ON o.id = poc.{$objectIdField}
+                LEFT JOIN {$objectCatalogueTable} oc ON poc.{$catalogueIdField} = oc.id
+                LEFT JOIN {$objectCatalogueLanguageTable} ocl ON oc.id = ocl.{$this->getCatalogueIdField($objectCatalogueTable)} 
+                    AND ocl.language_id = ?
+            ";
+            
+            if ($objectModel === 'product') {
+                $sql .= "
+                    LEFT JOIN reviews r ON o.id = r.reviewable_id AND r.reviewable_type = 'App\\\\Models\\\\Product'
+                    LEFT JOIN product_variants pv ON o.id = pv.product_id
+                ";
+            }
+            
+            $sql .= "
+                WHERE p.{$catalogueIdField} IN ({$categoryIdList})
+                AND o.publish = 2 
+                AND o.deleted_at IS NULL
+                GROUP BY o.id, p.{$catalogueIdField}
+                ORDER BY o.order DESC, o.id DESC
+            ";
+            
+            $objects = collect(DB::select($sql, [$language, $language]));
+            
+            // Group by category and limit per widget
+            $result = [];
+            foreach ($catalogues as $catalogue) {
+                $categoryObjects = $objects->where('category_id', $catalogue->id);
+                
+                // Apply limit from widget params
+                $widget = $widgets->firstWhere('model_id', function($modelId) use ($catalogue) {
+                    return is_array($modelId) ? in_array($catalogue->id, $modelId) : $modelId == $catalogue->id;
                 });
-            };
+                if ($widget) {
+                    $params = $paramsMap->get($widget->keyword, []);
+                    $limit = $params['limit'] ?? 10;
+                    $categoryObjects = $categoryObjects->take($limit);
+                }
+                
+                // Process objects
+                $processedObjects = $categoryObjects->map(function($item) use ($objectModel) {
+                    // Sửa cấu trúc languages để giống Eloquent
+                    $languageData = (object)[
+                        'name' => $item->language_name,
+                        'canonical' => $item->canonical,
+                        'meta_title' => $item->meta_title,
+                        'meta_description' => $item->meta_description,
+                        'description' => $item->language_description,
+                        'content' => $item->content,
+                        'pivot' => (object)[ // Thêm pivot giả lập
+                        'name' => $item->language_name,
+                        'canonical' => $item->canonical
+                    ]
+                ];
+                $item->languages = collect([$languageData]); // Đặt languages là Collection
+                
+                // Add catalogue relationships
+                if ($item->catalogue_ids) {
+                    $catalogueIds = explode(',', $item->catalogue_ids);
+                    $catalogueNames = explode(',', $item->catalogue_names);
+                    $item->product_catalogues = collect($catalogueIds)->map(function($id, $index) use ($catalogueNames) {
+                        return (object)[
+                            'id' => $id,
+                            'languages' => (object)['name' => $catalogueNames[$index] ?? '']
+                        ];
+                    });
+                }
+                
+                // Add product-specific data
+                if ($objectModel === 'product') {
+                    $item->review_count = (int)$item->review_count;
+                    $item->review_average = round((float)$item->review_average, 1);
+                    
+                    if ($item->variant_ids) {
+                        $item->product_variants = collect(explode(',', $item->variant_ids))->map(function($id) {
+                            return (object)['id' => $id];
+                        });
+                    }
+                }
+                
+                // Clean up
+                unset($item->language_name, $item->canonical, $item->meta_title, 
+                    $item->meta_description, $item->language_description, $item->content,
+                    $item->catalogue_ids, $item->catalogue_names, $item->variant_ids, $item->category_id);
+                
+                return $item;
+            });
+            
+            $result[$catalogue->id] = $processedObjects;
         }
-        return [
-            'condition' => [
-                config('apps.general.defaultPublish')
-            ],
-            'flag' =>  true,
-            'relation' => $relation,
-            'param' => [
-                'whereIn' => $widget->model_id,
-                'whereInField' => 'id'
-            ],
-            'withCount' => $withCount,
-        ];
+        
+        return $result;
+    }
+    
+    /**
+     * Get objects with relationships for regular widgets
+     */
+    private function getObjectsWithRelationships(string $tableName, array $modelIds, string $model, int $language): Collection {
+        if (empty($modelIds)) {
+            return collect();
+        }
+
+        $languageTable = $model . '_language';
+        $catalogueTable = $model . '_catalogues';
+        $catalogueLanguageTable = $model . '_catalogue_language';
+        $pivotTable = $model . '_catalogue_' . $model;
+        $modelIdList = implode(',', array_map('intval', $modelIds));
+        
+        $sql = "
+            SELECT 
+                o.*,
+                ol.name as language_name,
+                ol.canonical,
+                ol.meta_title,
+                ol.meta_description,
+                ol.description as language_description,
+                ol.content,
+                GROUP_CONCAT(DISTINCT c.id) as catalogue_ids,
+                GROUP_CONCAT(DISTINCT cl.name) as catalogue_names
+        ";
+        
+        if ($model === 'product') {
+            $sql .= ",
+                COUNT(DISTINCT r.id) as review_count,
+                COALESCE(AVG(r.score), 0) as review_average
+            ";
+        }
+        
+        $sql .= "
+            FROM {$tableName} o
+            LEFT JOIN {$languageTable} ol ON o.id = ol.{$model}_id AND ol.language_id = ?
+            LEFT JOIN {$pivotTable} pc ON o.id = pc.{$model}_id
+            LEFT JOIN {$catalogueTable} c ON pc.{$model}_catalogue_id = c.id
+            LEFT JOIN {$catalogueLanguageTable} cl ON c.id = cl.{$model}_catalogue_id AND cl.language_id = ?
+        ";
+        
+        if ($model === 'product') {
+            $sql .= "
+                LEFT JOIN reviews r ON o.id = r.reviewable_id AND r.reviewable_type = 'App\\\\Models\\\\Product'
+            ";
+        }
+        
+        $sql .= "
+            WHERE o.id IN ({$modelIdList})
+            AND o.publish = 2 
+            AND o.deleted_at IS NULL
+            GROUP BY o.id
+            ORDER BY o.order DESC
+        ";
+
+        return collect(DB::select($sql, [$language, $language]))->map(function($item) use ($model) {
+            // Process similar to getObjectsBatch
+            $item->languages = (object)[
+                'name' => $item->language_name,
+                'canonical' => $item->canonical,
+                'meta_title' => $item->meta_title,
+                'meta_description' => $item->meta_description,
+                'description' => $item->language_description,
+                'content' => $item->content
+            ];
+            
+            if ($item->catalogue_ids) {
+                $catalogueIds = explode(',', $item->catalogue_ids);
+                $catalogueNames = explode(',', $item->catalogue_names);
+                $relationName = $model . '_catalogues';
+                $item->{$relationName} = collect($catalogueIds)->map(function($id, $index) use ($catalogueNames) {
+                    return (object)[
+                        'id' => $id,
+                        'languages' => (object)['name' => $catalogueNames[$index] ?? '']
+                    ];
+                });
+            }
+            
+            if ($model === 'product') {
+                $item->review_count = (int)$item->review_count;
+                $item->review_average = round((float)$item->review_average, 1);
+            }
+            
+            unset($item->language_name, $item->canonical, $item->meta_title, 
+                  $item->meta_description, $item->language_description, $item->content,
+                  $item->catalogue_ids, $item->catalogue_names);
+            
+            return $item;
+        });
+    }
+    
+    /**
+     * Get recursive category IDs - Fallback version for older MySQL
+     */
+    private function getRecursiveCategoryIds(int $categoryId, string $catalogueModel): array {
+        static $recursiveCache = [];
+        $cacheKey = $catalogueModel . '_' . $categoryId;
+        
+        if (isset($recursiveCache[$cacheKey])) {
+            return $recursiveCache[$cacheKey];
+        }
+        
+        $tableName = $this->getTableName($catalogueModel);
+        
+        // Fallback: Simple recursive approach (compatible with older MySQL)
+        $ids = [$categoryId];
+        $this->collectChildrenIds($tableName, $categoryId, $ids);
+        
+        return $recursiveCache[$cacheKey] = array_unique($ids);
     }
 
-   
-
+    /**
+     * Recursive helper to collect all children IDs
+     */
+    private function collectChildrenIds(string $tableName, int $parentId, array &$ids): void {
+        $children = DB::select("
+            SELECT id FROM {$tableName} 
+            WHERE parent_id = ? AND deleted_at IS NULL
+        ", [$parentId]);
+        
+        foreach ($children as $child) {
+            if (!in_array($child->id, $ids)) {
+                $ids[] = $child->id;
+                $this->collectChildrenIds($tableName, $child->id, $ids);
+            }
+        }
+    }
+    
+    /**
+     * Apply promotions (simplified - integrate with existing promotion service)
+     */
+    private function applyPromotions(Collection $objects, string $model): Collection {
+        if ($model !== 'product') return $objects;
+        
+        $productIds = $objects->pluck('id')->toArray();
+        // TODO: Integrate with existing promotion logic
+        // For now, just return original objects
+        return $objects;
+    }
+    
+    // Helper methods
+    private function getTableName(string $model): string {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $model)) . 's';
+    }
+    
+    private function getObjectModel(string $catalogueModel): string {
+        return lcfirst(str_replace('Catalogue', '', $catalogueModel));
+    }
+    
+    private function getObjectKey(string $catalogueModel): string {
+        return $this->getObjectModel($catalogueModel) . 's';
+    }
+    
+    private function getPivotTableName(string $objectModel): string {
+        return $objectModel . '_catalogue_' . $objectModel;
+    }
+    
+    private function getCatalogueIdField(string $tableName): string {
+        $model = rtrim($tableName, 's');
+        return $model . '_id';
+    }
+    
+    private function getCatalogueIdFieldForPivot(string $catalogueModel): string {
+        return strtolower($catalogueModel) . '_id';
+    }
 }

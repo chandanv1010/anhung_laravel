@@ -49,7 +49,7 @@
                                 @if($item->id != $product->id)
                                     @if($index > 2) @break @endif
                                     <div class="uk-width-1-2 uk-width-small-1-2 uk-width-medium-1-3 uk-width-large-1-3 ">
-                                        @include('frontend.component.product-item', ['product' => $item])
+                                        @include('frontend.component.p-item', ['product' => $item])
                                     </div>
                                 @endif
                             @endforeach

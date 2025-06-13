@@ -89,17 +89,17 @@ class AppServiceProvider extends ServiceProvider
         });
 
 
-        view()->composer('*', function($view) use ($language){
+        view()->composer(['frontend.*', 'mobile.*'], function($view) use ($language){
             $composerClasses = [
                 // SystemComposer::class,
                 MenuComposer::class,
-                LanguageComposer::class,
-                CategoryComposer::class,
+                // LanguageComposer::class,
+                // CategoryComposer::class,
                 CartComposer::class,
-                WishlistComposer::class,
-                CustomerComposer::class,
-                AgencyComposer::class,
-                ProductCatalogueComposer::class,
+                // WishlistComposer::class,
+                // CustomerComposer::class,
+                // AgencyComposer::class,
+                // ProductCatalogueComposer::class,
             ];
 
             foreach($composerClasses as $key => $val){
