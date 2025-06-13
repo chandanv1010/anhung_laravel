@@ -9,6 +9,7 @@ use App\Repositories\Interfaces\ProductCatalogueRepositoryInterface as ProductCa
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 /**
  * Class WidgetService - Fixed Pure Query Builder Implementation
@@ -601,11 +602,12 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             return collect();
         }
 
-        $languageTable = $model . '_language';
-        $catalogueTable = $model . '_catalogues';
-        $catalogueLanguageTable = $model . '_catalogue_language';
-        $pivotTable = $model . '_catalogue_' . $model;
+        $languageTable = Str::snake($model) . '_language';
+        $catalogueTable = Str::snake($model) . '_catalogues';
+        $catalogueLanguageTable = Str::snake($model) . '_catalogue_language';
+        $pivotTable = Str::snake($model) . '_catalogue_' . Str::snake($model);
         $modelIdList = implode(',', array_map('intval', $modelIds));
+
         
         $sql = "
             SELECT 
