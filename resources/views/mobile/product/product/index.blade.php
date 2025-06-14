@@ -270,33 +270,6 @@
                 </div>
             @endforeach
         @endif
-        {{-- @if(isset($widgets['projects-feature']))
-            <div class="uk-container uk-container-center">
-                <div class="post-featured project-featured index">
-                    <h2 class="heading-6">
-                        <span>{{ $widgets['projects-feature']->name }}</    span>
-                    </h2>
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            @foreach($widgets['projects-feature']->object as $key => $val)
-                                @php
-                                    $name = $val->languages->name;
-                                    $canonical = write_url($val->languages->canonical);
-                                    $createdAt = $val->created_at;
-                                    $image = thumb($val->image, 280, 186);
-                                @endphp
-                                <div class="swiper-slide">
-                                    <div class="post-feature-item">
-                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif --}}
         @if(isset($widgets['news']))
             @foreach($widgets['news']->object as $key => $val)
                 @php

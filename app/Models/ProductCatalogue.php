@@ -56,7 +56,8 @@ class ProductCatalogue extends Model
     ];
 
     public function products(){
-        return $this->belongsToMany(Product::class, 'product_catalogue_product' , 'product_catalogue_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'product_catalogue_product', 'product_catalogue_id', 'product_id')
+            ->orderBy('order', 'desc');
     }
 
 
