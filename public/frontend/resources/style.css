@@ -1995,9 +1995,9 @@ ul li,ol li{
     padding-bottom:10px;
     border-bottom:1px solid #eaeaea;
 }
-.content-aside .project-featured .post-feature-item:not(:first-child) .image{
+/* .content-aside .project-featured .post-feature-item:not(:first-child) .image{
     display: none;
-}
+} */
 /*Contact-page*/
 .contact-page .intro{
     padding: 24px 0;
