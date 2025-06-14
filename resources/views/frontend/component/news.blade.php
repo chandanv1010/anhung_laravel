@@ -1,10 +1,5 @@
 
  @if(isset($widgets['news']))
-    @foreach($widgets['news']->object as $key => $val)
-        @php
-            $catName = $val->languages->name;
-            $catCanonical = write_url($val->languages->canonical);
-        @endphp
         <div class="panel-news fix">
             <div class="uk-container uk-container-center">
                 <div class="panel-head uk-text-center">
@@ -12,18 +7,11 @@
                     <h2 class="heading-5"><span>{{ $widgets['news']->name }}</span></h2>
                 </div>
                 <div class="panel-body">
-                    @if(isset($val->posts))
-                        @php
-                            $postCount = 0;
-                        @endphp
-                        <div class="uk-grid uk-grid-medium">
-                            @foreach($val->posts as $keyPost => $post)
+                    <div class="uk-grid uk-grid-medium">
+                        @foreach($widgets['news']->object as $key => $post)
                             @php
-                                if($postCount > 2) break;
-                                $name = $post->languages[0]->name;
-                                $canonical = write_url($post->languages[0]->canonical);
-                                $image = thumb($post->image, 344, 230);
-                                
+                                $name = $post->languages->name;
+                                $canonical = write_url($post->languages->canonical);
                             @endphp
                             <div class="uk-width-medium-1-3 ">
                                 <div class="news-item">
@@ -36,17 +24,12 @@
                                     </div>
                                 </div>
                             </div>
-                            @php
-                                $postCount++
-                            @endphp
-                            @endforeach
-                        </div>
-                    @endif
+                        @endforeach
+                    </div>
                 </div>
-                <div class="panel-foot mt30 uk-text-center">
+                {{-- <div class="panel-foot mt30 uk-text-center">
                     <a href="{{ $catCanonical }}" title="{{ $catName }}" class="readmore button-style">Xem thêm <i class="fa fa-angle-right"></i></a>
-                </div>
+                </div> --}}
             </div>
         </div>
-    @endforeach
 @endif

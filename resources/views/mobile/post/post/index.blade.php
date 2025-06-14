@@ -128,7 +128,7 @@
                             <h2 class="heading-6"><span>{{ $widgets['news']->name }}</span></h2>
                         </div>
                         <div class="panel-body">
-                            @if($val->posts)
+                            @if(isset($val->posts))
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
                                         @foreach($val->posts as $keyPost => $post)

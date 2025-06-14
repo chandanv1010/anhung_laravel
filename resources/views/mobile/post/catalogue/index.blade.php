@@ -42,16 +42,16 @@
             </div>
         </div>
         @if(isset($widgets['design_construction_interior']))
-            @foreach($widgets['design_construction_interior']->object as $key => $val)
-                <div class="panel-design">
-                    <div class="uk-container uk-container-center">
-                        <h2 class="heading-6">
-                            <span>
-                                {{ $val->languages->name }}
-                            </span>
-                        </h2>
-                        <div class="swiper-container">
-                            <div class="swiper-wrapper">
+            <div class="panel-design">
+                <div class="uk-container uk-container-center">
+                    <h2 class="heading-6">
+                        <span>
+                            {{ $widgets['design_construction_interior']->name }}
+                        </span>
+                    </h2>
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            @foreach($widgets['design_construction_interior']->object as $key => $val)
                                 @foreach($val->posts as $k => $item)
                                     @php
                                         $name = $item->languages[0]->name;
@@ -66,17 +66,17 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
-            @endforeach
+            </div>
         @endif
         @if(isset($widgets['projects-feature']))
             <div class="uk-container uk-container-center">
                 <div class="post-featured project-featured index">
                     <h2 class="heading-6">
-                        <span>{{ $widgets['projects-feature']->name }}</    span>
+                        <span>{{ $widgets['projects-feature']->name }}</span>
                     </h2>
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -100,44 +100,42 @@
             </div>
         @endif
         @if(isset($widgets['news']))
-            @foreach($widgets['news']->object as $key => $val)
-                @php
-                    $catCanonical = write_url($val->languages->canonical);
-                @endphp
-                <div class="panel-news fix index">
-                    <div class="uk-container uk-container-center">
-                        <div class="panel-head uk-text-center">
-                            <h2 class="heading-6"><span>{{ $widgets['news']->name }}</span></h2>
-                        </div>
-                        <div class="panel-body">
-                            @if($val->posts)
-                                <div class="swiper-container">
-                                    <div class="swiper-wrapper">
-                                        @foreach($val->posts as $keyPost => $post)
-                                            @php
-                                                if($keyPost > 2) break;
-                                                $name = $post->language[0]->name;
-                                                $canonical = write_url($post->language[0]->canonical);
-                                                $image = thumb($post->image, 344, 230);
-                                                $description = cutnchar(strip_tags($post['description']), 150);
-                                                $cat = $post->post_catalogues[0]->language[0]->name;
-                                            @endphp
-                                            <div class="swiper-slide">
-                                                <div class="news-item">
-                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
-                                                    <div class="info">
-                                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
-                                                    </div>
+            @php
+                $catCanonical = write_url($val->languages->canonical);
+            @endphp
+            <div class="panel-news fix index">
+                <div class="uk-container uk-container-center">
+                    <div class="panel-head uk-text-center">
+                        <h2 class="heading-6"><span>{{ $widgets['news']->name }}</span></h2>
+                    </div>
+                    <div class="panel-body">
+                        @if($val->posts)
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    @foreach($widgets['news']->object as $key => $post)
+                                        @php
+                                            if($keyPost > 2) break;
+                                            $name = $post->language[0]->name;
+                                            $canonical = write_url($post->language[0]->canonical);
+                                            $image = thumb($post->image, 344, 230);
+                                            $description = cutnchar(strip_tags($post['description']), 150);
+                                            $cat = $post->post_catalogues[0]->language[0]->name;
+                                        @endphp
+                                        <div class="swiper-slide">
+                                            <div class="news-item">
+                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                                <div class="info">
+                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endif
-                        </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
-            @endforeach
+            </div>
         @endif
     </div>
 @endsection
