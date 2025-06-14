@@ -24,7 +24,7 @@
                 </td>
                 @include('backend.dashboard.component.languageTd', ['model' => $postCatalogue, 'modeling' => 'PostCatalogue'])
                 <td class="sort">
-                    <input type="text" name="order" value="{{ $postCatalogue->order }}" class="form-control sort-post-order text-right" data-id="{{ $postCatalogue->id }}" data-model="{{ $config['model'] }}">
+                    <input type="text" name="order" value="{{ $postCatalogue->order }}" class="form-control sort-order text-right" data-id="{{ $postCatalogue->id }}" data-model="{{ $config['model'] }}">
                 </td>
                 <td class="text-center js-switch-{{ $postCatalogue->id }}"> 
                     <input type="checkbox" value="{{ $postCatalogue->publish }}" class="js-switch status " data-field="publish" data-model="{{ $config['model'] }}" {{ ($postCatalogue->publish == 2) ? 'checked' : '' }} data-modelId="{{ $postCatalogue->id }}" />

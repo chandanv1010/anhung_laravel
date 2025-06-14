@@ -233,9 +233,35 @@
             })
         })
     }
+
+    HT.changeOrder = () => {
+        $(document).on('change','.sort-order', function(){
+            let _this = $(this)
+            let option = {
+                id : _this.data('id'),
+                model : _this.data('model'),
+                order : _this.val(),
+            }
+            $.ajax({
+                url: 'ajax/product/updateOrder', 
+                type: 'GET', 
+                data: option,
+                dataType: 'json', 
+                success: function(res) {
+                    if(res.code === 10){
+                        toastr.success('Cập nhật thứ tự thành công', 'Thông báo từ hệ thống!')
+                    }
+                },
+                beforeSend: function() {
+                    
+                },
+            });
+        })
+    }
     
 
 	$(document).ready(function(){
+        HT.changeOrder()
         HT.approve()
         HT.switchery()
         HT.select2()

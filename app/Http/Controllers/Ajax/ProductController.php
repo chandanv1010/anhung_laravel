@@ -227,11 +227,11 @@ class ProductController extends Controller
     }
 
     public function updateOrder(Request $request){
-        dd($request);
         $payload['order'] =  $request->input('order');
-        unset($payload['product_id']);
-        $id = $request->input('product_id');
-        $update_order = $this->productCatalogueRepository->update($id, $payload);
+        unset($payload['id']);
+        $id = $request->input('id');
+        $class = loadClass($request->input('model'));
+        $update_order = $class->update($id, $payload);
         return response()->json([
             'response' => $update_order, 
             'messages' => 'Cập nhật thứ tự thành công',
