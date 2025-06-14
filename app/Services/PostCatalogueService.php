@@ -197,6 +197,7 @@ class PostCatalogueService extends BaseService implements PostCatalogueServiceIn
             'publish',
             'image',
             'album',
+            'short_name'
         ];
     }
     private function payloadLanguage(){
