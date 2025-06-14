@@ -6,16 +6,5 @@
         <div class="video-item">
             {!! $system['homepage_video_youtube_mobile'] !!}
         </div>
-        {{-- <div class="swiper-container">
-            <div class="swiper-wrapper">
-                @foreach($slides[$slideKeyword]['item'] as $key => $val )
-                <div class="swiper-slide">
-                    <div class="slide-item">
-                        <span class="image img-cover"><img src="{{ $val['image'] }}" alt="{{ $val['name'] }}"></span>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div> --}}
     </div>
 @endif

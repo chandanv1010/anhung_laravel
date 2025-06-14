@@ -105,12 +105,16 @@ class WidgetController extends Controller
         $widget = $this->widgetRepository->findById($id);
         $widget->description = $widget->description[$this->language];
         $modelClass = loadClass($widget->model);
+
+        $widgetItem = [];
+
+        if($widget->model_id != null){
+            $widgetItem = convertArrayByKey($modelClass->findByCondition(
+                ...array_values($this->menuItemAgrument($widget->model_id))
+            ), ['id','name.languages', 'image']);
+        }
+
         
-
-
-        $widgetItem = convertArrayByKey($modelClass->findByCondition(
-            ...array_values($this->menuItemAgrument($widget->model_id))
-         ), ['id','name.languages', 'image']);
         $config = $this->config();
 
         $config['seo'] = __('messages.widget');
