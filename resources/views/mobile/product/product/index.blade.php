@@ -270,7 +270,7 @@
                 </div>
             @endforeach
         @endif
-        @if(isset($widgets['projects-feature']))
+        {{-- @if(isset($widgets['projects-feature']))
             <div class="uk-container uk-container-center">
                 <div class="post-featured project-featured index">
                     <h2 class="heading-6">
@@ -296,7 +296,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif --}}
         @if(isset($widgets['news']))
             @foreach($widgets['news']->object as $key => $val)
                 @php
