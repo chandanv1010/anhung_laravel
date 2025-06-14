@@ -227,6 +227,7 @@ class ProductController extends Controller
     }
 
     public function updateOrder(Request $request){
+        dd($request);
         $payload['order'] =  $request->input('order');
         unset($payload['product_id']);
         $id = $request->input('product_id');

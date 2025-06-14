@@ -6,6 +6,7 @@
         </th>
         <th>{{ __('messages.tableName') }}</th>
         @include('backend.dashboard.component.languageTh')
+        <th class="text-right">Sắp xếp</th>
         <th class="text-center" style="width:100px;">{{ __('messages.tableStatus') }} </th>
         <th class="text-center" style="width:100px;">{{ __('messages.tableAction') }} </th>
     </tr>
@@ -22,6 +23,9 @@
                     {{ str_repeat('|----', (($postCatalogue->level > 0)?($postCatalogue->level - 1):0)).$postCatalogue->name }}
                 </td>
                 @include('backend.dashboard.component.languageTd', ['model' => $postCatalogue, 'modeling' => 'PostCatalogue'])
+                <td class="sort">
+                    <input type="text" name="order" value="{{ $postCatalogue->order }}" class="form-control sort-post-order text-right" data-id="{{ $postCatalogue->id }}" data-model="{{ $config['model'] }}">
+                </td>
                 <td class="text-center js-switch-{{ $postCatalogue->id }}"> 
                     <input type="checkbox" value="{{ $postCatalogue->publish }}" class="js-switch status " data-field="publish" data-model="{{ $config['model'] }}" {{ ($postCatalogue->publish == 2) ? 'checked' : '' }} data-modelId="{{ $postCatalogue->id }}" />
                 </td>

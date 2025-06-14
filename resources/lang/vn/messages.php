@@ -398,6 +398,10 @@ return [
         'image' => 'Chọn Hình',
         'notice' => 'Sử dụng nút chọn hình hoặc click vào đây để thêm hình ảnh'
     ],
+    'status_menu' => [
+        '1' => 'Hiện',
+        '2' => 'Ẩn',
+    ],
     'generalTitle' => 'Thông tin chung',
     'generalDescription' => 'Bạn đang muốn xóa ngôn ngữ có tên là:
     Lưu ý: Không thể khôi phục dữ liệu sau khi xóa. Hãy chắc chắn bạn muốn thực hiện chức năng này',

@@ -20,6 +20,7 @@ class Widget extends Model
         'album',
         'publish',
         'short_code',
+        'note'
     ];
 
     protected $table = 'widgets';

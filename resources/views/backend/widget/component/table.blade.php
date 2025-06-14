@@ -7,6 +7,7 @@
         <th>Tên Widget</th>
         <th>Từ khóa</th>
         <th>ShortCode</th>
+        <th>Ghi chú</th>
         @include('backend.dashboard.component.languageTh')
         <th class="text-center">Tình Trạng</th>
         <th class="text-center">Thao tác</th>
@@ -27,6 +28,9 @@
                 </td>
                 <td>
                     {{ ($widget->short_code) ?? '-' }}
+                </td>
+                <td>
+                    {{ ($widget->note) ?? '' }}
                 </td>
                 @foreach($languages as $language)
                 @if(session('app_locale') === $language->canonical) @continue @endif

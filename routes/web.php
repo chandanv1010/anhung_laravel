@@ -461,6 +461,9 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
    Route::get('ajax/product/updateOrder', [AjaxProductController::class, 'updateOrder'])->name('ajax.updateOrder');
 
    Route::post('ajax/review/changeStatus', [AjaxReviewController::class,'changeStatus'])->name('ajax.review.changeStatus');
+
+
+    Route::get('ajax/post/updateOrder', [AjaxPostController::class, 'updateOrder'])->name('ajax.updateOrder');
 });
 
 

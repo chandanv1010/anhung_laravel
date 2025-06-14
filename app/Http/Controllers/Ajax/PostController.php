@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Ajax;
 
 use App\Http\Controllers\FrontendController;
 use App\Repositories\Interfaces\PostRepositoryInterface  as PostRepository;
+use App\Repositories\Interfaces\PostCatalogueRepositoryInterface  as PostCatalogueRepository;
 use Illuminate\Http\Request;
 
 
@@ -14,8 +15,10 @@ class PostController extends FrontendController
 
     public function __construct(
         PostRepository $postRepository,
+        PostCatalogueRepository $postCatalogueRepository,
     ){
         $this->postRepository = $postRepository;
+        $this->postCatalogueRepository = $postCatalogueRepository;
         parent::__construct(); 
     }
 
@@ -43,6 +46,19 @@ class PostController extends FrontendController
             $html .= $video;
         }
         return $html;
+    }
+
+
+    public function updateOrder(Request $request){
+        $payload['order'] =  $request->input('order');
+        unset($payload['product_id']);
+        $id = $request->input('product_id');
+        $update_order = $this->postCatalogueRepository->update($id, $payload);
+        return response()->json([
+            'response' => $update_order, 
+            'messages' => 'Cập nhật thứ tự thành công',
+            'code' => (!$update_order) ? 11 : 10,
+        ]);  
     }
 
 }

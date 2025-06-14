@@ -52,6 +52,7 @@ class PostCatalogueController extends Controller
         $postCatalogues = $this->postCatalogueService->paginate($request, $this->language);
         $config = [
             'js' => [
+                'backend/library/finder.js',
                 'backend/js/plugins/switchery/switchery.js',
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js'
             ],

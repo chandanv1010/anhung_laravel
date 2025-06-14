@@ -54,7 +54,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
     public function create($request, $languageId){
         DB::beginTransaction();
         try{
-            $payload = $request->only('name', 'keyword', 'short_code', 'description', 'album', 'model');
+            $payload = $request->only('name', 'keyword', 'short_code', 'description', 'album', 'model', 'note');
             $payload['model_id'] = $request->input('modelItem.id');
             $payload['description'] = [
                 $languageId => $payload['description']
@@ -72,7 +72,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
     public function update($id, $request, $languageId){
         DB::beginTransaction();
         try{
-            $payload = $request->only('name', 'keyword', 'short_code', 'description', 'album', 'model');
+            $payload = $request->only('name', 'keyword', 'short_code', 'description', 'album', 'model', 'note');
             $payload['model_id'] = $request->input('modelItem.id');
             $payload['description'] = [
                 $languageId => $payload['description']
@@ -129,6 +129,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             'short_code', 
             'publish',
             'description',
+            'note'
         ];
     }
 
@@ -154,7 +155,6 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             return static::$widgetCache[$cacheKey] = [];
         }
         
-        // Group widgets by model type for batch processing
         $widgetsByModel = $widgets->groupBy('model');
         $result = [];
 
@@ -164,7 +164,6 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             $result = array_merge($result, $modelResult);
         }
 
-        // dd($result);
         
         return static::$widgetCache[$cacheKey] = $result;
     }
@@ -371,7 +370,7 @@ class WidgetService extends BaseService implements WidgetServiceInterface
             WHERE c.id IN ({$modelIdList})
             AND c.publish = 2 
             AND c.deleted_at IS NULL
-            ORDER BY c.order ASC, c.id DESC
+            ORDER BY c.order DESC, c.id DESC
         ", [$language]);
 
         return collect($results)->map(function($item) {

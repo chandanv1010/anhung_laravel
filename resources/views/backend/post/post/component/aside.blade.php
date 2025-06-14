@@ -65,6 +65,27 @@
 </div>
 <div class="ibox w">
     <div class="ibox-title">
+        <h5>Trạng thái menu</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row mb15">
+            <div class="col-lg-12">
+                <div class="form-row">
+                    <select name="status_menu" class="form-control setupSelect2" id="">
+                        @foreach (__('messages.status_menu') as $k => $item)
+                            <option value="{{ $k }}"
+                            {{ isset($post) && $k == $post->status_menu ? 'selected' : '' }}>
+                                {{ $item }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ibox w">
+    <div class="ibox-title">
        
             <div class="uk-flex uk-flex-middle uk-flex-space-between">
                 <h5>Video Clip</h5>

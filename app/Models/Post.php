@@ -22,7 +22,8 @@ class Post extends Model
         'post_catalogue_id',
         'video',
         'template',
-        'viewed'
+        'viewed',
+        'status_menu'
     ];
 
     protected $table = 'posts';

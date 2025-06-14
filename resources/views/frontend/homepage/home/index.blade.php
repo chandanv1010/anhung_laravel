@@ -7,7 +7,7 @@
             <div class="uk-container uk-container-center">
                 <div class="container">
                     <div class="categories">
-                        <h2 class="heading-1"><span>{{ $widgets['categories']->name }}</span></h2>
+                        <h2 class="heading-1">Sản phẩm</span></h2>
                         @if($widgets['categories'])
                             <div class="category-item">
                                 <ul class="uk-list uk-clearfix">
@@ -66,8 +66,6 @@
                         <div class="category-item category-service">
                             <h2 class="heading-1"><span>Dịch Vụ</span></h2>
                             <ul class="uk-list uk-clearfix">
-                                {{-- @dd($widgets['services']) --}}
-
                                 @foreach($widgets['services']->object as $key => $item)
                                 @php
                                     $name = $item->languages->name;
@@ -80,7 +78,9 @@
                                             <img src="{{ $icon }}" alt="{{ $name }}">
                                             <span>{{ $name }}</span>
                                         </span>
-                                        <i class="fa fa-angle-right"></i>
+                                        @if(isset($item->children) && count($item->children))
+                                            <i class="fa fa-angle-right"></i>
+                                        @endif
                                     </a>
                                     <div class="dropright-menu">
                                         @if(isset($item->children))

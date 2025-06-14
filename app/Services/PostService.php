@@ -220,7 +220,8 @@ class PostService extends BaseService implements PostServiceInterface
             'album',
             'post_catalogue_id',
             'video',
-            'template'
+            'template',
+            'status_menu'
         ];
     }
 
