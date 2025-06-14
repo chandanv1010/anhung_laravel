@@ -89,7 +89,7 @@
                 @endforeach
             @endif
         </div>
-        @if($widgets['video'])
+        @if(isset($widgets['video']))
             @foreach($widgets['video']->object as $key => $val)
                 @php
                     $nameC = $val->languages->name;
