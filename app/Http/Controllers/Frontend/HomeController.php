@@ -9,7 +9,7 @@ use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use App\Services\Interfaces\SlideServiceInterface  as SlideService;
 use App\Enums\SlideEnum;
 use Jenssegers\Agent\Facades\Agent;
-use Illuminate\Support\Facades\Cache;
+
 
 class HomeController extends FrontendController
 {

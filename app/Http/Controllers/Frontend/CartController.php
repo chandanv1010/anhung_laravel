@@ -21,6 +21,7 @@ use App\Classes\Paypal;
 use App\Classes\Zalo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Jenssegers\Agent\Facades\Agent;
 
 class CartController extends FrontendController
 {
@@ -117,7 +118,13 @@ class CartController extends FrontendController
 
         $config = $this->config();
 
-        return view('frontend.cart.index', compact(
+        if(Agent::isMobile()){
+            $template = 'mobile.cart.index';
+        }else{
+            $template = 'frontend.cart.index';
+        }
+
+        return view($template, compact(
             'config',
             'seo',
             'system',

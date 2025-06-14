@@ -60,10 +60,10 @@
         <div class="product-container">
             @if(isset($widgets['products']))
                 @foreach($widgets['products']->object as $cat)
-                @php
-                    $nameC = $cat->languages->name;
-                    $canonicalC = write_url($cat->languages->canonical)
-                @endphp
+                    @php
+                        $nameC = $cat->languages->name;
+                        $canonicalC = write_url($cat->languages->canonical)
+                    @endphp
                 <div class="panel-product">
                     <div class="uk-container uk-container-center">
                         <div class="panel-head uk-flex uk-flex-middle uk-flex-space-between">
@@ -71,18 +71,17 @@
                             <a href="{{ $canonicalC }}" class="readmore button-style">Xem chi tiết</a>
                         </div>
                         @if($cat->products)
-                        <div class="panel-body">
-                            <div class="swiper-container">
-                                <div class="swiper-wrapper">
-                                    @foreach($cat->products as $keyProduct => $product)
-                                        @if($keyProduct > 2) @break @endif
-                                        <div class="swiper-slide">
-                                            @include('frontend/component/product-item', ['product' => $product])
-                                        </div>
-                                    @endforeach
+                            <div class="panel-body">
+                                <div class="swiper-container">
+                                    <div class="swiper-wrapper">
+                                        @foreach($cat->products as $keyProduct => $product)
+                                            <div class="swiper-slide">
+                                                @include('frontend/component/product-item', ['product' => $product])
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>

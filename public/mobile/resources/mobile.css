@@ -2352,3 +2352,12 @@ li.uk-open a::after{
 .post-content{
     margin-bottom: 20px;
 }
+.menu-link{
+    display: flex;
+    align-items: center;
+}
+.cart-link a{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
