@@ -7,9 +7,7 @@ use App\Services\BaseService;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Repositories\Interfaces\RouterRepositoryInterface as RouterRepository;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -54,8 +52,11 @@ class PostService extends BaseService implements PostServiceInterface
     }
 
     public function paginate($request, $languageId, $postCatalogue = null, $page = 1, $extend = []){
-        
-     
+        if(!is_null($postCatalogue)){
+            Paginator::currentPageResolver(function () use ($page) {
+                return $page;
+            });
+        }
         $perPage = (!is_null($postCatalogue))  ? 15 : 20;
         $condition = [
             'keyword' => addslashes($request->input('keyword')),
@@ -90,8 +91,6 @@ class PostService extends BaseService implements PostServiceInterface
             $relations,
             $rawQuery
         ); 
-
-
 
         return $posts;
     }

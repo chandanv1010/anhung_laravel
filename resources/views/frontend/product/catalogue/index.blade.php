@@ -4,21 +4,6 @@
         @include('frontend.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
-                {{-- @if($children)
-                    <ul class="children">
-                        @foreach($children as $key => $item)
-                            @if($item->id != $productCatalogue->id)
-                                @php
-                                    $name = $item->languages->first()->pivot->name;
-                                    $canonical = write_url($item->languages->first()->pivot->canonical);
-                                @endphp
-                                <li>
-                                    <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                @endif --}}
                 @if(!is_null($menus))
                     <ul class="children">
                         @foreach($menus as $key => $item)
