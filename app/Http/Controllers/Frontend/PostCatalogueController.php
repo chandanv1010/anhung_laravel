@@ -55,30 +55,28 @@ class PostCatalogueController extends FrontendController
 
         $template = '';
 
+
         if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
             $template = 'mobile.post.catalogue.video';
-        }else if($postCatalogue->canonical == 'video'){
+        } else if($postCatalogue->canonical == 'video'){
             $template = 'frontend.post.catalogue.video';
-        }else if(Agent::isMobile() && $postCatalogue->canonical == 'thiet-ke-noi-that' || Agent::isMobile() && $postCatalogue->canonical == 'thi-cong-noi-that'){
+        } else if(Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that')){
             $template = 'mobile.post.catalogue.design';
-        }else if(Agent::isMobile() && $postCatalogue->canonical == 've-chung-toi' 
-            || $postCatalogue->canonical == 'doi-tac' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau'
-            || $postCatalogue->canonical == 'bao-hanh-doi-tra' || $postCatalogue->canonical == 'van-chuyen-giao-hang'
-            || $postCatalogue->canonical == 'quy-trinh-lam-viec' || $postCatalogue->canonical == 'hinh-thuc-thanh-toan'
-            || $postCatalogue->canonical == 'bao-gia' || $postCatalogue->canonical == 'lien-he'
-        ){
+        } else if(Agent::isMobile() && in_array($postCatalogue->canonical, [
+            've-chung-toi', 'doi-tac', 'san-xuat-theo-yeu-cau', 'bao-hanh-doi-tra', 
+            'van-chuyen-giao-hang', 'quy-trinh-lam-viec', 'hinh-thuc-thanh-toan', 
+            'bao-gia', 'lien-he'
+        ])){
             $template = 'mobile.post.catalogue.about-us';
-        }else  if($postCatalogue->canonical == 've-chung-toi' 
-            || $postCatalogue->canonical == 'doi-tac' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau'
-            || $postCatalogue->canonical == 'bao-hanh-doi-tra' || $postCatalogue->canonical == 'van-chuyen-giao-hang'
-            || $postCatalogue->canonical == 'quy-trinh-lam-viec' || $postCatalogue->canonical == 'hinh-thuc-thanh-toan'
-            || $postCatalogue->canonical == 'bao-gia' || $postCatalogue->canonical == 'lien-he'
-        ){
+        } else if(in_array($postCatalogue->canonical, [
+            've-chung-toi', 'doi-tac', 'san-xuat-theo-yeu-cau', 'bao-hanh-doi-tra', 
+            'van-chuyen-giao-hang', 'quy-trinh-lam-viec', 'hinh-thuc-thanh-toan', 
+            'bao-gia', 'lien-he'
+        ])){
             $template = 'frontend.post.catalogue.about-us';
-        }
-        else if(Agent::isMobile()){
+        } else if(Agent::isMobile()){
             $template = 'mobile.post.catalogue.index';
-        }else{
+        } else {
             $template = 'frontend.post.catalogue.index';
         }
 
