@@ -328,7 +328,7 @@ if(!function_exists('frontend_recursive_menu')){
                     $canonical = write_url($val['item']->languages->first()->pivot->canonical, true, true);
                     $ulClass = ($count >= 1) ? 'menu-level__'.($count + 1) : '';
                     $html .= '<li class="'.(($count == 1 && count($val['children'])) ? 'children' : '').'">';
-                        $html .= '<a href="'.(($name == 'Trang chủ') ? '.' : $canonical).'" title="'.$name.'">'.
+                        $html .= '<a href="'.(($name == 'Trang chủ') ? '.' : $canonical).'" title="'.$name.'" data-menu-id="'.$val['item']->id.'">'.
                         (($name == 'Trang chủ') ? '<i class="fa fa-home"></i> ' : '').$name.'</a>';
                         if(count($val['children'])){
                             $html .= '<div class="dropdown-menu">';

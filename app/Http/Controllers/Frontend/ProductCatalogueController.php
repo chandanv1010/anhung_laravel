@@ -11,6 +11,7 @@ use App\Services\Interfaces\WidgetServiceInterface as WidgetService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use Cart;
 use Jenssegers\Agent\Facades\Agent;
+use Illuminate\Support\Facades\DB;
 
 class ProductCatalogueController extends FrontendController
 {
@@ -39,8 +40,38 @@ class ProductCatalogueController extends FrontendController
 
 
     public function index($id, $request, $page = 1){
-
+        
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $this->language);
+
+        $menus = null;
+
+        $menu_id =  DB::table('menu_language')
+            ->where('canonical', $productCatalogue->canonical)
+            ->first();
+
+        $menu = Db::table('menus')->where('id', $menu_id->menu_id)->first();
+
+        if($menu->parent_id == 0){
+            $menus = DB::table('menus')
+                ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                ->where('menus.lft', '>', $menu->lft)
+                ->where('menus.rgt', '<', $menu->rgt)
+                ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                ->orderBy('menus.order', 'desc')
+                ->get();
+        }else{
+            $menuParent = Db::table('menus')->where('id', $menu->parent_id)->first();
+            $menus = DB::table('menus')
+                ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                ->where('menus.lft', '>', $menuParent->lft)
+                ->where('menus.rgt', '<', $menuParent->rgt)
+                ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                ->orderBy('menus.order', 'desc')
+                ->get();
+        }
+
+        
+        $children = null;
 
         $children = $this->productCatalogueRepository->getChildren($productCatalogue);
 
@@ -101,7 +132,8 @@ class ProductCatalogueController extends FrontendController
             'products',
             'filters',
             'widgets',
-            'schema'
+            'schema',
+            'menus'
         ));
     }
 

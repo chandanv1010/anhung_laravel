@@ -19,4 +19,4 @@
         </div>
     </div>
 </div>
-@include('backend.dashboard.component.publish', ['model' => ($postCatalogue) ?? null])
+@include('backend.dashboard.component.publish', ['model' => ($postCatalogue) ?? null, 'hideImage' => false])

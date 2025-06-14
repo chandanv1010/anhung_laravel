@@ -1,4 +1,4 @@
-@if(isset($hideImage) && !$hideImage)
+@if(!$hideImage)
     <div class="ibox w">
         <div class="ibox-title">
             <h5>{{ __('messages.image') }}</h5>

@@ -17,6 +17,7 @@ use App\Services\Interfaces\WidgetServiceInterface  as WidgetService;
 use Illuminate\Support\Facades\Auth;
 use Cart;
 use Jenssegers\Agent\Facades\Agent;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends FrontendController
 {
@@ -73,7 +74,75 @@ class ProductController extends FrontendController
         if(!is_null($product->seller_id)){
             $seller = $this->customerRepository->findById($product->seller_id);
         }
+
+        
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $this->language);
+
+        $menus = null;
+
+        if($productCatalogue->parent_id == 0){
+  
+            $menu_id =  DB::table('menu_language')
+                ->where('canonical', $productCatalogue->canonical)
+                ->first();
+
+            $menu = Db::table('menus')->where('id', $menu_id->menu_id)->first();
+
+            if($menu->parent_id == 0){
+                $menus = DB::table('menus')
+                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                    ->where('menus.lft', '>', $menu->lft)
+                    ->where('menus.rgt', '<', $menu->rgt)
+                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                    ->orderBy('menus.order', 'desc')
+                    ->get();
+            }else{
+                $menuParent = Db::table('menus')->where('id', $menu->parent_id)->first();
+                $menus = DB::table('menus')
+                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                    ->where('menus.lft', '>', $menuParent->lft)
+                    ->where('menus.rgt', '<', $menuParent->rgt)
+                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                    ->orderBy('menus.order', 'desc')
+                    ->get();
+            }
+
+
+        }else{
+
+            
+            $root  = DB::table('product_catalogues')->where('lft', '<=', $productCatalogue->lft)->where('rgt', '>=', $productCatalogue->rgt)->where('parent_id', 0)->first();
+
+            $parent = $this->productCatalogueRepository->getProductCatalogueById($root->id, $this->language);
+
+            $menu_id =  DB::table('menu_language')
+                ->where('canonical', $parent->canonical)
+                ->first();
+
+            $menu = Db::table('menus')->where('id', $menu_id->menu_id)->first();
+
+
+            if($menu->parent_id == 0){
+                $menus = DB::table('menus')
+                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                    ->where('menus.lft', '>', $menu->lft)
+                    ->where('menus.rgt', '<', $menu->rgt)
+                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                    ->orderBy('menus.order', 'desc')
+                    ->get();
+            }else{
+                $menuParent = Db::table('menus')->where('id', $menu->parent_id)->first();
+                $menus = DB::table('menus')
+                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
+                    ->where('menus.lft', '>', $menuParent->lft)
+                    ->where('menus.rgt', '<', $menuParent->rgt)
+                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
+                    ->orderBy('menus.order', 'desc')
+                    ->get();
+            }
+
+            
+        }
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $this->language);
         /* ------------------- */
         $product = $this->productService->getAttribute($product, $this->language);
@@ -147,7 +216,8 @@ class ProductController extends FrontendController
             'cartSeen',
             'seller',
             'carts',
-            'schema'
+            'schema',
+            'menus'
         ));
     }
 

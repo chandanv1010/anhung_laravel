@@ -118,7 +118,7 @@
         </div>
     </div>
 </div>
-@include('backend.dashboard.component.publish', ['model' => ($product) ?? null])
+@include('backend.dashboard.component.publish', ['model' => ($product) ?? null, 'hideImage' => false])
 
 @if(!empty($product->qrcode))
 <div class="ibox w">

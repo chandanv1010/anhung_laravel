@@ -83,4 +83,4 @@
     </div>
 </div>
 
-@include('backend.dashboard.component.publish', ['model' => ($post) ?? null])
+@include('backend.dashboard.component.publish', ['model' => ($post) ?? null, 'hideImage' => false])

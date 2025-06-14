@@ -27,18 +27,13 @@ class MenuComposer
         if(!isset(static::$menuData[$dataKey])){
             static::$menuData[$dataKey] = $this->loadMenuData();
         }
-
         $view->with('menu', static::$menuData[$dataKey]);
 
-        
-
-        // $view->with('menu', $menus);
     }
 
     private function loadMenuData(){
         $agrument = $this->agrument($this->language);
         $menuCatalogue = $this->menuCatalogueRepository->findByCondition(...$agrument);
-       
         $menus = [];
         $htmlType = ['main-menu'];
         if(count($menuCatalogue)){
