@@ -67,7 +67,7 @@
                             <ul class="uk-list uk-clearfix">
                                 @foreach($widgets['services']->object as $key => $item)
                                 @php
-                                    $name = $item->languages->name;
+                                    $name = $item->languages->name ?? $item->short_name;
                                     $canonical = write_url($item->languages->canonical);
                                     $icon = $item->image;
                                 @endphp
