@@ -8,13 +8,15 @@
                 @if($children)
                     <ul class="children">
                         @foreach($children as $key => $item)
-                            @php
-                                $name = $item->languages->first()->pivot->name;
-                                $canonical = write_url($item->languages->first()->pivot->canonical);
-                            @endphp
-                            <li>
-                                <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
-                            </li>
+                            @if($item->id != $productCatalogue->id)
+                                @php
+                                    $name = $item->languages->first()->pivot->name;
+                                    $canonical = write_url($item->languages->first()->pivot->canonical);
+                                @endphp
+                                <li>
+                                    <a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 @endif

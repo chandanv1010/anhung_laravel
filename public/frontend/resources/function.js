@@ -377,7 +377,70 @@
     }
 
 
+    HT.scrollHeading = () => {
+        $(document).on('click', '.widget-toc a', function(e) {
+            e.preventDefault(); // Ngăn hành vi mặc định của thẻ a
+            
+            let _this = $(this);
+            let href = _this.attr('href'); // Lấy giá trị href
+            
+            // Kiểm tra nếu href bắt đầu bằng #
+            if (href && href.startsWith('#')) {
+                let targetId = href.substring(1); // Loại bỏ dấu # đầu tiên
+                
+                // Sử dụng document.getElementById thay vì jQuery selector để tránh lỗi
+                let targetElement = document.getElementById(targetId);
+                
+                // Kiểm tra xem element có tồn tại không
+                if (targetElement) {
+                    // Chuyển về jQuery object để sử dụng offset()
+                    let $targetElement = $(targetElement);
+                    
+                    // Cuộn mượt đến element
+                    $('html, body').animate({
+                        scrollTop: $targetElement.offset().top - 100 // Trừ 100px để tạo khoảng cách
+                    }, 800); // 800ms cho hiệu ứng cuộn mượt
+                    
+                    // Thêm class active cho liên kết được click
+                    $('.widget-toc a').removeClass('active');
+                    _this.addClass('active');
+                } else {
+                    console.log('Không tìm thấy element với ID:', targetId);
+                }
+            }
+        });
+    }
+
+
+    HT.highlightTocOnScroll = () => {
+        $(window).on('scroll', function() {
+            let scrollTop = $(window).scrollTop();
+            
+            $('.widget-toc a').each(function() {
+                let href = $(this).attr('href');
+                if (href && href.startsWith('#')) {
+                    let targetId = href.substring(1);
+                    let targetElement = document.getElementById(targetId); // Sử dụng getElementById
+                    
+                    if (targetElement) {
+                        let $targetElement = $(targetElement);
+                        let elementTop = $targetElement.offset().top - 150;
+                        let elementBottom = elementTop + $targetElement.outerHeight();
+                        
+                        if (scrollTop >= elementTop && scrollTop < elementBottom) {
+                            $('.widget-toc a').removeClass('active');
+                            $(this).addClass('active');
+                        }
+                    }
+                }
+            });
+        });
+    }
+
+
 	$(document).ready(function(){
+        HT.highlightTocOnScroll();
+        HT.scrollHeading()
         HT.requestConsult()
         HT.scroll()
         HT.advise()

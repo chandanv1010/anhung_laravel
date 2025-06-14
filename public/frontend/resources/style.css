@@ -2806,6 +2806,7 @@ ul li,ol li{
     background: #fff;
     border-radius: 4px;
     font-weight: 500;
+    text-transform: uppercase;
 }
 .product-catalogue-wrapper .children li a:hover{
     background: #D7AD5D;
