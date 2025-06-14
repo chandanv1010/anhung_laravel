@@ -111,24 +111,23 @@
                     <div class="panel-body">
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
-                                @foreach($widgets['news']->object as $key => $post)
-                                    @php
-                                        if($keyPost > 2) break;
-                                        $name = $post->language[0]->name;
-                                        $canonical = write_url($post->language[0]->canonical);
-                                        $image = thumb($post->image, 344, 230);
-                                        $description = cutnchar(strip_tags($post['description']), 150);
-                                        $cat = $post->post_catalogues[0]->language[0]->name;
-                                    @endphp
-                                    <div class="swiper-slide">
-                                        <div class="news-item">
-                                            <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
-                                            <div class="info">
-                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                                @if(count($widgets['news']->object))
+                                    @foreach($widgets['news']->object as $key => $post)
+                                        @php
+                                            $name = $post->languages->name;
+                                            $canonical = write_url($post->languages->canonical);
+                                            $image = thumb($post->image, 344, 230);
+                                        @endphp
+                                        <div class="swiper-slide">
+                                            <div class="news-item">
+                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                                <div class="info">
+                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>

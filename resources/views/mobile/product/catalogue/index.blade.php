@@ -88,10 +88,6 @@
             </div>
         @endif
         @if(isset($widgets['news']))
-            @foreach($widgets['news']->object as $key => $val)
-                @php
-                    $catCanonical = write_url($val->languages->canonical);
-                @endphp
                 <div class="panel-news fix index">
                     <div class="uk-container uk-container-center">
                         <div class="panel-head uk-text-center">
@@ -101,14 +97,11 @@
                             @if($val->posts)
                                 <div class="swiper-container">
                                     <div class="swiper-wrapper">
-                                        @foreach($val->posts as $keyPost => $post)
+                                        @foreach($widgets['news']->object as $key => $post)
                                             @php
-                                                if($keyPost > 2) break;
-                                                $name = $post->languages[0]->name;
-                                                $canonical = write_url($post->languages[0]->canonical);
+                                                $name = $post->languages->name;
+                                                $canonical = write_url($post->languages->canonical);
                                                 $image = thumb($post->image, 344, 230);
-                                                $description = cutnchar(strip_tags($post['description']), 150);
-                                                $cat = $post->post_catalogues[0]->languages[0]->name;
                                             @endphp
                                             <div class="swiper-slide">
                                                 <div class="news-item">
@@ -125,7 +118,6 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
         @endif
     </div>
 @endsection
