@@ -15,9 +15,6 @@
                             <div class="created_at uk-flex uk-flex-middle">
                                 <div class="time">Đã đăng vào {{ convertDateTime($post->created_at, 'H:i:s d/m/Y') }} </div>
                             </div>
-                            <div class="content">
-                                {!! $post->languages->first()->pivot->content !!}
-                            </div>
                         </div>
                         <div class="post-aside">
                             @if($widgets['news-feature'])

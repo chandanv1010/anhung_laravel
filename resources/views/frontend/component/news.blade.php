@@ -12,10 +12,10 @@
                     <h2 class="heading-5"><span>{{ $widgets['news']->name }}</span></h2>
                 </div>
                 <div class="panel-body">
-                    @if($val->posts)
-                    @php
-                        $postCount = 0;
-                    @endphp
+                    @if(isset($val->posts))
+                        @php
+                            $postCount = 0;
+                        @endphp
                         <div class="uk-grid uk-grid-medium">
                             @foreach($val->posts as $keyPost => $post)
                             @php
@@ -23,8 +23,7 @@
                                 $name = $post->languages[0]->name;
                                 $canonical = write_url($post->languages[0]->canonical);
                                 $image = thumb($post->image, 344, 230);
-                                // $description = cutnchar(strip_tags($post->languages[0]->description), 150);
-                                // $cat = $post->post_catalogues[0]->languages[0]->name;
+                                
                             @endphp
                             <div class="uk-width-medium-1-3 ">
                                 <div class="news-item">
