@@ -94,27 +94,25 @@
                             <h2 class="heading-6"><span>{{ $widgets['news']->name }}</span></h2>
                         </div>
                         <div class="panel-body">
-                            @if($val->posts)
-                                <div class="swiper-container">
-                                    <div class="swiper-wrapper">
-                                        @foreach($widgets['news']->object as $key => $post)
-                                            @php
-                                                $name = $post->languages->name;
-                                                $canonical = write_url($post->languages->canonical);
-                                                $image = thumb($post->image, 344, 230);
-                                            @endphp
-                                            <div class="swiper-slide">
-                                                <div class="news-item">
-                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
-                                                    <div class="info">
-                                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
-                                                    </div>
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    @foreach($widgets['news']->object as $key => $post)
+                                        @php
+                                            $name = $post->languages->name;
+                                            $canonical = write_url($post->languages->canonical);
+                                            $image = thumb($post->image, 344, 230);
+                                        @endphp
+                                        <div class="swiper-slide">
+                                            <div class="news-item">
+                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                                <div class="info">
+                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
+                                        </div>
+                                    @endforeach
                                 </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>
