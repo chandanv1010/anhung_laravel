@@ -2349,3 +2349,6 @@ li.uk-open a::after{
     background: #124E20;
     color: #fff;
 }
+.post-content{
+    margin-bottom: 20px;
+}

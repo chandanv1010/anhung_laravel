@@ -230,8 +230,8 @@
                                     @foreach($val->posts as $k => $post)
                                         <div class="showroom-item">
                                             @php
-                                                $name = $post->languages->first()->pivot->name;
-                                                $description = $post->languages->first()->pivot->description;
+                                                $name = $post->languages[0]->name;
+                                                $description = $post->languages[0]->description;
                                             @endphp
                                             <p class="name">
                                                 {{ $name }}

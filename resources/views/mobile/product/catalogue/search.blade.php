@@ -8,7 +8,7 @@
                     @if(!is_null($products) && count($products))
                         <div class="product-list mb30">
                             @foreach($products as $product)
-                                @include('frontend.component.product-item', ['product'  => $product])
+                                @include('mobile.component.product-item', ['product'  => $product])
                             @endforeach
                         </div>
                         <div class="uk-text-center search-paginate">

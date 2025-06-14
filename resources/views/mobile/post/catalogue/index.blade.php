@@ -27,13 +27,6 @@
                                     <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
                                     <div class="info">
                                         <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
-                                        {{-- <div class="time">
-                                            <div class="uk-flex uk-flex-middle">
-                                                <div class="created_at">
-                                                    <span>{{ $post->created_at }}</span>
-                                                </div>
-                                            </div>
-                                        </div> --}}
                                         <div class="description">
                                             {!! $description !!}
                                         </div>
@@ -54,15 +47,15 @@
                     <div class="uk-container uk-container-center">
                         <h2 class="heading-6">
                             <span>
-                                {{ $val->languages->first()->pivot->name }}
+                                {{ $val->languages->name }}
                             </span>
                         </h2>
                         <div class="swiper-container">
                             <div class="swiper-wrapper">
                                 @foreach($val->posts as $k => $item)
                                     @php
-                                        $name = $item->languages->first()->pivot->name;
-                                        $canonical = write_url($item->languages->first()->pivot->canonical);
+                                        $name = $item->languages[0]->name;
+                                        $canonical = write_url($item->languages[0]->canonical);
                                         $createdAt = $item->created_at;
                                         $image = thumb($item->image, 280, 186);
                                     @endphp
@@ -89,8 +82,8 @@
                         <div class="swiper-wrapper">
                             @foreach($widgets['projects-feature']->object as $key => $val)
                                 @php
-                                    $name = $val->languages->first()->pivot->name;
-                                    $canonical = write_url($val->languages->first()->pivot->canonical);
+                                    $name = $val->languages->name;
+                                    $canonical = write_url($val->languages->canonical);
                                     $createdAt = $val->created_at;
                                     $image = thumb($val->image, 280, 186);
                                 @endphp
@@ -109,7 +102,7 @@
         @if(isset($widgets['news']))
             @foreach($widgets['news']->object as $key => $val)
                 @php
-                    $catCanonical = write_url($val->languages->first()->pivot->canonical);
+                    $catCanonical = write_url($val->languages->canonical);
                 @endphp
                 <div class="panel-news fix index">
                     <div class="uk-container uk-container-center">
@@ -123,11 +116,11 @@
                                         @foreach($val->posts as $keyPost => $post)
                                             @php
                                                 if($keyPost > 2) break;
-                                                $name = $post->languages->first()->pivot->name;
-                                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                                $name = $post->language[0]->name;
+                                                $canonical = write_url($post->language[0]->canonical);
                                                 $image = thumb($post->image, 344, 230);
                                                 $description = cutnchar(strip_tags($post['description']), 150);
-                                                $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
+                                                $cat = $post->post_catalogues[0]->language[0]->name;
                                             @endphp
                                             <div class="swiper-slide">
                                                 <div class="news-item">

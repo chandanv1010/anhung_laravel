@@ -57,8 +57,6 @@ class HomeController extends FrontendController
             ['keyword' => 'projects-feature', 'object' => true],
         ], $this->language);
 
-        // dd($widgets['products']);
-
         $slides = $this->slideService->getSlide(
             [SlideEnum::BANNER, SlideEnum::MAIN, 'mobile-slide' , 'banner-1', 'brand-baochi'],
             $this->language

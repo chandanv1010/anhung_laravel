@@ -2,7 +2,6 @@
 
 @section('content')
     <div id="homepage" class="homepage">
-
         <div class="panel-slide-group">
             <div class="uk-container uk-container-center">
                 <div class="container">
@@ -230,7 +229,6 @@
             @endif
         </div>
 
-        {{-- @dd($widgets['services-1']) --}}
         @if(isset($widgets['services-1']))
             <div class="service-container">
                 @foreach($widgets['services-1']->object as $key => $val)

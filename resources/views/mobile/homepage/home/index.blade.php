@@ -16,9 +16,9 @@
             <div class="mobile-service-container">
                 @foreach($widgets['services-1']->object as $key => $val)
                 @php
-                    $nameC = $val->languages->first()->pivot->name;
-                    $canonicalC = write_url($val->languages->first()->pivot->canonical);
-                    $descriptionC = $val->languages->first()->pivot->description;
+                    $nameC = $val->languages->name;
+                    $canonicalC = write_url($val->languages->canonical);
+                    $descriptionC = $val->languages->description;
                 @endphp
                 <div class="panel-service-1">
                     <div class="uk-container uk-container-center">
@@ -31,28 +31,26 @@
                             <a class="readmore button-style" href="{{ $canonicalC }}">Xem thêm</a>
                         </div>
                         @if(isset($val->posts) && count($val->posts))
-                        <div class="panel-body">
-                            
-                            <div class="swiper-container">
-                                <div class="swiper-button-next"></div>
-                                {{-- <div class="swiper-button-prev"></div> --}}
-                                <div class="swiper-wrapper">
-                                    @foreach($val->posts as $keyPost => $post )
-                                        @php
-                                            $name = $post->languages->first()->pivot->name;
-                                            $canonical = write_url($post->languages->first()->pivot->canonical);
-                                            $image = thumb($post->image, 630, 362)
-                                        @endphp
-                                        <div class="swiper-slide">
-                                            <div class="service-item">
-                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                                <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                            <div class="panel-body">
+                                <div class="swiper-container">
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-wrapper">
+                                        @foreach($val->posts as $keyPost => $post )
+                                            @php
+                                                $name = $post->languages[0]->name;
+                                                $canonical = write_url($post->languages[0]->canonical);
+                                                $image = thumb($post->image, 630, 362)
+                                            @endphp
+                                            <div class="swiper-slide">
+                                                <div class="service-item">
+                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                                </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
                     </div>
                 </div>
@@ -63,8 +61,8 @@
             @if(isset($widgets['products']))
                 @foreach($widgets['products']->object as $cat)
                 @php
-                    $nameC = $cat->languages->first()->pivot->name;
-                    $canonicalC = write_url($cat->languages->first()->pivot->canonical)
+                    $nameC = $cat->languages->name;
+                    $canonicalC = write_url($cat->languages->canonical)
                 @endphp
                 <div class="panel-product">
                     <div class="uk-container uk-container-center">
@@ -94,8 +92,8 @@
         @if($widgets['video'])
             @foreach($widgets['video']->object as $key => $val)
                 @php
-                    $nameC = $val->languages->first()->pivot->name;
-                    $canonicalC = write_url($val->languages->first()->pivot->canonical);
+                    $nameC = $val->languages->name;
+                    $canonicalC = write_url($val->languages->canonical);
                 @endphp
                 <div class="panel-video">
                     <div class="uk-container uk-container-center">
@@ -112,8 +110,8 @@
                                         @foreach($val->posts as $keyPost => $post)
                                             @php
                                                 if($keyPost > 4) break;
-                                                $name = $post->languages->first()->pivot->name;
-                                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                                $name = $post->languages[0]->name;
+                                                $canonical = write_url($post->languages[0]->canonical);
                                                 $video = $post->video;
                                             @endphp
                                             <div class="swiper-slide">
@@ -143,8 +141,8 @@
                         <div class="swiper-wrapper">
                             @foreach($widgets['projects-feature']->object as $key => $val)
                                 @php
-                                    $name = $val->languages->first()->pivot->name;
-                                    $canonical = write_url($val->languages->first()->pivot->canonical);
+                                    $name = $val->languages->name;
+                                    $canonical = write_url($val->languages->canonical);
                                     $createdAt = $val->created_at;
                                     $image = thumb($val->image, 280, 186);
                                 @endphp
@@ -163,7 +161,7 @@
         @if(isset($widgets['news']))
             @foreach($widgets['news']->object as $key => $val)
                 @php
-                    $catCanonical = write_url($val->languages->first()->pivot->canonical);
+                    $catCanonical = write_url($val->languages->canonical);
                 @endphp
                 <div class="panel-news fix index">
                     <div class="uk-container uk-container-center">
