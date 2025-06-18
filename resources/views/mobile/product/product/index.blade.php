@@ -73,7 +73,7 @@
                             <div class="quick-consult">
                                 <div class="quick-consult-title">Tư vấn nhanh</div>
                                 <div class="quick-consult-form">
-                                    <input type="tel" class="phone-input" placeholder="Nhập số điện thoại..." required>
+                                    <input type="number" name="phone" class="phone-input" placeholder="Nhập số điện thoại..." required="">
                                     <button type="submit" class="submit-button">Gửi</button>
                                 </div>
                             </div>
