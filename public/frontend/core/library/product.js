@@ -181,6 +181,7 @@
                 alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
                 return;
             }
+            toastr.success('Gửi thông tin thành công. Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất', 'Thông báo từ hệ thống !')
             $.ajax({
 				url: 'ajax/contact/quickConsult', 
 				type: 'POST', 
@@ -192,7 +193,7 @@
 				dataType: 'json', 
 				success: function(res) {
 					if(res.status == true){
-                        toastr.success(res.messages, 'Thông báo từ hệ thống !')
+                        
                         $('.quick-consult-form input[name=phone]').val('')
                     }
 				},
