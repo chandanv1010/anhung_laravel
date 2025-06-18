@@ -53,7 +53,7 @@ class ContactService extends BaseService implements ContactServiceInterface
                 'address' => $contact->address,
                 'type' => $contact->type ?? null,
                 'product_name' => $product_name,
-                'post_id' => $post_name 
+                'post_id' => $post_name, 
             ];
             \Mail::to($to)->cc($cc)->send(new ContactMail($data));
             DB::commit();

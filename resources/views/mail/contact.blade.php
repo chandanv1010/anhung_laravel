@@ -121,7 +121,7 @@
                     <div>Địa chỉ: {{ $data['address'] }}<span></span></div>
                     <div>Số điện thoại: {{ $data['phone'] }}<span></span></div>
                     <div>Sản phẩm : {{ $data['product_name'] ?? null }}</div>
-                    <div>Showroom gần nhất : {{ $data['post_name'] ?? null }}</div>
+                    <div>Showroom gần nhất : {{ $data['post_id'] ?? null }}</div>
                     <div>Loại : {{ $data['type'] ? 'Đặt hàng' : 'Tư vấn sản phẩm' }}<span></span></div>
                 </div>
             </div>
