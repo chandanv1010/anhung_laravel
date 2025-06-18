@@ -310,7 +310,7 @@
                 product_id : $('#suggest input[name=product_id ]').val(),
 				_token: _token,
 			}
-
+            toastr.success('Gửi yêu cầu thành công , chúng tôi sẽ sớm liên hệ vs bạn !', 'Thông báo từ hệ thống')
 			$.ajax({
 				url: 'ajax/contact/advise', 
 				type: 'POST', 
@@ -322,7 +322,7 @@
 				success: function(res) {
                     console.log(res)
 					if(res.code === 10){
-                        toastr.success(res.messages, 'Gửi yêu cầu thành công , chúng tôi sẽ sớm liên hệ vs bạn !')
+                       
 						setTimeout(function(){
 							location.reload();
 						}, 1000);
