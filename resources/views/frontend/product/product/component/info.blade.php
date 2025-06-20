@@ -25,6 +25,7 @@
         <div class="quick-consult-title">Tư vấn nhanh</div>
         <div class="quick-consult-form" data-id="{{ $product->id }}">
             <input type="number" name="phone" class="phone-input" placeholder="Nhập số điện thoại..." required>
+            <input type="hidden" name="product-name" value="{{ $product->name }}">
             <button type="submit" class="submit-button" >Gửi</button>
         </div>
     </div>

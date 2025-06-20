@@ -40,11 +40,12 @@ class ContactService extends BaseService implements ContactServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except('_token');
+
             $payload['name'] = $request->input('name') ?? $request->input('fullname');
             $contact = $this->contactRepository->create($payload);
             $product_name = ($contact->product_id != null) ? $this->productRepository->getProductById($contact->product_id, 1)->name : null;
             $post_name = ($contact->post_id != null) ?  $this->postRepository->getPostById($contact->post_id, 1)->name : null;
-            $to = 'noithatanhung.vn@gmail.com';
+            $to = 'tuannc.dev@gmail.com';
             $cc = 'noithatanhung.vn@gmail.com';
             $data = [
                 'name' => $contact->name, 

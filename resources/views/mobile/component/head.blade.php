@@ -27,6 +27,7 @@
 <meta name="twitter:title" content="{{ $seo['meta_title'] }}" />
 <meta name="twitter:description" content="{{ $seo['meta_description'] }}" />
 <meta name="twitter:image" content="{{ $seo['meta_image'] }}" />
+<meta name="p:domain_verify" content="bbf6b87e5e83b6aa8d4bc6dab42cba0a"/>
 
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 @php

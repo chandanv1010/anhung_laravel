@@ -203,6 +203,7 @@ class ProductCatalogueController extends FrontendController
             $template = 'frontend.product.catalogue.search';
         }
 
+
         return view($template , compact(
             'config',
             'seo',
