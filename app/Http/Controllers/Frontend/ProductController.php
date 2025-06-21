@@ -163,6 +163,7 @@ class ProductController extends FrontendController
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'showroom-system','object' => true],
             ['keyword' => 'design_construction_interior', 'object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
 
         $productSeen = [

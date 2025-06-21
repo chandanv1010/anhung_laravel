@@ -49,7 +49,6 @@ class ProductCatalogueController extends FrontendController
             ->where('canonical', $productCatalogue->canonical)
             ->first();
 
-        // dd($menu_id);
 
         if($menu_id){
              $menu = Db::table('menus')->where('id', $menu_id->menu_id)->first();
