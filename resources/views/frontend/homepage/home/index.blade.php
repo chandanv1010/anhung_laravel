@@ -240,7 +240,7 @@
                     <div class="uk-container uk-container-center">
                         <div class="panel-head">
                             <div class="top-heading">{{ $widgets['services-1']->name }}</div>
-                            <h2 class="heading-5"><span>{{ $nameC }}</span></h2>
+                            <h2 class="heading-5"><a href="{{ $canonicalC }}">{{ $nameC }}</a></h2>
                         </div>
                         @if(isset($val->posts) && count($val->posts))
                             @php

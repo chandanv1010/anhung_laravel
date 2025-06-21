@@ -13,7 +13,7 @@
                                 $canonical = write_url($item->languages->first()->pivot->canonical);
                             @endphp
                             <li>
-                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
                             </li>
                         @endforeach
                     </ul>

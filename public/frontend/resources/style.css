@@ -764,7 +764,7 @@ ul li,ol li{
 
 .panel-service-1 .service-item .image{
     /* border-radius: 10px; */
-    height: 240px;
+    height: 210px;
     border: 1px solid #fff;
     border-bottom:  none;
 }
@@ -828,6 +828,9 @@ ul li,ol li{
     color:#124E20;
     margin-bottom:20px;
 }
+.panel-service-1 .top-heading > *{
+    color:#124E20;
+}
 .panel-service-1 .heading-5{
     color: #124E20;
     text-transform: uppercase;
@@ -853,7 +856,7 @@ ul li,ol li{
 .panel-service-1:nth-child(odd) .top-heading{
     color: #FEE9B5;
 }
-.panel-service-1:nth-child(odd) .heading-5 > span,
+.panel-service-1:nth-child(odd) .heading-5 > *,
 .panel-service-1:nth-child(odd) .heading-5{
     color: #FEE9B5 !important;
 }
@@ -2697,6 +2700,7 @@ ul li,ol li{
 .panel-service-1 h2.heading-5 > *{
     font-size: 22px;
     font-weight: 700;
+    color:#124E20;
 }
 .panel-official::before{
     display: none;
