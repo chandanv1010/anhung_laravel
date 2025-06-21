@@ -24,7 +24,7 @@
                     <div class="uk-container uk-container-center">
                         <div class="panel-head uk-flex uk-flex-middle uk-flex-space-between">
                             <h2 class="heading-3"><a href="{{ $canonicalC }}" title="{{  $nameC }}">{{  $nameC }}</a></h2>
-                            <a href="{{ $canonicalC }}" class="readmore button-style">Xem chi tiết</a>
+                            <a href="{{ $canonicalC }}" class="readmore button-style">Xem thêm</a>
                         </div>
                         @if($cat->products)
                             <div class="panel-body">

@@ -149,22 +149,22 @@ h1 > *, h2 > * , h3 > *{
     color: rgba(18, 78, 32, 1);
     text-transform: uppercase;
 }
-.panel-product .readmore{
-    background: none;
-    box-shadow: none;
+/* .panel-product .readmore{ */
+    /* background: none;
+    box-shadow: none; */
     /* background-color: rgb(6, 77, 29);
     box-shadow: rgba(0, 0, 0, 0.21) 0px 2px 3px;
     border-color: rgb(6, 77, 29);
     border-radius: 20px; */
     /* padding: 8px 18px; */
-    color: rgba(18, 78, 32, 1);
+    /* color: rgba(18, 78, 32, 1);
     font-size: 13px;
     font-weight: 500;
-    padding: 8px 0;
-}
-.panel-product .readmore i{
+    padding: 8px 0; */
+/* } */
+/* .panel-product .readmore i{
     margin-left: 5px;
-}
+} */
 .product-item{
     /* padding: 10px; */
     background: rgb(255, 255, 255);
@@ -2399,4 +2399,50 @@ li.uk-open a::after{
     100% {
         background-position: -200% 0;
     }
+}
+
+
+.button-style {
+    -webkit-appearance: none;
+    background: -webkit-gradient(to right,#30904f 0,#80770d 50%,#30904f 100%);
+    background: linear-gradient(90deg, #30904f 0, #80770d 50%, #30904f);
+    background-size: 500%;
+    border: none;
+    border-radius: 5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+    color: #fff;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.readmore {
+    background-color: #064d1d;
+    border-color: #064d1d;
+    color: #fff;
+    border-radius: 20px;
+    padding: 3px 11px;
+    font-size: .85em;
+    line-height: 1.8em;
+    /* text-transform: uppercase; */
+    box-shadow: 0 2px 3px #00000036;
+}
+
+.button-style:hover {
+    background-color: rgba(6, 77, 29, .8);
+    border-color: rgba(6, 77, 29, .8);
+    box-shadow: 0 3px 5px #00000036;
+    animation-name: a;
+    -webkit-animation-name: a;
+    animation-duration: 2s;
+    -webkit-animation-duration: s;
+    animation-iteration-count: 1;
+    -webkit-animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
 }
