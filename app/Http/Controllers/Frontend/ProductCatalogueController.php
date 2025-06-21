@@ -43,37 +43,7 @@ class ProductCatalogueController extends FrontendController
         
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $this->language);
 
-        $menus = null;
 
-        $menu_id =  DB::table('menu_language')
-            ->where('canonical', $productCatalogue->canonical)
-            ->first();
-
-
-        if($menu_id){
-             $menu = Db::table('menus')->where('id', $menu_id->menu_id)->first();
-            if($menu->parent_id == 0){
-                $menus = DB::table('menus')
-                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
-                    ->where('menus.lft', '>', $menu->lft)
-                    ->where('menus.rgt', '<', $menu->rgt)
-                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
-                    ->orderBy('menus.order', 'desc')
-                    ->get();
-            }else{
-                $menuParent = Db::table('menus')->where('id', $menu->parent_id)->first();
-                $menus = DB::table('menus')
-                    ->join('menu_language', 'menus.id', '=', 'menu_language.menu_id')
-                    ->where('menus.lft', '>', $menuParent->lft)
-                    ->where('menus.rgt', '<', $menuParent->rgt)
-                    ->select('menus.*', 'menu_language.name', 'menu_language.canonical')
-                    ->orderBy('menus.order', 'desc')
-                    ->get();
-            }
-        }   
-
-       
-        
         $children = null;
         $children = $this->productCatalogueRepository->getChildren($productCatalogue);
 
@@ -136,7 +106,7 @@ class ProductCatalogueController extends FrontendController
             'filters',
             'widgets',
             'schema',
-            'menus'
+            // 'menus'
         ));
     }
 

@@ -36,13 +36,20 @@ class MenuComposer
         $menuCatalogue = $this->menuCatalogueRepository->findByCondition(...$agrument);
         $menus = [];
         $htmlType = ['main-menu'];
-        if(count($menuCatalogue)){
+         if(count($menuCatalogue)){
             foreach($menuCatalogue as $key => $val){
                 $type = (in_array($val->keyword, $htmlType)) ? 'html' : 'array';
+                $recursiveMenus = recursive($val->menus);
+                
                 if($type == 'html'){
-                    $menus['mobile'] = recursive($val->menus);
+                    $menus['mobile'] = $recursiveMenus;
+                    
+                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 1, 'html');
+                    
+                    $menus[$val->keyword . '_array'] = frontend_recursive_menu($recursiveMenus, 0, 1, 'array');
+                } else {
+                    $menus[$val->keyword] = frontend_recursive_menu($recursiveMenus, 0, 1, 'array');
                 }
-                $menus[$val->keyword] = frontend_recursive_menu(recursive($val->menus), 0, 1, $type);
             }
         }
         return $menus;

@@ -86,6 +86,7 @@
                                     <div class="description">
                                         {{ $description }}
                                     </div>
+                                    <a href="{{ $review->image }}" target="_blank" class="image img-cover" style="max-width: 250px;"><img src="{{ $review->image }}" alt=""></a>
                                     <div class="review-toolbox">
                                         <div class="uk-flex uk-flex-middle">
                                             <div class="created_at">Ngày {{ $created_at }}</div>

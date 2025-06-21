@@ -255,5 +255,8 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
         return $query->paginate(20);
     }
     
+    public function getRelated($limit = 6, $productCatalogueId = 0, $productId = 0){
+        return $this->model->where('publish' , 2)->where('product_catalogue_id', $productCatalogueId)->where('id', '!=', $productId)->limit($limit)->get();
+    }
 
 }

@@ -675,6 +675,9 @@ if(!function_exists('convertData')){
 if(!function_exists('thumb')){
     function thumb($path, $width = null, $height = null)
     {
+        $width = 600;
+        $height = 400;
+
         if (empty($path)) {
             return asset('images/no-image.jpg');
         }

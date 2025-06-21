@@ -6,6 +6,7 @@
     $description = $post->description;
     $content = $post->content;
     $gallery = json_decode($post->album);
+
 @endphp
 
 @extends('frontend.homepage.layout')
@@ -27,7 +28,7 @@
                     @endforeach
                 </ul>
             @endif
-            <h1 class="product-detail-name ">{{ $name }}</h1>
+            <h1 class="product-detail-name ">{{ $post->name }}</h1>
             <div class="product-detail-container design-detail-container">
                 <div class="product-detail-gallery">
                     @include('frontend.product.product.component.gallery')
@@ -172,7 +173,7 @@
                                                     $name = $val->languages->name;
                                                     $canonical = write_url($val->languages->canonical);
                                                     $createdAt = $val->created_at;
-                                                    $image = thumb($val->image, 280, 186);
+                                                    $image = thumb($val->image, 600, 400);
                                                 @endphp
                                                 <div class="post-feature-item">
                                                     <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>

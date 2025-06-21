@@ -18,20 +18,23 @@
         @include('mobile.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="uk-container uk-container-center">
             <div class="panel-head">
-                @if(!is_null($menus))
-                    <ul class="children">
-                        @foreach($menus as $key => $item)
-                            @if($item->id != $productCatalogue->id)
+                @if(!is_null($menu['main-menu_array']))
+                    @foreach($menu['main-menu_array'] as $key => $val)
+                        @if($key !== 2 ) @continue @endif
+                        {{-- @dd($val)
+                        @dd($val['item']->languages->first()->pivot->name) --}}
+                        <ul class="children">
+                            @foreach($val['children'] as $key2 => $item)
                                 @php
-                                    $nameMenu = $item->name;
-                                    $canonicalMenu = write_url($item->canonical);
+                                    $name = $item['item']->languages->first()->pivot->name;
+                                    $canonical = write_url($item['item']->languages->first()->pivot->canonical);
                                 @endphp
-                                <li>
-                                    <a href="{{ $canonicalMenu }}" title="{{ $nameMenu }}" class="{{ $item->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $nameMenu }}</a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item['item']->languages->first()->pivot->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    @endforeach
                 @endif
                 <h1 class="product-detail-name ">{{ $name }}</h1>
                 <div class="product-detail-container">

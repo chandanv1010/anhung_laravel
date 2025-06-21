@@ -1667,6 +1667,7 @@ h1 > *, h2 > * , h3 > *{
     height: 30px;
     width: 100px;
     border: 1px solid #e5e7eb;
+    font-size:20px;
 }
 .mobile-logo .search input::placeholder{
     text-transform: uppercase;
@@ -2499,4 +2500,10 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 .children li a.active{
     background: #D7AD5D;
     color: #fff;
+}
+
+.showroom-item img{
+    max-width: 20px;
+    height:20px;
+    margin-left:10px;
 }

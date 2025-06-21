@@ -74,16 +74,16 @@ class PostCatalogueController extends FrontendController
             $template = 'mobile.post.catalogue.video';
         } else if($postCatalogue->canonical == 'video'){
             $template = 'frontend.post.catalogue.video';
-        } else if(Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that')){
+        } else if(Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau')){
             $template = 'mobile.post.catalogue.design';
         } else if(Agent::isMobile() && in_array($postCatalogue->canonical, [
-            've-chung-toi', 'doi-tac', 'san-xuat-theo-yeu-cau', 'bao-hanh-doi-tra', 
+            've-chung-toi', 'doi-tac', 'bao-hanh-doi-tra', 
             'van-chuyen-giao-hang', 'quy-trinh-lam-viec', 'hinh-thuc-thanh-toan', 
             'bao-gia', 'lien-he'
         ])){
             $template = 'mobile.post.catalogue.about-us';
         } else if(in_array($postCatalogue->canonical, [
-            've-chung-toi', 'doi-tac', 'san-xuat-theo-yeu-cau', 'bao-hanh-doi-tra', 
+            've-chung-toi', 'doi-tac', 'bao-hanh-doi-tra', 
             'van-chuyen-giao-hang', 'quy-trinh-lam-viec', 'hinh-thuc-thanh-toan', 
             'bao-gia', 'lien-he'
         ])){

@@ -1,9 +1,9 @@
-@extends('frontend.homepage.layout')
+@extends('mobile.homepage.layout')
 @section('content')
     @php
         $price = getPrice($product)
     @endphp
-    <div id="suggest" class="panel-suggest pay">
+    <div id="suggest" class="panel-suggest pay" style="padding-top:20px;">
         <div class="uk-container uk-container-center">
             <div class="uk-grid uk-grid-medium">
                 <div class="uk-width-medium-1-3">

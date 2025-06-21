@@ -144,13 +144,18 @@ class CartController extends FrontendController
 
         $carts = Cart::instance('pay')->content();
 
+
         $product_id = null;
 
         foreach($carts as $item){
             $product_id = $item->id;
         }
 
-        $product = $this->productRepository->findById($product_id);
+        $product = null;
+        if($product_id){
+            $product = $this->productRepository->findById($product_id);
+
+        }
 
         $widgets = $this->widgetService->getWidget([
             ['keyword' => 'showroom-system','object' => true],
@@ -168,7 +173,13 @@ class CartController extends FrontendController
 
         $config = $this->config();
 
-        return view('frontend.cart.pay', compact(
+        if(Agent::isMobile()){
+            $template = 'mobile.cart.pay';
+        }else{
+            $template = 'frontend.cart.pay';
+        }
+
+        return view($template, compact(
             'config',
             'seo',
             'system',
@@ -197,7 +208,7 @@ class CartController extends FrontendController
     }
 
     public function success(){
-        
+
         $orderSummary = session('orderSummary');
         if(!$orderSummary){
             return redirect()->route('home.index')->with('error', 'Có vấn đề xảy ra trong quá trình đặt hàng. Hãy thử lại sau');
@@ -212,7 +223,15 @@ class CartController extends FrontendController
         ];
         $system = $this->system;
         $config = $this->config();
-        return view('frontend.cart.success', compact(
+
+        
+        if(Agent::isMobile()){
+            $template = 'mobile.cart.success';
+        }else{
+            $template = 'frontend.cart.success';
+        }
+
+        return view($template, compact(
             'config',
             'seo',
             'system',
