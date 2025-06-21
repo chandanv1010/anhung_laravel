@@ -9,12 +9,13 @@
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th>Sản phẩm</th>
-            <th>Showroom gần nhất</th>
-            <th>Loại</th>
+            <th>Showroom</th>
+            <th>Bài Viết</th>
             <th class="text-center">Thao tác</th>
         </tr>
     </thead>
     <tbody>
+        {{-- @dd($contacts) --}}
         @if(isset($contacts) && is_object($contacts))
             @foreach($contacts as $contact)
                 <tr>
@@ -34,13 +35,28 @@
                         {{ $contact->address }}
                     </td>
                     <td>
-                       {{ isset($contact->products) ? $contact->products->languages->first()->pivot->name : null  }}
+                        @if($contact->product_id)
+                            <div> {{ isset($contact->products) ? $contact->products->languages->first()->pivot->name : null  }}</div>
+                            <div style="color:blue;font-size:12px;">Danh mục: {{ $contact->products->product_catalogues[0]->languages->first()->pivot->name }}</div>
+                        @else
+                            -
+                        @endif
                     </td>
                     <td>
-                        {{ isset($contact->posts) ? $contact->posts->languages->first()->pivot->name : null }}
+                        @if($contact->product_id)
+                             {{ isset($contact->posts) ? $contact->posts->languages->first()->pivot->name : null }}
+                        @else
+                            -
+                        @endif
                     </td>
                     <td>
-                        {{ $contact->type == 2 ? 'Đặt hàng' : 'Tư vấn sản phẩm' }}
+                        @if(!$contact->product_id)
+                            <div> {{ isset($contact->posts) ? $contact->posts->languages->first()->pivot->name : null }}</div>
+                            <div style="color:blue;font-size:12px;">Danh mục: {{ $contact->posts->post_catalogues[0]->languages->first()->pivot->name }}</div>
+                        @else
+                            -
+                        @endif
+                       
                     </td>
                     <td class="text-center"> 
                         <a href="{{ route('contact.delete', $contact->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a>

@@ -120,9 +120,14 @@
                     <div>Họ tên : {{ $data['name'] }}<span></span></div>
                     <div>Địa chỉ: {{ $data['address'] }}<span></span></div>
                     <div>Số điện thoại: {{ $data['phone'] }}<span></span></div>
+                    @if(isset($data['product_id']))
                     <div>Sản phẩm : {{ $data['product_name'] ?? null }}</div>
-                    <div>Showroom gần nhất : {{ $data['post_id'] ?? null }}</div>
                     <div>Loại : {{ $data['type'] ? 'Đặt hàng' : 'Tư vấn sản phẩm' }}<span></span></div>
+                    <div>Showroom gần nhất : {{ $data['post_id'] ?? null }}</div>
+                    @else
+                    <div>Bài : {{ $data['product_name'] ?? null }}</div>
+                    @endif
+                   
                 </div>
             </div>
         </div>

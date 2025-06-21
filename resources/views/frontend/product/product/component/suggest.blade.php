@@ -63,7 +63,7 @@
                                     </div>
                                 @endforeach
                             @endif
-                            <input type="hidden" name="product_id" value="{{ $payload->id }}">
+                            <input type="hidden" name="{{ (isset($field)) ? $field : 'product_id' }}" value="{{ $payload->id }}">
                             <button type="submit" class="advise">Gửi tin tư vấn</button>
                         </div>
                     </form>

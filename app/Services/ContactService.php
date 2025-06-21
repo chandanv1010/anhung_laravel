@@ -45,17 +45,19 @@ class ContactService extends BaseService implements ContactServiceInterface
             $contact = $this->contactRepository->create($payload);
             $product_name = ($contact->product_id != null) ? $this->productRepository->getProductById($contact->product_id, 1)->name : null;
             $post_name = ($contact->post_id != null) ?  $this->postRepository->getPostById($contact->post_id, 1)->name : null;
-            $to = 'tuannc.dev@gmail.com';
-            $cc = 'noithatanhung.vn@gmail.com';
+            $to = 'noithatanhung.vn@gmail.com';
+            $cc = 'tuannc.dev@gmail.com';
             $data = [
                 'name' => $contact->name, 
                 'created_at' => $contact->created_at,
                 'phone' => $contact->phone,
                 'address' => $contact->address,
                 'type' => $contact->type ?? null,
-                'product_name' => $product_name,
+                'product_id' => $request->product_id,
+                'product_name' => $product_name ?? $post_name,
                 'post_id' => $post_name, 
             ];
+
             \Mail::to($to)->cc($cc)->send(new ContactMail($data));
             DB::commit();
             return [

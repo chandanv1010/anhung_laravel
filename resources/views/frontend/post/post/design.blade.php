@@ -77,7 +77,7 @@
                                                 <span class="main-text">Yêu cầu tư vấn</span>
                                                 <span class="small-text">Thông tin chi tiết nhất</span>
                                             </a>
-                                            @include('frontend.product.product.component.suggest', ['payload' => $post])
+                                            @include('frontend.product.product.component.suggest', ['payload' => $post, 'field' => 'post_id'])
                                         </div>
                                         <div class="uk-width-large-1-2">
                                             <a class="button-item book" data-uk-modal="{target:'#suggest'}">
