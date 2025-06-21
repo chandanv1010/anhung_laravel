@@ -2454,6 +2454,7 @@ li.uk-open a::after{
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 15px;
+    list-style: none;
 }
 .children li{
     margin-right: 10px;
