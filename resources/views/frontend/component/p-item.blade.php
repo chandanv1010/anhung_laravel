@@ -1,7 +1,7 @@
 @php
     $name = $product->languages->first()->pivot->name;
     $canonical = write_url($product->languages->first()->pivot->canonical);
-    $image = thumb(image($product->image), 350, 196);
+    $image = $product->image;
     $price = getPrice($product);
     $catName = $product->product_catalogues->first()->languages->first()->pivot->name;
     $review = getReview($product);
