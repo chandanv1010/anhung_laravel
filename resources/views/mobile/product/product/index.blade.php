@@ -181,7 +181,7 @@
                                             $name = $val->languages->name;
                                             $canonical = write_url($val->languages->canonical);
                                             $createdAt = $val->created_at;
-                                            $image = thumb($val->image, 280, 186);
+                                            $image = thumb($val->image, 600, 400);
                                         @endphp
                                         <div class="post-feature-item">
                                             <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
@@ -255,7 +255,7 @@
                                         $name = $item->languages[0]->name;
                                         $canonical = write_url($item->languages[0]->canonical);
                                         $createdAt = $item->created_at;
-                                        $image = thumb($item->image, 280, 186);
+                                        $image = thumb($item->image, 600, 400);
                                     @endphp
                                     <div class="swiper-slide">
                                         <div class="post-feature-item">
@@ -284,7 +284,7 @@
                                         @php
                                             $name = $post->languages->name;
                                             $canonical = write_url($post->languages->canonical);
-                                            $image = thumb($post->image, 344, 230);
+                                            $image = thumb($post->image, 600, 400);
                                         @endphp
                                         <div class="swiper-slide">
                                             <div class="news-item">
