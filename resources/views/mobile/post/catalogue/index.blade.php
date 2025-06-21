@@ -5,6 +5,19 @@
         <div class="post-catalogue-wrapper panel-product">
             <div class="product-catalogue-wrapper">
                 <div class="uk-container uk-container-center">
+                    @if(isset($postCatalogue->children) && !is_null($postCatalogue->children) )
+                    <ul class="children">
+                        @foreach($postCatalogue->children as $key => $item)
+                            @php
+                                $name = $item->short_name;
+                                $canonical = write_url($item->languages->first()->pivot->canonical);
+                            @endphp
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
                     <h1 class="page-heading">{{ $postCatalogue->languages->first()->pivot->name }}</h1>
                     <div class="description">
                         {!! $postCatalogue->languages->first()->pivot->description !!}

@@ -18,6 +18,21 @@
         @include('mobile.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="uk-container uk-container-center">
             <div class="panel-head">
+                @if(!is_null($menus))
+                    <ul class="children">
+                        @foreach($menus as $key => $item)
+                            @if($item->id != $productCatalogue->id)
+                                @php
+                                    $nameMenu = $item->name;
+                                    $canonicalMenu = write_url($item->canonical);
+                                @endphp
+                                <li>
+                                    <a href="{{ $canonicalMenu }}" title="{{ $nameMenu }}" class="{{ $item->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $nameMenu }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                @endif
                 <h1 class="product-detail-name ">{{ $name }}</h1>
                 <div class="product-detail-container">
                     <div class="mobile-product-detail-gallery">

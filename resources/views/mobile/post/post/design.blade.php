@@ -13,6 +13,19 @@
         @include('mobile.component.breadcrumb', ['model' => $postCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="uk-container uk-container-center">
             <div class="panel-head">
+                @if(isset($postCatalogue->children) && !is_null($postCatalogue->children) )
+                    <ul class="children">
+                        @foreach($postCatalogue->children as $key => $item)
+                            @php
+                                $name =  $item->short_name;
+                                $canonical = write_url($item->languages->first()->pivot->canonical);
+                            @endphp
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
                 <h1 class="product-detail-name ">{{ $name }}</h1>
                 <div class="product-detail-container">
                     <div class="mobile-product-detail-gallery">
