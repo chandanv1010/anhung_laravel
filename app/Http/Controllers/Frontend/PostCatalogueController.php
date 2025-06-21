@@ -63,6 +63,7 @@ class PostCatalogueController extends FrontendController
             ['keyword' => 'mobile-video','object' => true],
             ['keyword' => 'projects-feature', 'object' => true],
             ['keyword' => 'design_construction_interior', 'object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
 
         $template = '';

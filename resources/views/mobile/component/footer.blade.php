@@ -62,7 +62,7 @@
                     <div class="footer-heading">{{ $system['homepage_company'] }}</div>
                     <div class="footer-row">
                         <strong>Giấy phép kinh doanh số</strong>
-                        <p>0107017623 do phòng Kinh doanh sở KH&ĐT TP.Hà Nội Cấp ngày: 06/10/2015</p>
+                        <p>0107017623 do phòng Kinh doanh sở KH&ĐT TP.Hà NộiCấp ngày: 06/10/2015</p>
                     </div>
                     <div class="footer-row">
                         <strong>Ngân hàng BIDV: Trần Đăng Dũng</strong>

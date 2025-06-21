@@ -108,6 +108,7 @@ class ProductCatalogueController extends FrontendController
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'projects-feature', 'object' => true],
             ['keyword' => 'design_construction_interior', 'object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
 
         $config = $this->config();
