@@ -15,6 +15,12 @@
                             <div class="created_at uk-flex uk-flex-middle">
                                 <div class="time">Đã đăng vào {{ convertDateTime($post->created_at, 'H:i:s d/m/Y') }} </div>
                             </div>
+                            <div class="description">
+                                {!! $post->description !!}
+                            </div>
+                            <div class="description">
+                                {!! $post->content !!}
+                            </div>
                         </div>
                         <div class="post-aside">
                             @if($widgets['news-feature'])
@@ -94,7 +100,7 @@
             <div class="uk-container uk-container-center">
                 <div class="post-featured project-featured index">
                     <h2 class="heading-6">
-                        <span>{{ $widgets['projects-feature']->name }}</    span>
+                        <span>{{ $widgets['projects-feature']->name }}</span>
                     </h2>
                     <div class="swiper-container">
                         <div class="swiper-wrapper">

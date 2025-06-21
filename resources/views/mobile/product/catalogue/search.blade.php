@@ -56,6 +56,6 @@
                 </div>
             </div>
         </div>
-        @include('mobile.component.news-outstanding')
+        {{-- @include('mobile.component.news-outstanding') --}}
     </div>
 @endsection

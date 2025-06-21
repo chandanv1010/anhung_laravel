@@ -2361,3 +2361,6 @@ li.uk-open a::after{
     align-items: center;
     justify-content: center
 }
+.panel-advise input{
+    width: 92%;
+} 
