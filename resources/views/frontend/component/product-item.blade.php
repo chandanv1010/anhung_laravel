@@ -1,7 +1,7 @@
 @php
     $name = $product->languages[0]->name;
     $canonical = write_url($product->languages[0]->canonical);
-    $image = thumb(image($product->image), 350, 233);
+    $image = thumb(image($product->image), 600, 400);
     $price = getPrice($product);
     $catName = $product->product_catalogues->first()->languages->name;
     $review = $product->review_average;
