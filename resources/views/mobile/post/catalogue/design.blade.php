@@ -15,7 +15,7 @@
                             @php
                                 $name = $post->languages->first()->pivot->name;
                                 $canonical = write_url($post->languages->first()->pivot->canonical);
-                                $image = thumb($post->image, 344, 230);
+                                $image = thumb($post->image, 600, 400);
                                 $description = cutnchar(strip_tags($post['description']), 150);
                                 $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
                             @endphp
