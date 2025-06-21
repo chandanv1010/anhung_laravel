@@ -227,25 +227,25 @@
     }
 
     HT.product = () => {
-		const swiper = new Swiper('.panel-product .swiper-container', {
-            centeredSlides: false,
-            loop: false,
-            autoplay:{
-                delay: 3000
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                300: {
-                    slidesPerView: 1,
-                },
-                1280: {
-					slidesPerView: 1,
-				}
-            },
-        });
+		// const swiper = new Swiper('.panel-product .swiper-container', {
+        //     centeredSlides: false,
+        //     loop: false,
+        //     autoplay:{
+        //         delay: 3000
+        //     },
+        //     navigation: {
+        //         nextEl: '.swiper-button-next',
+        //         prevEl: '.swiper-button-prev',
+        //     },
+        //     breakpoints: {
+        //         300: {
+        //             slidesPerView: 1,
+        //         },
+        //         1280: {
+		// 			slidesPerView: 1,
+		// 		}
+        //     },
+        // });
 		
 	}
 
