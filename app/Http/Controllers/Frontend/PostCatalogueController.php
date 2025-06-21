@@ -36,7 +36,6 @@ class PostCatalogueController extends FrontendController
 
     public function index($id, $request, $page = 1){
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
-        // dd($postCatalogue);
         if($postCatalogue->canonical === 'dich-vu' || $postCatalogue->parent_id == 21){
             $postCatalogue->children = $this->postCatalogueRepository->findByCondition(
                 [

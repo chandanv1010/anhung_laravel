@@ -18,7 +18,7 @@
                 <ul class="children">
                     @foreach($postCatalogue->children as $key => $item)
                         @php
-                            $name = $item->languages->first()->pivot->name;
+                            $name =  $item->short_name;
                             $canonical = write_url($item->languages->first()->pivot->canonical);
                         @endphp
                         <li>
