@@ -90,6 +90,7 @@
                                         <div class="quick-consult-title">Tư vấn nhanh</div>
                                         <div class="quick-consult-form">
                                             <input type="number" name="phone" class="phone-input" placeholder="Nhập số điện thoại..." required>
+                                            <input type="hidden" name="post_id" value="{{ $post->id }}">
                                             <button type="submit" class="submit-button">Gửi</button>
                                         </div>
                                     </div>

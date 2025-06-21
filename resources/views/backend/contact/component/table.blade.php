@@ -52,7 +52,6 @@
                     <td>
                         @if(!$contact->product_id)
                             <div> {{ isset($contact->posts) ? $contact->posts->languages->first()->pivot->name : null }}</div>
-                            <div style="color:blue;font-size:12px;">Danh mục: {{ $contact->posts->post_catalogues[0]->languages->first()->pivot->name }}</div>
                         @else
                             -
                         @endif

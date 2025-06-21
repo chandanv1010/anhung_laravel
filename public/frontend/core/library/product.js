@@ -188,6 +188,7 @@
 				data: {
 					'phone' : phone,
                     'product_id' : product_id,
+                    'post_id': $('input[name=post_id]').val(),
                     '_token' : _token
 				}, 
 				dataType: 'json', 
