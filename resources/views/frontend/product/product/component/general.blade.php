@@ -72,7 +72,7 @@
                         $name = $val->languages->name;
                         $canonical = write_url($val->languages->canonical);
                         $createdAt = $val->created_at;
-                        $image = thumb($val->image, 280, 186);
+                        $image = thumb($val->image, 600, 400);
                     @endphp
                     <div class="post-feature-item">
                         <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
