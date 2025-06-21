@@ -36,6 +36,18 @@ class PostCatalogueController extends FrontendController
 
     public function index($id, $request, $page = 1){
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($id, $this->language);
+        if($postCatalogue->canonical === 'dich-vu'){
+            $postCatalogue->children = $this->postCatalogueRepository->findByCondition(
+                [
+                    ['publish' , '=', 2],
+                    ['parent_id', '=', $postCatalogue->id]
+                ],
+                true,
+                [],
+                ['order', 'desc']
+            );
+        }
+
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
         $posts = $this->postService->paginate(
             $request, 
@@ -54,6 +66,7 @@ class PostCatalogueController extends FrontendController
         ], $this->language);
 
         $template = '';
+
 
 
         if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
