@@ -104,7 +104,7 @@
                                         @endphp
                                         <div class="swiper-slide">
                                             <div class="news-item">
-                                                <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                                <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt=""></a>
                                                 <div class="info">
                                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
                                                 </div>

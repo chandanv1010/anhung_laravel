@@ -7,7 +7,7 @@
     $review = getReview($product);
 @endphp
 <div class="product-item">
-    <a href="{{ $canonical }}" class="image img-cover img-zoomin">
+    <a href="{{ $canonical }}" class="image img-cover">
         <div class="skeleton-loading"></div>
         <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
     </a>

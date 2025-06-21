@@ -75,7 +75,7 @@
                                             @endphp
                                             <div class="swiper-slide">
                                                 <div class="service-item">
-                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                                    <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
                                                 </div>
                                             </div>
@@ -116,7 +116,7 @@
                                             @endphp
                                             <div class="swiper-slide">
                                                 <div class="video-item">
-                                                    <a href="{{ $canonical }}" class="image img-cover img-zoomin">
+                                                    <a href="{{ $canonical }}" class="image img-cover">
                                                         {!! $video !!}
                                                     </a>
                                                     <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
@@ -177,7 +177,7 @@
                                     @endphp
                                     <div class="swiper-slide">
                                         <div class="news-item">
-                                            <a href="{{ $canonical }}" class="image img-cover img-zoomin"><img src="{{ $image }}" alt=""></a>
+                                            <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt=""></a>
                                             <div class="info">
                                                 <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
                                             </div>
