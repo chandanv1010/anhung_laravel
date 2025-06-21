@@ -77,6 +77,7 @@ class postController extends FrontendController
             ['keyword' => 'news'],
             ['keyword' => 'news-outstanding','object' => true],
             ['keyword' => 'design_construction_interior', 'object' => true],
+            ['keyword' => 'showroom-system','object' => true],
         ], $this->language);
 
         /* ------------------- */
