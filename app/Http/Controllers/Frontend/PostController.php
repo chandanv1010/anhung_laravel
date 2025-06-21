@@ -47,6 +47,20 @@ class postController extends FrontendController
             abort(404);
         }
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($post->post_catalogue_id, $this->language);
+        if($postCatalogue->id == 22 || $postCatalogue->id == 24 || $postCatalogue->id === 44){
+            $postCatalogue->children = $this->postCatalogueRepository->findByCondition(
+                [
+                    ['publish' , '=', 2],
+                    ['parent_id', '=', 21]
+                ],
+                true,
+                [],
+                ['order', 'desc']
+            );
+        }
+
+        // dd(123);
+
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
 
         $asidePost = $this->postService->paginate(

@@ -14,6 +14,19 @@
     @include('frontend.component.breadcrumb', ['model' => $post, 'breadcrumb' => $breadcrumb])
     <div class="uk-container uk-container-center">
         <div class="panel-head">
+            @if(isset($postCatalogue->children) && !is_null($postCatalogue->children) )
+                <ul class="children">
+                    @foreach($postCatalogue->children as $key => $item)
+                        @php
+                            $name = $item->languages->first()->pivot->name;
+                            $canonical = write_url($item->languages->first()->pivot->canonical);
+                        @endphp
+                        <li>
+                            <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $postCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
             <h1 class="product-detail-name ">{{ $name }}</h1>
             <div class="product-detail-container design-detail-container">
                 <div class="product-detail-gallery">
