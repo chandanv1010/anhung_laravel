@@ -12,7 +12,7 @@
                             @php
                                 $name = $post->languages->name;
                                 $canonical = write_url($post->languages->canonical);
-                                $image = thumb($post->image, 344, 230);
+                                $image = thumb($post->image, 600, 400);
                             @endphp
                             <div class="uk-width-medium-1-3 ">
                                 <div class="news-item">
