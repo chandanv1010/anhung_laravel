@@ -100,6 +100,21 @@ class ReviewService extends BaseService implements ReviewServiceInterface
         }
     }
 
+    public function destroy($id){
+        DB::beginTransaction();
+        try{
+            $review = $this->reviewRepository->delete($id);
+
+            DB::commit();
+            return true;
+        }catch(\Exception $e ){
+            DB::rollBack();
+            // Log::error($e->getMessage());
+            echo $e->getMessage();die();
+            return false;
+        }
+    }
+
     private function paginateSelect(){
         return [
             'id', 
