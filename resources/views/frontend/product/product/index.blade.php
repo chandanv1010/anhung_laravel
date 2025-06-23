@@ -37,7 +37,7 @@
                     </ul>
                 @endforeach
             @endif
-            <h1 class="product-detail-name ">{{ $name }}</h1>
+            <h1 class="product-detail-name ">{{ $product->name }}</h1>
             <div class="product-detail-container">
                 <div class="product-detail-gallery">
                     @include('frontend.product.product.component.gallery')
