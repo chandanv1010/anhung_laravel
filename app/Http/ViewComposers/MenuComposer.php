@@ -32,6 +32,7 @@ class MenuComposer
     }
 
     private function loadMenuData(){
+        
         $agrument = $this->agrument($this->language);
         $menuCatalogue = $this->menuCatalogueRepository->findByCondition(...$agrument);
         $menus = [];

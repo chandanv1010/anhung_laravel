@@ -95,4 +95,35 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         ->get();
     }
 
+    public function getParent($productCatalogue, $language_id = 0){
+        return $this->model->select([
+                'product_catalogues.id',
+                'product_catalogues.parent_id',
+                'product_catalogues.lft',
+                'product_catalogues.rgt',
+                'product_catalogues.image',
+                'product_catalogues.icon',
+                'product_catalogues.album',
+                'product_catalogues.publish',
+                'product_catalogues.follow',
+                'product_catalogues.attribute',
+                'product_catalogues.short_name',
+                'tb2.name',
+                'tb2.description',
+                'tb2.content',
+                'tb2.meta_title',
+                'tb2.meta_keyword',
+                'tb2.meta_description',
+                'tb2.canonical',
+            ]
+        )
+        ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
+        ->where('product_catalogues.lft','<', $productCatalogue->lft)
+        ->where('product_catalogues.parent_id', 0)
+        ->where('tb2.language_id', '=', $language_id)
+        ->first();
+    }
+
+
+
 }

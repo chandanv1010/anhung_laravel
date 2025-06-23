@@ -78,6 +78,16 @@ class ProductController extends FrontendController
         
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($product->product_catalogue_id, $this->language);
 
+        $parent = null;
+
+        $children = null;
+
+        if($productCatalogue->parent_id != 0){
+            $parent = $this->productCatalogueRepository->getParent($productCatalogue, $this->language);
+            $children =  $this->productCatalogueRepository->getChildren($parent);
+        }else{
+            $children =  $this->productCatalogueRepository->getChildren($productCatalogue);
+        }
 
         $breadcrumb = $this->productCatalogueRepository->breadcrumb($productCatalogue, $this->language);
         /* ------------------- */
@@ -159,6 +169,7 @@ class ProductController extends FrontendController
             'carts',
             'schema',
             'productRelated',
+            'children'
         ));
     }
 

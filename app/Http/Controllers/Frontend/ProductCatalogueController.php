@@ -43,18 +43,15 @@ class ProductCatalogueController extends FrontendController
         
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $this->language);
 
-
-        $children = null;
-        $children = $this->productCatalogueRepository->getChildren($productCatalogue);
-
         $parent = null;
 
-        if(!count($children)){
+        $children = null;
 
-            $parent = $this->productCatalogueRepository->getProductCatalogueById($productCatalogue->parent_id , $this->language, $productCatalogue->id);
-
-            $children = $this->productCatalogueRepository->getChildren($parent);
-
+        if($productCatalogue->parent_id != 0){
+            $parent = $this->productCatalogueRepository->getParent($productCatalogue, $this->language);
+            $children =  $this->productCatalogueRepository->getChildren($parent);
+        }else{
+            $children =  $this->productCatalogueRepository->getChildren($productCatalogue);
         }
 
         $filters = $this->filter($productCatalogue);

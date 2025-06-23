@@ -4,23 +4,34 @@
         @include('frontend.component.breadcrumb', ['model' => $productCatalogue, 'breadcrumb' => $breadcrumb])
         <div class="product-catalogue-wrapper">
             <div class="uk-container uk-container-center">
-                @if(!is_null($menu['main-menu_array']))
-                @foreach($menu['main-menu_array'] as $key => $val)
-                    @if($key !== 2 ) @continue @endif
-                    {{-- @dd($val)
-                    @dd($val['item']->languages->first()->pivot->name) --}}
+                {{-- @if(!is_null($menu['main-menu_array']))
+                    @foreach($menu['main-menu_array'] as $key => $val)
+                        @if($key !== 2 ) @continue @endif
+                        <ul class="children">
+                            @foreach($val['children'] as $key2 => $item)
+                                @php
+                                    $name = $item['item']->languages->first()->pivot->name;
+                                    $canonical = write_url($item['item']->languages->first()->pivot->canonical);
+                                @endphp
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item['item']->languages->first()->pivot->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    @endforeach
+                @endif --}}
+                @if(!is_null($children))
                     <ul class="children">
-                        @foreach($val['children'] as $key2 => $item)
+                        @foreach($children as $key => $item)
                             @php
-                                $name = $item['item']->languages->first()->pivot->name;
-                                $canonical = write_url($item['item']->languages->first()->pivot->canonical);
+                                $name = $item->languages->first()->pivot->name;
+                                $canonical = write_url($item->languages->first()->pivot->canonical);
                             @endphp
-                        <li>
-                            <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item['item']->languages->first()->pivot->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
-                        </li>
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
                         @endforeach
                     </ul>
-                @endforeach
                 @endif
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
             </div>
