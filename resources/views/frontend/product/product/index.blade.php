@@ -39,7 +39,7 @@
                 <ul class="children">
                     @foreach($children as $key => $item)
                         @php
-                            $name = $item->languages->first()->pivot->name;
+                            $name = $item->short_name ?? $item->languages->first()->pivot->name;
                             $canonical = write_url($item->languages->first()->pivot->canonical);
                         @endphp
                         <li>

@@ -86,12 +86,14 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
                 'product_catalogues.publish',
                 'product_catalogues.follow',
                 'product_catalogues.attribute',
+                'product_catalogues.short_name',
             ]
         )
         ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
-        ->where('parent_id' , '>=', $productCatalogue->id)
-        ->where('lft' , '>=', $productCatalogue->lft)
-        ->where('rgt', '<=', $productCatalogue->rgt)
+        ->where('product_catalogues.level' , '=', 2)
+        ->where('lft' , '>', $productCatalogue->lft)
+        ->where('rgt', '<', $productCatalogue->rgt)
+        ->limit(13)
         ->get();
     }
 
@@ -119,6 +121,7 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         )
         ->join('product_catalogue_language as tb2', 'tb2.product_catalogue_id', '=','product_catalogues.id')
         ->where('product_catalogues.lft','<', $productCatalogue->lft)
+        ->where('product_catalogues.rgt','>', $productCatalogue->rgt)
         ->where('product_catalogues.parent_id', 0)
         ->where('tb2.language_id', '=', $language_id)
         ->first();

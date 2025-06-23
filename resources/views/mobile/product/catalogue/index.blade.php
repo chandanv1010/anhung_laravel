@@ -5,11 +5,9 @@
         <div class="product-catalogue-wrapper panel-product">
             <div class="uk-container uk-container-center">
 
-                @if(!is_null($menu['main-menu_array']))
+                {{-- @if(!is_null($menu['main-menu_array']))
                     @foreach($menu['main-menu_array'] as $key => $val)
                         @if($key !== 2 ) @continue @endif
-                        {{-- @dd($val)
-                        @dd($val['item']->languages->first()->pivot->name) --}}
                         <ul class="children">
                             @foreach($val['children'] as $key2 => $item)
                                 @php
@@ -22,6 +20,20 @@
                             @endforeach
                         </ul>
                     @endforeach
+                @endif --}}
+
+                @if(!is_null($children))
+                    <ul class="children">
+                        @foreach($children as $key => $item)
+                            @php
+                                $name = $item->short_name ?? $item->languages->first()->pivot->name;
+                                $canonical = write_url($item->languages->first()->pivot->canonical);
+                            @endphp
+                            <li>
+                                <a href="{{ $canonical }}" title="{{ $name }}" class="{{ $item->languages->first()->pivot->canonical == $productCatalogue->canonical ? 'active' : '' }}">{{ $name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
                 @endif
 
                 <h1 class="page-heading">{{ $productCatalogue->languages->first()->pivot->name }}</h1>
