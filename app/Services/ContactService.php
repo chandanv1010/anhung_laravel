@@ -7,21 +7,27 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\ContactMail;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
+use App\Repositories\Interfaces\SystemRepositoryInterface  as SystemRepository;
 
 class ContactService extends BaseService implements ContactServiceInterface 
 {
     protected $contactRepository;
     protected $productRepository;
     protected $postRepository;
+    protected $system;
 
     public function __construct(
         ContactRepository $contactRepository,
         ProductRepository $productRepository,
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        WidgetService $widgetService,
+        SystemRepository $systemRepository,
     ){
         $this->contactRepository = $contactRepository;
         $this->productRepository = $productRepository;
         $this->postRepository = $postRepository;
+        $this->widgetService = $widgetService;
+        $this->systemRepository = $systemRepository;
     }
 
     public function paginate($request){
@@ -36,11 +42,10 @@ class ContactService extends BaseService implements ContactServiceInterface
         return $contacts;
     }
 
-    public function create($request){
+    public function create($request, $give = null){
         DB::beginTransaction();
         try{
             $payload = $request->except('_token');
-
             $payload['name'] = $request->input('name') ?? $request->input('fullname');
             $contact = $this->contactRepository->create($payload);
             $product_name = ($contact->product_id != null) ? $this->productRepository->getProductById($contact->product_id, 1)->name : null;
@@ -48,16 +53,16 @@ class ContactService extends BaseService implements ContactServiceInterface
             $to = 'noithatanhung.vn@gmail.com';
             $cc = 'tuannc.dev@gmail.com';
             $data = [
-                'name' => $contact->name, 
+                'name' => $contact->name ?? null, 
                 'created_at' => $contact->created_at,
                 'phone' => $contact->phone,
                 'address' => $contact->address,
                 'type' => $contact->type ?? null,
-                'product_id' => $request->product_id,
+                'product_id' => $request->product_id ?? null,
                 'product_name' => $product_name ?? $post_name,
-                'post_id' => $post_name, 
+                'post_id' => $post_name ?? null, 
+                'give' => $give,
             ];
-
             \Mail::to($to)->cc($cc)->send(new ContactMail($data));
             DB::commit();
             return [

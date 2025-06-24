@@ -95,6 +95,8 @@ Route::get('tim-kiem/trang-{page}', [FeProductCatalogueController::class, 'searc
 
 Route::post('ajax/contact/quickConsult', [AjaxContactController::class, 'quickConsult'])->name('fe.contact.quickConsult');
 
+Route::post('ajax/contact/giveAway', [AjaxContactController::class, 'giveAway'])->name('fe.contact.giveAway');
+
 Route::post('ajax/contact/advise', [AjaxContactController::class, 'advise'])->name('fe.contact.advise');
 
 Route::post('ajax/contact/requestConsult', [AjaxContactController::class, 'requestConsult'])->name('fe.contact.requestConsult');
@@ -471,7 +473,6 @@ Route::group(['middleware' => ['admin','locale','backend_default_locale']], func
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')->middleware('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('login', [AuthController::class, 'login'])->name('auth.login');
-
 
 
 

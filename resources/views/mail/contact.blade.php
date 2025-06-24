@@ -115,6 +115,9 @@
     <body>
         <div class="cart-success">
             <div class="panel-foot">
+                <div class="uk-text-center">
+                    <p>{{  $data['give'] == 'true' ? 'Nhận ngay 1.000.000đ khi mua hàng' : '' }}</p>
+                </div>
                 <h2 class="cart-heading"><span>Thông tin liên hệ</span></h2>
                 <div class="checkout-box">
                     <div>Họ tên : {{ $data['name'] }}<span></span></div>

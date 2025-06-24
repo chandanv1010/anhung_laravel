@@ -5,7 +5,6 @@
     $price = getPrice($product);
     $catName = $productCatalogue->name;
     $review = getReview($product);
-    
     $description = $product->description;
     $content = $product->content;
     $attributeCatalogue = $product->attributeCatalogue;
@@ -47,7 +46,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <h1 class="product-detail-name ">{{ $name }}</h1>
+                <h1 class="product-detail-name ">{{ $product->name }}</h1>
                 <div class="product-detail-container">
                     <div class="mobile-product-detail-gallery">
                         @if(!is_null($gallery))

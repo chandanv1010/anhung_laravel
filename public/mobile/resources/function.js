@@ -353,9 +353,36 @@
         });
     }
 
+    HT.giveAway = () => {
+        $(document).on('click', '.give-away button', function(e){
+            e.preventDefault()
+            let phone =  $('.give-away input[name=phone]').val()
+            if (!phone || !/^(0[3|5|7|8|9][0-9]{8})$/.test(phone)) {
+                alert('Vui lòng nhập số điện thoại hợp lệ (10 chữ số, bắt đầu bằng 0).');
+                return;
+            }
+            $.ajax({
+				url: 'ajax/contact/giveAway', 
+				type: 'POST', 
+				data: {
+					'phone' : phone,
+                    '_token' : _token
+				}, 
+				dataType: 'json', 
+				success: function(res) {
+					if(res.status == true){
+                        toastr.success(res.messages, 'Thông báo từ hệ thống !')
+                        $('.give-away input[name=phone]').val('')
+                    }
+				},
+			});
+        })
+    }
+
 
 
     $(document).ready(function(){
+        HT.giveAway()
         HT.scroll()
         HT.requestConsult()
         HT.design()

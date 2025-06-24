@@ -34,6 +34,15 @@ class ContactController extends Controller
         ]);
     }
 
+    public function giveAway(Request $request){
+        $give = true;
+        $flag = $this->contactService->create($request, $give);
+        return response()->json([
+            'status' => $flag['code'] == 10 ? true : false,
+            'messages' => 'Gửi yêu cầu thành công , chúng tôi sẽ sớm liên hệ với bạn',
+        ]);
+    }
+
     public function advise(Request $request){
         $rules = [
             'name' => 'required',
