@@ -93,7 +93,8 @@ class ProductCatalogueRepository extends BaseRepository implements ProductCatalo
         ->where('product_catalogues.level' , '=', 2)
         ->where('lft' , '>', $productCatalogue->lft)
         ->where('rgt', '<', $productCatalogue->rgt)
-        ->limit(13)
+        // ->where('deleted_at')
+        // ->limit(14)
         ->get();
     }
 
