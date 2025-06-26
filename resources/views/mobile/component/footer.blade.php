@@ -44,9 +44,9 @@
                     </div>
                 </div>
                 <div class="footer-network">
-                    <div class="page" style="padding:0;">
+                    {{-- <div class="page" style="padding:0;">
                         <div class="fb-page" data-href="<?php echo $system['social_facebook'] ?>" data-tabs="" data-width="400" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="<?php echo $system['social_facebook'] ?>" class="fb-xfbml-parse-ignore"><a href="<?php echo $system['social_facebook'] ?>">Facebook</a></blockquote></div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="panel-offical" id="system">
                     @if(isset($widgets['showroom-system']))

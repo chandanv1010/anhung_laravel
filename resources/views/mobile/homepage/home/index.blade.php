@@ -1,7 +1,7 @@
 @extends('mobile.homepage.layout')
 @section('content')
     <div id="mobile-container">
-        @include('mobile.component.slide')
+        {{-- @include('mobile.component.slide') --}}
         @if(isset($widgets['intro']))
             <div class="panel-mobile-intro">
                 <a href="{{ write_url('ve-chung-toi') }}">
@@ -89,7 +89,7 @@
                 @endforeach
             </div>
         @endif
-        @if(isset($widgets['video']))
+        {{-- @if(isset($widgets['video']))
             @foreach($widgets['video']->object as $key => $val)
                 @php
                     $nameC = $val->languages->name;
@@ -130,7 +130,7 @@
                     </div>
                 </div>
             @endforeach
-        @endif
+        @endif --}}
         @if(isset($widgets['projects-feature']))
             <div class="uk-container uk-container-center">
                 <div class="post-featured project-featured index">
