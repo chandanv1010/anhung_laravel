@@ -7,7 +7,7 @@
 <meta name="copyright" content="{{ $system['homepage_company'] }}" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta http-equiv="refresh" content="1800" />
-<link rel="icon" href="{{ $system['homepage_favicon'] }}" type="image/png" sizes="30x30">
+<link rel="icon" href="{{ asset($system['homepage_favicon']) }}" type="image/png" sizes="30x30">
 <!-- GOOGLE -->
 <title>{{ $seo['meta_title'] }}</title>
 <meta name="description"  content="{{ $seo['meta_description'] }}" />
