@@ -525,3 +525,6 @@ Route::group(['middleware' => ['buyer']], function () {
    });
 
 });
+
+Route::get('{id}/detail', [SellerOrderController::class, 'detail'])->where(['id' => '[0-9]+'])->name('seller.order.detail');
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
