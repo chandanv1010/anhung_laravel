@@ -201,7 +201,7 @@
                             @endif
                     
                             @if(isset($widgets['projects-feature']))
-                                <div class="post-featured project-featured mt40" data-uk-sticky="{boundary: true}">
+                                <div class="post-featured project-featured mt40">
                                     <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
                                     <div>
                                         @foreach($widgets['projects-feature']->object as $key => $val)
