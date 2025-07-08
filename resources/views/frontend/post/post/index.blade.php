@@ -19,7 +19,16 @@
                         {!! $post->languages->first()->pivot->description !!}
                     </div>
                     <div class="content">
-                        {!! $post->languages->first()->pivot->content !!}
+                        @php
+                            $content = $post->languages->first()->pivot->content;
+                            // Sửa cấu trúc HTML sai
+                            $content = preg_replace(
+                                '/(<div class="widget-toc">.*?<\/ol>)(.*?)(<\/div>)/s',
+                                '$1</div>$2',
+                                $content
+                            );
+                        @endphp
+                        {!! $content !!}
                     </div>
                 </div>
                 @if($post->status_menu != 2)

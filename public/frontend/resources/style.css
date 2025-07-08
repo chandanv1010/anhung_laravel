@@ -1652,8 +1652,10 @@ ul li,ol li{
     padding:10px;
 }
 .product-gallery .big-pic .image{
-    height: 100%;
+    height: 504px;
 }
+
+
 .swiper-container-thumbs .image{
     height:61px;
 }
@@ -1768,8 +1770,8 @@ ul li,ol li{
 }
 
 .content-container img{
-    width:100%;
-    height:auto;
+    width:100% !important;
+    height:auto !important;
     object-fit: scale-down;
 }
 
@@ -2456,6 +2458,7 @@ ul li,ol li{
 .product-price .price{
     margin-top: 0;
 }
+.image:hover img,
 .product-item .image:hover img{
     transform: scale(1.1);
     transition: 0.4s ease;
