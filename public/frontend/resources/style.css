@@ -1539,6 +1539,12 @@ ul li,ol li{
     flex: 0 0 439px;
     width:439px;
 }
+@media (max-width: 600px){
+    .product-detail-info{
+        display: block;
+        width:100%;
+    }
+}
 .product-gallery{
     position: relative;
 }
@@ -1655,6 +1661,11 @@ ul li,ol li{
     height: 504px;
 }
 
+@media (max-width: 600px){
+    .product-gallery .big-pic .image{
+        height: 240px
+    }
+}
 
 .swiper-container-thumbs .image{
     height:61px;
