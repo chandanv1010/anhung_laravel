@@ -139,8 +139,8 @@
                 </a>
             </li>
             <li>
-                <a href="https://m.me/{{ $system['social_messenger'] }}" target="_blank">
-                    <img src="/userfiles/image/logo/mess.webp" alt="">
+                <a href="{{ $system['social_facebook'] }}" target="_blank">
+                    <img src="{{ asset('frontend/resources/img/logo-facebook.png') }}" alt="">
                     <span>Messenger</span> 
                 </a>
             </li>

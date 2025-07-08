@@ -2507,3 +2507,8 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     height:20px;
     margin-left:10px;
 }
+
+.content-container img{
+    width:100% !important;
+    height:auto !important;
+}

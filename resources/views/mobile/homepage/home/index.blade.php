@@ -4,6 +4,9 @@
         {{-- @include('mobile.component.slide') --}}
         @if(isset($widgets['intro']))
             <div class="panel-mobile-intro">
+                <a href="{{ write_url('ve-chung-toi') }}" class="image img-cover mb10">
+                    <img src="{{ $widgets['intro']->album[0] }}" alt="intro">
+                </a>
                 <a href="{{ write_url('ve-chung-toi') }}">
                     <h2 class="heading-1"><span>{{ $widgets['intro']->name }}</span></h2>
                     <div class="description">

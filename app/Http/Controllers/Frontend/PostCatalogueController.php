@@ -74,7 +74,7 @@ class PostCatalogueController extends FrontendController
             $template = 'mobile.post.catalogue.video';
         } else if($postCatalogue->canonical == 'video'){
             $template = 'frontend.post.catalogue.video';
-        } else if(Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that' || $postCatalogue->canonical == 'san-xuat-theo-yeu-cau')){
+        } else if(Agent::isMobile() && ($postCatalogue->canonical == 'thiet-ke-noi-that' || $postCatalogue->canonical == 'thi-cong-noi-that')){
             $template = 'mobile.post.catalogue.design';
         } else if(Agent::isMobile() && in_array($postCatalogue->canonical, [
             've-chung-toi', 'doi-tac', 'bao-hanh-doi-tra', 
@@ -93,6 +93,7 @@ class PostCatalogueController extends FrontendController
         } else {
             $template = 'frontend.post.catalogue.index';
         }
+
 
         $config = $this->config();
         $system = $this->system;
