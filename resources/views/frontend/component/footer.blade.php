@@ -180,8 +180,8 @@
             </a>
         </li>
         <li>
-            <a href="https://m.me/{{ $system['social_messenger'] }}" title="Messenger" target="_blank">
-                <img src="/userfiles/image/logo/q-ByOnyI_n.webp" alt="Messenger">
+            <a href="{{ $system['social_facebook'] }}" title="Messenger" target="_blank">
+                <img src="{{ asset('frontend/resources/img/logo-facebook.png') }}" alt="Messenger">
             </a>
         </li>
         <li>
