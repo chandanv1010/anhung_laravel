@@ -2893,4 +2893,7 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     padding: 0px 5px;
     color: #fff;
     border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left:10px;
 }
