@@ -112,7 +112,7 @@ if(!function_exists('getPrice')){
         $result['html'] .= '<div class="price uk-flex uk-flex-middle mt10">';
             $result['html'] .= '<div class="price-sale">'.(($result['priceSale'] > 0) ? convert_price($result['priceSale'], true) : convert_price($result['price'], true) ).'đ</div>';
             if($result['priceSale'] > 0){
-                $result['html'] .= '<div class="price-old uk-flex uk-flex-middle">'.convert_price($result['price'], true).'đ <div class="percent"><div class="percent-value">-'.$result['percent'].'%</div></div></div>';
+                $result['html'] .= '<div class="price-old uk-flex uk-flex-middle"><span class="a">'.convert_price($result['price'], true).'đ </span><div class="percent"><div class="percent-value">-'.$result['percent'].'%</div></div></div>';
                 
             }
         $result['html'] .= '</div>';

@@ -2880,7 +2880,7 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 .product-price .price-sale{
     margin-right:10px;
 }
-.product-price .price-old{
+.product-price .price-old > .a{
     font-size:12px;
     text-decoration: line-through;
     margin-right:10px;
