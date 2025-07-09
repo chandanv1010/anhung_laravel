@@ -2877,3 +2877,20 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 .post-catalogue .page-heading{
     margin-bottom: 15px;
 }
+.product-price .price-sale{
+    margin-right:10px;
+}
+.product-price .price-old{
+    font-size:12px;
+    text-decoration: line-through;
+    margin-right:10px;
+    color:#333;
+}
+.product-price .percent{
+    font-size: 10px;
+    font-weight: 600;
+    background: red;
+    padding: 0px 5px;
+    color: #fff;
+    border-radius: 5px;
+}
