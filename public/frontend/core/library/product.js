@@ -9,6 +9,7 @@
 		document.querySelectorAll(".product-gallery").forEach(product => {
 			var swiper = new Swiper(product.querySelector(".swiper-container"), {
 				loop: true,
+                autoHeight: true,
 				// autoplay: {
 				// 	delay: 2000,
 				// 	disableOnInteraction: false,

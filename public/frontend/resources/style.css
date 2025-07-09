@@ -1658,7 +1658,7 @@ ul li,ol li{
     padding:10px;
 }
 .product-gallery .big-pic .image{
-    height: 504px;
+    height: auto !important;
 }
 
 @media (max-width: 600px){
