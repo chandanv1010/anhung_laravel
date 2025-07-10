@@ -18,7 +18,7 @@
                             $image = image($post->image);
                             $canonical = write_url($post->languages->first()->pivot->canonical);
                         @endphp
-                        <div class="uk-width-medium-1-2 uk-width-large-1-3 mb20">
+                        <div class="uk-width-medium-1-3 uk-width-large-1-3 mb20">
                             <div class="project-item-1">
                                 <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
                                 <div class="info">

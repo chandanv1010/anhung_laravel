@@ -94,6 +94,7 @@ class PostCatalogueController extends FrontendController
             $template = 'frontend.post.catalogue.index';
         }
 
+        // dd($template);
 
         $config = $this->config();
         $system = $this->system;
