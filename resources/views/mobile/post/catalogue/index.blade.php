@@ -35,7 +35,7 @@
                                 $description = cutnchar(strip_tags($post['description']), 150);
                                 $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
                             @endphp
-                            <div class="uk-width-medium-1-3 mb20">
+                            <div class="uk-width-medium-1-2 uk-width-large-1-3 mb20">
                                 <div class="news-item">
                                     <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt=""></a>
                                     <div class="info">
