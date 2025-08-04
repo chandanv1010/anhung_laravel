@@ -2868,8 +2868,8 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
     width: 100% !important;
 }
 .post-detail-container .content img{
-    width: 100% !important;
-    height: 100% !important;
+    /* width: 100% !important;
+    height: 100% !important; */
 }
 .post-container {
     padding: 30px 0 75px 0 !important;
