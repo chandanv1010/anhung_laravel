@@ -24,28 +24,29 @@
         <div class="post-container">
             <div class="uk-container uk-container-center" style="padding-top:20px;padding-bottom:20px;">
                 <div class="wrapper mb20">
-                    <div class="uk-grid uk-grid-medium">
-                        @foreach($posts as $keyPost => $post)
-                        @php
-                            $name = $post->languages->first()->pivot->name;
-                            $canonical = write_url($post->languages->first()->pivot->canonical);
-                            $image = thumb($post->image, 600, 400);
-                            $description = cutnchar(strip_tags($post['description']), 150);
-                            $cat = $post->post_catalogues[0]->languages->first()->pivot->name;
-                        @endphp
-                        <div class="uk-width-medium-1-2 uk-width-large-1-3 mb20">
-                            <div class="news-item">
-                                <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
-                                    <div class="skeleton-loading"></div>
-                                    <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
-                                </a>
-                                <div class="info">
-                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                    @if(!is_null($posts))
+                        <div class="uk-grid uk-grid-medium">
+                            @foreach($posts as $keyPost => $post)
+                            @php
+                                $name = $post->languages->first()->pivot->name;
+                                $canonical = write_url($post->languages->first()->pivot->canonical);
+                                $image = thumb($post->image, 600, 400);
+                                $description = cutnchar(strip_tags($post['description']), 150);
+                            @endphp
+                            <div class="uk-width-medium-1-2 uk-width-large-1-3 mb20">
+                                <div class="news-item">
+                                    <a href="{{ $canonical }}" title="{{ $name }}" class="image img-cover img-zoomin">
+                                        <div class="skeleton-loading"></div>
+                                        <img class="lazy-image" data-src="{{ $image }}" alt="{{ $name }}">
+                                    </a>
+                                    <div class="info">
+                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }} </a></h3>
+                                    </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
+                    @endif
                     <div class="uk-text-center">
                         @include('frontend.component.pagination', ['model' => $posts])
                     </div>    

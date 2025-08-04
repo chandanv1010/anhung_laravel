@@ -39,6 +39,7 @@ class postController extends FrontendController
 
 
     public function index($id, $request){
+        // dd(123);
         $language = $this->language;
         $post = $this->postRepository->getPostById($id, $this->language, config('apps.general.defaultPublish'));
         $viewed = $post->viewed;
@@ -47,6 +48,11 @@ class postController extends FrontendController
             abort(404);
         }
         $postCatalogue = $this->postCatalogueRepository->getPostCatalogueById($post->post_catalogue_id, $this->language);
+       
+        if(is_null($postCatalogue)){
+            abort(404);
+        }
+
         if($postCatalogue->id == 22 || $postCatalogue->id == 24 || $postCatalogue->id === 44){
             $postCatalogue->children = $this->postCatalogueRepository->findByCondition(
                 [

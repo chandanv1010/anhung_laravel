@@ -1461,7 +1461,7 @@ ul li,ol li{
 .post-content .content *,
 .post-content .description *{
     font-family: 'Montserrat' !important;
-    font-size:14px !important;
+    /* font-size:14px !important; */
 }
 
 .post-content td {

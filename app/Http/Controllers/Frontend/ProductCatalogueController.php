@@ -40,7 +40,9 @@ class ProductCatalogueController extends FrontendController
 
 
     public function index($id, $request, $page = 1){
+
         
+
         $productCatalogue = $this->productCatalogueRepository->getProductCatalogueById($id, $this->language);
 
         $parent = null;

@@ -69,7 +69,6 @@ class PostCatalogueController extends FrontendController
         $template = '';
 
 
-
         if(Agent::isMobile() && $postCatalogue->canonical == 'video'){
             $template = 'mobile.post.catalogue.video';
         } else if($postCatalogue->canonical == 'video'){
