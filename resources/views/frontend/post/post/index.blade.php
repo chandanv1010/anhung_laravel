@@ -18,7 +18,10 @@
                     <div class="description">
                         {!! $post->languages->first()->pivot->description !!}
                     </div>
-                    <div class="content">
+                    <div id="toc" class="widget-toc">
+                        <h3 class="toc-title">Mục Lục <i class="fa fa-angle-down" aria-hidden="true"></i></h3>
+                    </div>
+                    <div class="content" id="contents">
                         @php
                             $content = $post->languages->first()->pivot->content;
                             // Sửa cấu trúc HTML sai
@@ -52,23 +55,23 @@
                         @endif
 
                         @if($widgets['projects-feature'])
-                        <div class="post-featured mt40" data-uk-sticky="{boundary: true}">
-                            <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
-                            <div>
-                                @foreach($widgets['projects-feature']->object as $key => $val)
-                                @php
-                                    $name = $val->languages->name;
-                                    $canonical = write_url($val->languages->canonical);
-                                    $createdAt = $val->created_at;
-                                    $image = thumb($val->image, 600, 400);
-                                @endphp
-                                <div class="post-feature-item">
-                                    <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                    <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                            <div class="post-featured mt40" data-uk-sticky="{boundary: true}">
+                                <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
+                                <div>
+                                    @foreach($widgets['projects-feature']->object as $key => $val)
+                                    @php
+                                        $name = $val->languages->name;
+                                        $canonical = write_url($val->languages->canonical);
+                                        $createdAt = $val->created_at;
+                                        $image = thumb($val->image, 600, 400);
+                                    @endphp
+                                    <div class="post-feature-item">
+                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
+                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
-                        </div>
                         @endif
                     </div>
                 @endif
@@ -78,55 +81,54 @@
     @include('frontend.component.news')
 </div>
 
+@endsection
+
 <script>
+    window.onload = function () {
+    var toc = "";
+    var level = 0;
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Xử lý nút Ẩn/Hiện
-    const tocToggle = document.querySelector('.tocToggle');
-    const widgetToc = document.querySelector('.widget-toc');
-    
-    tocToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        widgetToc.classList.toggle('collapsed');
-        
-        if (widgetToc.classList.contains('collapsed')) {
-            tocToggle.textContent = 'Hiện';
-        } else {
-            tocToggle.textContent = 'Ẩn';
-        }
-    });
-    
-    // Xử lý scroll đến nội dung khi click vào liên kết
-    const tocLinks = document.querySelectorAll('.widget-toc a');
-    
-    tocLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Lấy id từ href của liên kết
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (targetElement) {
-                // Scroll đến phần tử với hiệu ứng mượt
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Thêm một chút padding để không bị che bởi header cố định (nếu có)
-                // Điều chỉnh số 80 này tùy theo chiều cao của header của bạn
-                window.scrollBy(0, -80);
-                
-                // Tùy chọn: Thêm hiệu ứng highlight tạm thời cho phần được scroll đến
-                targetElement.classList.add('highlight-section');
-                setTimeout(function() {
-                    targetElement.classList.remove('highlight-section');
-                }, 2000);
+    function cleanText(text) {
+        return text.replace(/<\/?[^>]+(>|$)/g, "").trim().replace(/ /g, "_");
+    }
+
+    document.getElementById("contents").innerHTML =
+        document.getElementById("contents").innerHTML.replace(
+            /<h([\d])[^>]*>(.*?)<\/h\1>/gi,
+            function (str, openLevel, titleText) {
+                if (openLevel > level) {
+                    toc += (new Array(openLevel - level + 1)).join("<ul>");
+                } else if (openLevel < level) {
+                    toc += (new Array(level - openLevel + 1)).join("</ul>");
+                }
+
+                level = parseInt(openLevel);
+
+                var anchor = cleanText(titleText);
+
+                toc += "<li><a href=\"#"+ anchor + "\">" + titleText + "</a></li>";
+
+                return "<h" + openLevel + "><a id=\"" + anchor + "\">" + titleText + "</a></h" + openLevel + ">";
             }
+        );
+
+    if (level) {
+        toc += (new Array(level + 1)).join("</ul>");
+    }
+
+    document.getElementById("toc").innerHTML += toc;
+    };
+
+    $(document).ready(function() {
+        var h_header = 10;
+        $(document).on('click', '#toc a', function(event) {
+            event.preventDefault();
+            let _this = $(this);
+            let target = _this.attr('href');
+            let offset = $(target).offset().top - h_header;
+            $('html').animate({scrollTop: offset}, 0)
+            return false;
         });
     });
-});
 </script>
-
-@endsection

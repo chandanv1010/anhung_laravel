@@ -36,6 +36,7 @@ class ViettelPost{
             ]);
 
             $data = json_decode($response->getBody(), true);
+
             return $data;
 
         } catch (RequestException $e) {
@@ -233,9 +234,6 @@ class ViettelPost{
                 ];
             }
         }
-
-        // dd($storeAddress);
-
 
         if(!empty($token) && $storeAddress){
             $apiUrl = 'https://partner.viettelpost.vn/v2/order/createOrder';

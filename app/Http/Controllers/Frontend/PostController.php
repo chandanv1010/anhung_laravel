@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\FrontendController;
-use Illuminate\Http\Request;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
 use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use App\Services\Interfaces\PostServiceInterface as PostService;
@@ -64,9 +63,7 @@ class postController extends FrontendController
                 ['order', 'desc']
             );
         }
-
-        // dd(123);
-
+        
         $breadcrumb = $this->postCatalogueRepository->breadcrumb($postCatalogue, $this->language);
 
         $asidePost = $this->postService->paginate(

@@ -52,8 +52,6 @@ class Zalo{
         $resp = file_get_contents($config["endpoint"], false, $context);
         $result = json_decode($resp, true);
 
-        dd($result);
-       
     }
     
 	

@@ -438,8 +438,19 @@
         });
     }
 
+    HT.changeStatusToggle = () => {
+        $(document).on('click', '.toc-title', function() {
+            let _this = $(this);
+            _this.toggleClass('active')
+                .next('ul, ol')
+                .stop(true, true) // Dừng animation hiện có (nếu có)
+                .slideToggle(); // Hiệu ứng mượt mà
+        });
+    };
+
 
 	$(document).ready(function(){
+        HT.changeStatusToggle()
         HT.highlightTocOnScroll();
         HT.scrollHeading()
         HT.requestConsult()

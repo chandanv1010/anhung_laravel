@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Services\Interfaces\CartServiceInterface;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use App\Services\Interfaces\ProductServiceInterface as ProductService;
 use App\Services\Interfaces\PromotionServiceInterface as PromotionService;
 use App\Repositories\Interfaces\ProductRepositoryInterface as ProductRepository;
@@ -16,15 +15,12 @@ use App\Repositories\Interfaces\VoucherRepositoryInterface  as VoucherRepository
 use Cart;
 use App\Mail\OrderMail;
 use Illuminate\Support\Facades\Auth;
-use GuzzleHttp\Client;
 use App\Classes\ViettelPost;
 use App\Enums\PromotionEnum;
 use App\Enums\VoucherEnum;
 use App\Models\Voucher;
 use Exception;
 use Illuminate\Support\Facades\Session;
-
-use function PHPUnit\Framework\isEmpty;
 
 /**
  * Class AttributeCatalogueService
