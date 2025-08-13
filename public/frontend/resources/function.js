@@ -449,15 +449,17 @@
     };
 
     HT.checkWidget = () => {
-        $('.post-content .Widget-toc').each(function() {
-            var content = $(this).html()
-                .replace(/<[^>]+>/g, '') 
-                .replace(/&nbsp;|@|\s/g, ''); 
-            if (!content) {
-                $(this).hide();
-            } else {
-                $(this).show();
-            }
+        $(document).ready(function() {
+            $('.post-content .widget-toc').each(function() {
+                var content = $(this).html()
+                    .replace(/<[^>]+>/g, '') 
+                    .replace(/&nbsp;|@|\s/g, ''); 
+                if (!content) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
         });
     };
 
