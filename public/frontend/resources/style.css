@@ -2928,3 +2928,6 @@ u{
 a[href="# "] {
     display: none;
 }
+.post-feature-item .title{
+    margin-bottom: 0;
+}

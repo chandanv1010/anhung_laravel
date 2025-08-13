@@ -448,8 +448,15 @@
         });
     };
 
+    HT.checkWidget = () => {
+        $('.widget-toc').filter(function() {
+            return !$(this).text().trim();
+        }).hide();
+    };
+
 
 	$(document).ready(function(){
+        HT.checkWidget()
         HT.changeStatusToggle()
         HT.highlightTocOnScroll();
         HT.scrollHeading()

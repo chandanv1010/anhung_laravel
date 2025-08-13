@@ -56,19 +56,21 @@
 
                         @if($widgets['projects-feature'])
                             <div class="post-featured mt40" data-uk-sticky="{boundary: true}">
-                                <div class="aside-heading">{{ $widgets['projects-feature']->name }}</div>
-                                <div>
+                                <div class="aside-heading">
+                                    {{ $widgets['projects-feature']->name }}
+                                </div>
+                                <div class="post-feature">
                                     @foreach($widgets['projects-feature']->object as $key => $val)
-                                    @php
-                                        $name = $val->languages->name;
-                                        $canonical = write_url($val->languages->canonical);
-                                        $createdAt = $val->created_at;
-                                        $image = thumb($val->image, 600, 400);
-                                    @endphp
-                                    <div class="post-feature-item">
-                                        <a href="{{ $canonical }}" class="image img-cover"><img src="{{ $image }}" alt="{{ $name }}"></a>
-                                        <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
-                                    </div>
+                                        @php
+                                            $name = $val->languages->name;
+                                            $canonical = write_url($val->languages->canonical);
+                                            $createdAt = $val->created_at;
+                                            $image = thumb($val->image, 600, 400);
+                                        @endphp
+                                        <div class="post-feature-item">
+                                            <a href="{{ $canonical }}" class="image img-cover"  style="height: auto !important;"><img src="{{ $image }}" alt="{{ $name }}"  style="height: auto !important;"></a>
+                                            <h3 class="title"><a href="{{ $canonical }}" title="{{ $name }}">{{ $name }}</a></h3>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -84,6 +86,8 @@
 @endsection
 
 <script>
+
+
     window.onload = function () {
     var toc = "";
     var level = 0;
