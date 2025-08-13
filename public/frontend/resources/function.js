@@ -449,11 +449,13 @@
     };
 
     HT.checkWidget = () => {
-        $('.widget-toc').filter(function() {
-            return !$(this).text().trim();
-        }).hide();
+        $('.widget-toc').each(function() {
+            var content = $(this).html().replace(/&nbsp;|\s|@/g, '');
+            if (!content) {
+                $(this).hide();
+            }
+        });
     };
-
 
 	$(document).ready(function(){
         HT.checkWidget()
