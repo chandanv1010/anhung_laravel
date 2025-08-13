@@ -2931,3 +2931,6 @@ a[href="# "] {
 .post-feature-item .title{
     margin-bottom: 0;
 }
+.content .widget-toc{
+    display: none !important;
+}
