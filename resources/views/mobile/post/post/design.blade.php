@@ -26,7 +26,7 @@
                         @endforeach
                     </ul>
                 @endif
-                <h1 class="product-detail-name ">{{ $name }}</h1>
+                <h1 class="product-detail-name">{{ $post->name }}</h1>
                 <div class="product-detail-container">
                     <div class="mobile-product-detail-gallery">
                         @if(!is_null($gallery))
