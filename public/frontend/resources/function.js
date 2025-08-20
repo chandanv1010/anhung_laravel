@@ -463,7 +463,20 @@
         });
     };
 
+    HT.tocFix = () => {
+        $('.table-of-contents a').on('click', function (e) {
+            e.preventDefault();
+            var target = $(this).attr('href'); // ví dụ "#VACH-OP-TUONG..."
+            var offset = 80; // chỉnh nếu có header cố định, ko thì để = 0
+
+            $('html, body').animate({
+                scrollTop: $(target).offset().top - offset
+            }, 600); // 600ms là tốc độ scroll
+        });
+    }
+
 	$(document).ready(function(){
+        HT.tocFix();
         HT.checkWidget()
         HT.changeStatusToggle()
         HT.highlightTocOnScroll();
