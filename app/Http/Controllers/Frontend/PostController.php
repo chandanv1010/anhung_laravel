@@ -107,7 +107,8 @@ class postController extends FrontendController
         $description = $post->languages->first()->pivot->description;
         // $content = ( == '') ? $post->languages->first()->pivot->description : $post->languages->first()->pivot->content;
         $cont = empty($content) ? $description : $content;
-        $items = TableOfContents::extract($content);
+        // dd($content, $cont);
+        $items = TableOfContents::extract($cont);
         $contentWithToc = null;
         if(empty($content)){
             $contentWithToc = TableOfContents::injectIds($description, $items);
