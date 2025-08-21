@@ -22,6 +22,12 @@ class TableOfContents extends Component
      */
     public static function injectIds($content, &$items)
     {
+        $content = $content ?? '';
+        if(empty($content) || trim($content) === ''){
+            $items = [];
+            return '';
+        }
+
         $dom = new \DOMDocument();
         @$dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
 
@@ -63,8 +69,17 @@ class TableOfContents extends Component
     /**
      * Extract headings từ content (H2-H4)
      */
-    public static function extract(string $content): array
+    public static function extract(?string $content): array
     {
+        $content = $content ?? '';
+        if(empty($content) || trim($content) === ''){
+            return [];
+        }
+
+        if(strip_tags($content) === $content){
+            return [];
+        }
+
         preg_match_all('/<h([2-4])[^>]*>(.*?)<\/h\1>/iu', $content, $matches);
 
         $items = [];

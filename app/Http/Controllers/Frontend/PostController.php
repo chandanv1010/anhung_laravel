@@ -105,7 +105,6 @@ class postController extends FrontendController
         $schema = $this->schema($post, $postCatalogue, $breadcrumb);
         $content = $post->languages->first()->pivot->content;
         $description = $post->languages->first()->pivot->description;
-        // $content = ( == '') ? $post->languages->first()->pivot->description : $post->languages->first()->pivot->content;
         $cont = empty($content) ? $description : $content;
         // dd($content, $cont);
         $items = TableOfContents::extract($cont);
@@ -113,7 +112,7 @@ class postController extends FrontendController
         if(empty($content)){
             $contentWithToc = TableOfContents::injectIds($description, $items);
         }else{
-            $contentWithToc = TableOfContents::injectIds($content, $items);
+            $contentWithToc = TableOfContents::injectIds($cont, $items);
         }
 
         // dd($contentWithToc);
